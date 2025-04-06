@@ -1,2 +1,2 @@
-# winform
-Truy suất dữ liệu máy móc
+# Winform
+BTL C#
