@@ -19,6 +19,8 @@ public partial class Alert
 
     public int Status { get; set; }
 
+    public bool IsDelete { get; set; }
+
     public int? ResolvedBy { get; set; }
 
     public virtual Pump? Pump { get; set; }

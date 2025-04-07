@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace WinFormsApp31_03.Models;
+﻿namespace WinFormsApp31_03.Models;
 
 public partial class Pump
 {
@@ -11,21 +8,19 @@ public partial class Pump
 
     public string PumpName { get; set; } = null!;
 
-    public string PumpCode { get; set; } = null!;
-
     public int PumpType { get; set; }
 
     public double? Capacity { get; set; }
 
     public int Status { get; set; }
 
-    public string? Manufacturer { get; set; }
+    public bool IsDelete { get; set; }
 
-    public string? Model { get; set; }
+    public string? Manufacturer { get; set; }
 
     public string? SerialNumber { get; set; }
 
-    public DateOnly? WarrantyExpireDate { get; set; }
+    public DateTime? WarrantyExpireDate { get; set; }
 
     public string? Description { get; set; }
 
@@ -44,8 +39,6 @@ public partial class Pump
     public virtual ICollection<MaintenanceHistory> MaintenanceHistories { get; set; } = new List<MaintenanceHistory>();
 
     public virtual User? ModifiedByNavigation { get; set; }
-
-    public virtual ICollection<OperatingDatum> OperatingData { get; set; } = new List<OperatingDatum>();
 
     public virtual PumpStation? Station { get; set; }
 }

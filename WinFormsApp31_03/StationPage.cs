@@ -12,11 +12,10 @@ namespace WinFormsApp31_03
         /// <summary>
         /// Initialize
         /// </summary>
-        /// <param name="userId"></param>
-        public StationPage(int userId)
+        public StationPage()
         {
             InitializeComponent();
-            _userId = userId;
+            //_userId = userId;
             _userRole = UserRole.Admin;
             DeleteBtn.Enabled = false;
             ResetBtn.Enabled = false;
@@ -36,7 +35,7 @@ namespace WinFormsApp31_03
             dgStation.AutoGenerateColumns = false;
             using (var db = new PumpContext())
             {
-                var ett = db.PumpStations.Where(p => p.Status != (int)StationStatus.Deleted).Select(p => p.ToSearchDto()).ToList();
+                var ett = db.PumpStations.Where(p => p.IsDelete == false).Select(p => p.ToSearchDto()).ToList();
                 dgStation.DataSource = ett;
             }
         }
@@ -64,7 +63,7 @@ namespace WinFormsApp31_03
                     else
                     {
                         // Add Status and UserId(Replace 0,1)
-                        ett = db.PumpStations.FirstOrDefault(p => p.StationId == _editingStationId && p.Status != (int)StationStatus.Deleted);
+                        ett = db.PumpStations.FirstOrDefault(p => p.StationId == _editingStationId && p.IsDelete == false);
                         if (ett != null)
                         {
                             ett.Update(txtName.Text.Trim(), txtLocation.Text.Trim(), txtDescription.Text.Trim(), 0, 1);
@@ -97,7 +96,8 @@ namespace WinFormsApp31_03
             {
                 using (var db = new PumpContext())
                 {
-                    var ett = db.PumpStations.FirstOrDefault(p => p.StationId == _editingStationId && p.Status != (int)StationStatus.Deleted);
+                    var ett = db.PumpStations.FirstOrDefault(p => p.StationId == _editingStationId && p.IsDelete == false);
+                    var ettPump = db.Pumps.Where(p => p.StationId == _editingStationId && p.IsDelete == false).ToList();
                     if (ett != null)
                     {
                         ett.Delete(1);
@@ -108,6 +108,14 @@ namespace WinFormsApp31_03
                     else
                     {
                         MessageBox.Show("Không tìm thấy trạm bơm");
+                    }
+
+                    if (ettPump != null)
+                    {
+                        foreach (var i in ettPump)
+                        {
+                            i.Delete(1);
+                        }
                     }
                 }
             }
@@ -133,7 +141,7 @@ namespace WinFormsApp31_03
                     using (var db = new PumpContext())
                     {
                         int stationId = Convert.ToInt32(dgStation.CurrentRow.Cells["StationId"].Value);
-                        var ett = db.PumpStations.Where(p => p.Status != (int)StationStatus.Deleted && p.StationId == stationId).Select(p => p.ToViewDto()).FirstOrDefault();
+                        var ett = db.PumpStations.Where(p => p.IsDelete == false && p.StationId == stationId).Select(p => p.ToViewDto()).FirstOrDefault();
                         if (ett != null)
                         {
                             SetFormValue(ett.StationName, ett.Location, ett.Description);

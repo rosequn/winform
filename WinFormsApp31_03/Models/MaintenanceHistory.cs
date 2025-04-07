@@ -21,6 +21,8 @@ public partial class MaintenanceHistory
 
     public int? PerformedBy { get; set; }
 
+    public bool IsDelete { get; set; }
+
     public DateTime? CreatedOn { get; set; }
 
     public virtual User? PerformedByNavigation { get; set; }

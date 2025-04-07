@@ -21,6 +21,8 @@ public partial class User
 
     public bool? IsActive { get; set; }
 
+    public bool IsDelete { get; set; }
+
     public DateTime? CreatedOn { get; set; }
 
     public int CreatedBy { get; set; }

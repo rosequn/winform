@@ -16,10 +16,5 @@ enum PumpStatus
     /// Inactive
     /// </summary>
     Inactive = 2,
-
-    /// <summary>
-    /// Deleted
-    /// </summary>
-    Deleted = 3
 }
 

@@ -1,4 +1,7 @@
-﻿namespace WinFormsApp31_03.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace WinFormsApp31_03.Models;
 
 public partial class PumpStation
 {
@@ -11,6 +14,8 @@ public partial class PumpStation
     public string? Description { get; set; }
 
     public int Status { get; set; }
+
+    public bool IsDelete { get; set; }
 
     public int? CreatedBy { get; set; }
 

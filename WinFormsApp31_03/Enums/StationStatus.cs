@@ -16,10 +16,5 @@ enum StationStatus
     /// SystemAdmin
     /// </summary>
     Inactive = 2,
-
-    /// <summary>
-    /// SystemAdmin
-    /// </summary>
-    Deleted = 3
 }
 

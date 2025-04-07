@@ -17,8 +17,6 @@ public partial class PumpContext : DbContext
 
     public virtual DbSet<MaintenanceHistory> MaintenanceHistories { get; set; }
 
-    public virtual DbSet<OperatingDatum> OperatingData { get; set; }
-
     public virtual DbSet<Pump> Pumps { get; set; }
 
     public virtual DbSet<PumpStation> PumpStations { get; set; }
@@ -76,21 +74,6 @@ public partial class PumpContext : DbContext
                 .HasConstraintName("FK__Maintenan__PumpI__628FA481");
         });
 
-        modelBuilder.Entity<OperatingDatum>(entity =>
-        {
-            entity.HasKey(e => e.DataId).HasName("PK__Operatin__9D05305DF0A713D5");
-
-            entity.Property(e => e.DataId).HasColumnName("DataID");
-            entity.Property(e => e.PumpId).HasColumnName("PumpID");
-            entity.Property(e => e.RecordTime)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-
-            entity.HasOne(d => d.Pump).WithMany(p => p.OperatingData)
-                .HasForeignKey(d => d.PumpId)
-                .HasConstraintName("FK__Operating__PumpI__5EBF139D");
-        });
-
         modelBuilder.Entity<Pump>(entity =>
         {
             entity.HasKey(e => e.PumpId).HasName("PK__Pumps__5CC3F60551089F63");
@@ -101,14 +84,15 @@ public partial class PumpContext : DbContext
                 .HasColumnType("datetime");
             entity.Property(e => e.Description).HasMaxLength(500);
             entity.Property(e => e.Manufacturer).HasMaxLength(100);
-            entity.Property(e => e.Model).HasMaxLength(100);
             entity.Property(e => e.ModifiedOn)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
-            entity.Property(e => e.PumpCode).HasMaxLength(50);
             entity.Property(e => e.PumpName).HasMaxLength(100);
             entity.Property(e => e.SerialNumber).HasMaxLength(100);
             entity.Property(e => e.StationId).HasColumnName("StationID");
+            entity.Property(e => e.WarrantyExpireDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
 
             entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.PumpCreatedByNavigations)
                 .HasForeignKey(d => d.CreatedBy)

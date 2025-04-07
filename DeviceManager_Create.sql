@@ -21,6 +21,7 @@ CREATE TABLE Users (
     PhoneNumber NVARCHAR(20),
     Role INT NOT NULL Default 0, -- User, Admin, SystemAdmin
     IsActive BIT DEFAULT 1,
+	IsDelete BIT NOT NULL DEFAULT 0,
     CreatedOn DATETIME DEFAULT GETDATE(),
 	CreatedBy INT NOT NULL,
     LastLogin DATETIME NULL,
@@ -35,6 +36,7 @@ CREATE TABLE PumpStations (
     Location NVARCHAR(200) NOT NULL,
     Description NVARCHAR(500),
     Status INT NOT NULL DEFAULT 0, -- Active, Maintenance, Inactive
+	IsDelete BIT NOT NULL DEFAULT 0,
     CreatedBy INT FOREIGN KEY REFERENCES Users(UserID),
     CreatedOn DATETIME DEFAULT GETDATE(),
     ModifiedBy INT FOREIGN KEY REFERENCES Users(UserID),
@@ -46,14 +48,13 @@ CREATE TABLE Pumps (
     PumpID INT IDENTITY(1,1) PRIMARY KEY,
     StationID INT FOREIGN KEY REFERENCES PumpStations(StationID),
     PumpName NVARCHAR(100) NOT NULL,
-    PumpCode NVARCHAR(50) NOT NULL,
     PumpType INT NOT NULL DEFAULT 0, -- Loại máy bơm
     Capacity FLOAT, -- Công suất
     Status INT NOT NULL DEFAULT 0, -- Running, Stopped, Maintenance, Failed
+	IsDelete BIT NOT NULL DEFAULT 0,
     Manufacturer NVARCHAR(100),
-    Model NVARCHAR(100),
     SerialNumber NVARCHAR(100),
-    WarrantyExpireDate DATE,
+    WarrantyExpireDate DATETIME DEFAULT GETDATE(),
     Description NVARCHAR(500),
     CreatedBy INT FOREIGN KEY REFERENCES Users(UserID),
     CreatedOn DATETIME DEFAULT GETDATE(),
@@ -72,6 +73,7 @@ CREATE TABLE OperatingData (
     Temperature FLOAT, -- Nhiệt độ (°C)
     RunningHours FLOAT, -- Số giờ hoạt động liên tục
     Efficiency FLOAT, -- Hiệu suất (%)
+	IsDelete BIT NOT NULL DEFAULT 0,
 );
 
 -- Bảng Lịch sử bảo trì (Maintenance History)
@@ -83,7 +85,8 @@ CREATE TABLE MaintenanceHistory (
     EndDate DATETIME,
     Description NVARCHAR(500),
     Status INT NOT NULL DEFAULT 0, -- Completed, In Progress, Scheduled
-    PerformedBy INT FOREIGN KEY REFERENCES Users(UserID),
+    PerformedBy INT FOREIGN KEY REFERENCES Users(UserID),	
+	IsDelete BIT NOT NULL DEFAULT 0,
     CreatedOn DATETIME DEFAULT GETDATE()
 );
 
@@ -96,6 +99,7 @@ CREATE TABLE Alerts (
     AlertTime DATETIME NOT NULL DEFAULT GETDATE(),
     ResolvedTime DATETIME NULL,
     Status INT NOT NULL DEFAULT 0, -- Active, Resolved, Ignored
+	IsDelete BIT NOT NULL DEFAULT 0,
     ResolvedBy INT FOREIGN KEY REFERENCES Users(UserID) NULL
 );
 
@@ -111,7 +115,6 @@ VALUES
 (N'Trạm B', N'TP.HCM', N'Trạm phụ', 1),
 (N'Trạm C', N'Đà Nẵng', N'Trạm miền Trung', 1);
 
-Update PumpStations Set Description = N'Á đù' Where StationID = 15
 
 ---- Bảng Lịch bảo trì dự kiến (Scheduled Maintenance)
 --CREATE TABLE ScheduledMaintenance (

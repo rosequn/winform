@@ -1,27 +1,38 @@
 ﻿using System.Text.Json.Serialization;
-using WinFormsApp31_03.Enums;
 
 namespace WinFormsApp31_03.Models;
 
-partial class PumpStation
+using Enums;
+
+partial class Pump
 {
-    public PumpStation() { }
+    public Pump() { }
 
     /// <summary>
     /// Create
     /// </summary>
     /// <param name="name"></param>
-    /// <param name="location"></param>
+    /// <param name="type"></param>
+    /// <param name="capacity"></param>
+    /// <param name="manufacturer"></param>
+    /// <param name="serialNumber"></param>
     /// <param name="description"></param>
+    /// <param name="expireDate"></param>
+    /// <param name="stationId"></param>
     /// <param name="createdBy"></param>
     /// <returns></returns>
-    public static PumpStation Create(string? name, string? location, string? description, int createdBy)
+    public static Pump Create(string? name, int type, float capacity, string? manufacturer, string? serialNumber, string? description, DateTime? expireDate, int stationId, int createdBy)
     {
-        var res = new PumpStation
+        var res = new Pump
         {
-            StationName = name + "",
-            Location = location + "",
+            PumpName = name + "",
+            PumpType = type,
+            Capacity = capacity,
+            Manufacturer = manufacturer,
+            SerialNumber = serialNumber,
             Description = description + "",
+            WarrantyExpireDate = expireDate,
+            StationId = stationId,
 
             CreatedBy = createdBy,
             CreatedOn = DateTime.Now,
@@ -34,16 +45,26 @@ partial class PumpStation
     /// Update
     /// </summary>
     /// <param name="name"></param>
-    /// <param name="location"></param> 
+    /// <param name="type"></param>
+    /// <param name="capacity"></param>
+    /// <param name="manufacturer"></param>
+    /// <param name="serialNumber"></param>
     /// <param name="description"></param>
+    /// <param name="expireDate"></param>
     /// <param name="status"></param>
-    /// <returns></returns>
-    public void Update(string? name, string? location, string? description, int status, int modifiedBy)
+    /// <param name="stationId"></param>
+    /// <param name="modifiedBy"></param>
+    public void Update(string? name, int type, float capacity, string? manufacturer, string? serialNumber, string? description, DateTime? expireDate, int status, int stationId, int modifiedBy)
     {
-        StationName = name + "";
-        Location = location + "";
+        PumpName = name + "";
+        PumpType = type;
+        Capacity = capacity;
+        Manufacturer = manufacturer;
+        SerialNumber = serialNumber;
         Description = description + "";
+        WarrantyExpireDate = expireDate;
         Status = status;
+        StationId = stationId;
 
         ModifiedBy = modifiedBy;
         ModifiedOn = DateTime.Now;
@@ -67,15 +88,6 @@ partial class PumpStation
         return res;
     }
 
-    public SearchCbDto ToSearchCbDto()
-    {
-        var res = new SearchCbDto();
-
-        res.StationId = StationId;
-        res.StationName = StationName;
-
-        return res;
-    }
 
     public ViewDto ToViewDto()
     {
@@ -91,9 +103,14 @@ partial class PumpStation
     {
         return new T
         {
+            PumpId = PumpId,
             StationId = StationId,
-            StationName = StationName,
-            Location = Location,
+            PumpName = PumpName,
+            PumpType = PumpType,
+            Capacity = Capacity,
+            SerialNumber = SerialNumber,
+            WarrantyExpireDate = WarrantyExpireDate,
+            Manufacturer = Manufacturer,
             Description = Description,
             Status = Status,
             CreatedBy = CreatedBy,
@@ -111,19 +128,44 @@ partial class PumpStation
         #region -- Properties --
 
         /// <summary>
+        /// PumpId
+        /// </summary>
+        public int PumpId { get; set; }
+
+        /// <summary>
         /// StationId
         /// </summary>
-        public int StationId { get; set; }
+        public int? StationId { get; set; }
 
         /// <summary>
-        /// StationName
+        /// PumpName
         /// </summary>
-        public string? StationName { get; set; }
+        public string? PumpName { get; set; }
 
         /// <summary>
-        /// Location
+        /// PumpType
         /// </summary>
-        public string? Location { get; set; }
+        public int? PumpType { get; set; }
+
+        /// <summary>
+        /// Capacity
+        /// </summary>
+        public double? Capacity { get; set; }
+
+        /// <summary>
+        /// Manufacturer
+        /// </summary>
+        public string? Manufacturer { get; set; }
+
+        /// <summary>
+        /// SerialNumber
+        /// </summary>
+        public string? SerialNumber { get; set; }
+
+        /// <summary>
+        /// WarrantyExpireDate
+        /// </summary>
+        public DateTime? WarrantyExpireDate { get; set; }
 
         /// <summary>
         /// Description
@@ -177,19 +219,6 @@ partial class PumpStation
     /// </summary>
     public class SearchDto : BaseDto
     {
-    }
-
-    public class SearchCbDto
-    {
-        /// <summary>
-        /// StationId
-        /// </summary>
-        public int StationId { get; set; }
-
-        /// <summary>
-        /// StationName
-        /// </summary>
-        public string? StationName { get; set; }
     }
 }
 

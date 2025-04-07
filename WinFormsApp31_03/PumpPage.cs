@@ -1,5 +1,6 @@
 ﻿using WinFormsApp31_03.Enums;
 using WinFormsApp31_03.Models;
+using static WinFormsApp31_03.Models.PumpStation;
 
 namespace WinFormsApp31_03
 {
@@ -7,140 +8,104 @@ namespace WinFormsApp31_03
     {
         private readonly int _userId;
         private readonly UserRole _userRole;
-        private int? _editingStationId = null;
+        private int? _pumpId = null;
+        private int? _stationId = null;
 
         /// <summary>
         /// Initialize
         /// </summary>
-        /// <param name="userId"></param>
-        public PumpPage(int userId)
+        public PumpPage()
         {
             InitializeComponent();
-            _userId = userId;
+            //_userId = userId;
             _userRole = UserRole.Admin;
             DeleteBtn.Enabled = false;
-            ResetBtn.Enabled = false;
-            SaveBtn.Text = "Tạo mới";
-            Clear();
-            LoadPumpStations();
+            UpdateBtn.Enabled = false;
+            LoadPumps();
+            LoadStation();
         }
 
         private void LoadBtn_Click(object sender, EventArgs e)
         {
-            LoadPumpStations();
+            LoadPumps();
         }
 
         // Load data
-        private void LoadPumpStations()
+        private void LoadPumps()
         {
-            dgStation.AutoGenerateColumns = false;
+            dgPump.AutoGenerateColumns = false;
             using (var db = new PumpContext())
             {
-                var ett = db.PumpStations.Where(p => p.Status != (int)StationStatus.Deleted).Select(p => p.ToSearchDto()).ToList();
-                dgStation.DataSource = ett;
-            }
-        }
-
-        // Nút lưu
-        private void SaveBtn_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (_userRole != UserRole.Admin)
+                var query = db.Pumps.Where(p => p.IsDelete == false);
+                if (_stationId != null)
                 {
-                    MessageBox.Show("Bạn không có quyền tạo mới", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    query = query.Where(p => p.StationId == _stationId);
                 }
-
-                using (var db = new PumpContext())
-                {
-                    PumpStation ett = new PumpStation();
-                    if (_editingStationId == null)
-                    {
-                        // Add UserId(Replace 1)
-                        ett = PumpStation.Create(txtName.Text.Trim(), txtLocation.Text.Trim(), txtDescription.Text.Trim(), 1);
-                        db.PumpStations.Add(ett);
-                        MessageBox.Show("Tạo mới trạm bơm thành công", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        // Add Status and UserId(Replace 0,1)
-                        ett = db.PumpStations.FirstOrDefault(p => p.StationId == _editingStationId && p.Status != (int)StationStatus.Deleted);
-                        if (ett != null)
-                        {
-                            ett.Update(txtName.Text.Trim(), txtLocation.Text.Trim(), txtDescription.Text.Trim(), 0, 1);
-                            MessageBox.Show("Cập nhật trạm bơm thành công", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                    }
-
-                    db.SaveChanges();
-                    LoadPumpStations();
-                }
-
-                Clear();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var ett = query.Select(p => p.ToSearchDto()).ToList();
+                dgPump.DataSource = ett;
             }
         }
 
-        // Đặt lại
-        private void ResetBtn_Click(object sender, EventArgs e)
-        {
-            SaveBtn.Text = "Tạo mới";
-            _editingStationId = null;
-            Clear();
-        }
         private void DeleteBtn_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Bạn có chắc chắn muốn xóa trạm bơm này không", "Cảnh báo", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Bạn có chắc chắn muốn xóa máy bơm này không", "Cảnh báo", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 using (var db = new PumpContext())
                 {
-                    var ett = db.PumpStations.FirstOrDefault(p => p.StationId == _editingStationId && p.Status != (int)StationStatus.Deleted);
+                    var ett = db.Pumps.FirstOrDefault(p => p.PumpId == _pumpId && p.IsDelete == false);
                     if (ett != null)
                     {
                         ett.Delete(1);
                         db.SaveChanges();
-                        MessageBox.Show("Xóa trạm bơm thành công");
-                        LoadPumpStations();
+                        MessageBox.Show("Xóa máy bơm thành công");
+                        LoadPumps();
                     }
                     else
                     {
-                        MessageBox.Show("Không tìm thấy trạm bơm");
+                        MessageBox.Show("Không tìm thấy máy bơm này");
                     }
                 }
             }
 
         }
 
-        // Nút hủy
-        private void CancelBtn_Click(object sender, EventArgs e)
+        private void CreateBtn_Click(object sender, EventArgs e)
         {
-            SaveBtn.Text = "Tạo mới";
-            SetFormValue(string.Empty, string.Empty, string.Empty);
-            ResetBtn.Enabled = false;
-            _editingStationId = null;
+            PumpCreatePage createPage = new PumpCreatePage();
+            createPage.Show();
         }
 
-        private void dgStation_DoubleClick(object sender, EventArgs e)
+        private void UpdateBtn_Click(object sender, EventArgs e)
+        {
+            if (_pumpId != null)
+            {
+                PumpUpdatePage updatePage = new PumpUpdatePage(_pumpId);
+                updatePage.Show();
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn ", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+
+        private void dgPump_DoubleClick(object sender, EventArgs e)
         {
             try
             {
-                if (dgStation.CurrentRow.Index != -1)
+                if (dgPump.CurrentRow.Index != -1)
                 {
-                    dgStation.AutoGenerateColumns = false;
+                    dgPump.AutoGenerateColumns = false;
                     using (var db = new PumpContext())
                     {
-                        int stationId = Convert.ToInt32(dgStation.CurrentRow.Cells["StationId"].Value);
-                        var ett = db.PumpStations.Where(p => p.Status != (int)StationStatus.Deleted && p.StationId == stationId).Select(p => p.ToViewDto()).FirstOrDefault();
+                        int pumpId = Convert.ToInt32(dgPump.CurrentRow.Cells["PumpId"].Value);
+                        var ett = db.PumpStations.Where(p => p.IsDelete == false && p.StationId == pumpId).Select(p => p.ToViewDto()).FirstOrDefault();
                         if (ett != null)
                         {
-                            SetFormValue(ett.StationName, ett.Location, ett.Description);
-                            _editingStationId = stationId;
-                            SaveBtn.Text = "Cập nhật";
+                            _pumpId = pumpId;
                             DeleteBtn.Enabled = true;
-                            ResetBtn.Enabled = true;
+                            UpdateBtn.Enabled = true;
                         }
                     }
                 }
@@ -151,32 +116,36 @@ namespace WinFormsApp31_03
             }
         }
 
-        /// <summary>
-        /// SetFormValue
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="location"></param>
-        /// <param name="description"></param>
-        private void SetFormValue(string? name, string? location, string? description)
+        private void CbStation_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtName.Text = name;
-            txtLocation.Text = location;
-            txtDescription.Text = description;
+            if (cbStation.SelectedItem != null)
+            {
+                var selectedStation = cbStation.SelectedItem as SearchCbDto;
+                if (selectedStation != null)
+                {
+                    _stationId = selectedStation.StationId;
+                    if (_stationId == 0)
+                    {
+                        _stationId = null;
+                    }
+
+                    LoadPumps();
+                }
+            }
         }
 
-        private void Clear()
-        {
-            SetFormValue(string.Empty, string.Empty, string.Empty);
-            ResetBtn.Enabled = false;
-        }
 
-        // Điều kiện bật tắt nút reset
-        private void CheckEnableReset(object sender, EventArgs e)
+        private void LoadStation()
         {
-            ResetBtn.Enabled = !string.IsNullOrWhiteSpace(txtName.Text.Trim()) ||
-                               !string.IsNullOrWhiteSpace(txtLocation.Text.Trim()) ||
-                               !string.IsNullOrWhiteSpace(txtDescription.Text.Trim());
-            DeleteBtn.Enabled = _editingStationId != null;
+            using (var db = new PumpContext())
+            {
+                var ett = db.PumpStations.Where(p => p.IsDelete == false).Select(p => p.ToSearchCbDto()).ToList();
+                ett.Insert(0, new SearchCbDto { StationId = 0, StationName = "Tất cả" });
+
+                cbStation.DataSource = ett;
+                cbStation.DisplayMember = "StationName";
+                cbStation.ValueMember = "StationId";
+            }
         }
     }
 }
