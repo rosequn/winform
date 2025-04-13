@@ -13,15 +13,11 @@ public partial class Alert
 
     public string AlertMessage { get; set; } = null!;
 
-    public DateTime AlertTime { get; set; }
-
-    public DateTime? ResolvedTime { get; set; }
-
     public int Status { get; set; }
 
     public bool IsDelete { get; set; }
 
-    public int? ResolvedBy { get; set; }
+    public int? CreatedBy { get; set; }
 
     public DateTime? CreatedOn { get; set; }
 
@@ -29,9 +25,9 @@ public partial class Alert
 
     public DateTime? ModifiedOn { get; set; }
 
+    public virtual User? CreatedByNavigation { get; set; }
+
     public virtual User? ModifiedByNavigation { get; set; }
 
     public virtual Pump? Pump { get; set; }
-
-    public virtual User? ResolvedByNavigation { get; set; }
 }

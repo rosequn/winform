@@ -74,7 +74,6 @@ namespace WinFormsApp31_03
                     };
 
                     SetFormValue(pump);
-
                 }
             }
             else

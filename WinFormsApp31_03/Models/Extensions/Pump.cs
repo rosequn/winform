@@ -160,6 +160,17 @@ partial class Pump
         public int? PumpType { get; set; }
 
         /// <summary>
+        /// PumpTypeName
+        /// </summary>
+        public string PumpTypeName
+        {
+            get
+            {
+                return EnumHelper.GetDescription((PumpType)PumpType.Value);
+            }
+        }
+
+        /// <summary>
         /// Capacity
         /// </summary>
         public double? Capacity { get; set; }
@@ -211,10 +222,15 @@ partial class Pump
         public int Status { get; set; }
 
         /// <summary>
-        /// Status
+        /// StatusName
         /// </summary>
-        [JsonIgnore]
-        public string StatusName => ((StationStatus)Status).ToString();
+        public string StatusName
+        {
+            get
+            {
+                return EnumHelper.GetDescription((PumpStatus)Status);
+            }
+        }
 
         #endregion
     }

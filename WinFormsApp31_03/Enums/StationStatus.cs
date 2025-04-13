@@ -1,20 +1,25 @@
-﻿namespace WinFormsApp31_03.Enums;
+﻿using System.ComponentModel;
+
+namespace WinFormsApp31_03.Enums;
 
 enum StationStatus
 {
     /// <summary>
-    /// User
+    /// Active
     /// </summary>
+    [Description("Đang hoạt động")]
     Active = 0,
 
     /// <summary>
-    /// Admin
+    /// Maintenance
     /// </summary>
+    [Description("Bảo trì")]
     Maintenance = 1,
 
     /// <summary>
-    /// SystemAdmin
+    /// Inactive
     /// </summary>
+    [Description("Ngừng hoạt động")]
     Inactive = 2,
 }
 

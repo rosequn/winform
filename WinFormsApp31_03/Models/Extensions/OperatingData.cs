@@ -69,6 +69,7 @@ partial class OperatingData
         ModifiedOn = DateTime.Now;
     }
 
+
     public SearchDto ToSearchDto()
     {
         var res = ToBaseDto<SearchDto>();
@@ -99,6 +100,7 @@ partial class OperatingData
             Temperature = Temperature,
             RunningHours = RunningHours,
             Efficiency = Efficiency,
+            PumpName = Pump.PumpName
         };
     }
 
@@ -118,6 +120,11 @@ partial class OperatingData
         /// PumpId
         /// </summary>
         public int? PumpId { get; set; }
+
+        /// <summary>
+        /// PumpName
+        /// </summary>
+        public string? PumpName { get; set; }
 
         /// <summary>
         /// RecordTime

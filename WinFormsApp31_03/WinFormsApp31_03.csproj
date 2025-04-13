@@ -9,10 +9,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Update="AlertUpdatePage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AlertPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="OperatingUpdatePage.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="OperatingCreatePage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AlertCreatePage.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="PumpCreatePage.cs">

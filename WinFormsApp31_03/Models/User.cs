@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace WinFormsApp31_03.Models;
+﻿namespace WinFormsApp31_03.Models;
 
 public partial class User
 {
@@ -33,9 +30,9 @@ public partial class User
 
     public DateTime? ModifiedOn { get; set; }
 
-    public virtual ICollection<Alert> AlertModifiedByNavigations { get; set; } = new List<Alert>();
+    public virtual ICollection<Alert> AlertCreatedByNavigations { get; set; } = new List<Alert>();
 
-    public virtual ICollection<Alert> AlertResolvedByNavigations { get; set; } = new List<Alert>();
+    public virtual ICollection<Alert> AlertModifiedByNavigations { get; set; } = new List<Alert>();
 
     public virtual ICollection<MaintenanceHistory> MaintenanceHistories { get; set; } = new List<MaintenanceHistory>();
 

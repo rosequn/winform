@@ -98,13 +98,11 @@ CREATE TABLE Alerts (
     PumpID INT FOREIGN KEY REFERENCES Pumps(PumpID),
     AlertType INT NOT NULL DEFAULT 0, -- Critical, Warning, Info
     AlertMessage NVARCHAR(500) NOT NULL,
-    AlertTime DATETIME NOT NULL DEFAULT GETDATE(),
-    ResolvedTime DATETIME NULL,
     Status INT NOT NULL DEFAULT 0, -- Active, Resolved, Ignored
 	IsDelete BIT NOT NULL DEFAULT 0,
-    ResolvedBy INT FOREIGN KEY REFERENCES Users(UserID) NULL,
+	CreatedBy INT FOREIGN KEY REFERENCES Users(UserID) NULL,
     CreatedOn DATETIME DEFAULT GETDATE(),
-    ModifiedBy INT FOREIGN KEY REFERENCES Users(UserID),
+    ModifiedBy INT FOREIGN KEY REFERENCES Users(UserID) NULL,
     ModifiedOn DATETIME
 );
 
@@ -120,6 +118,19 @@ VALUES
 (N'Trạm B', N'TP.HCM', N'Trạm phụ', 1),
 (N'Trạm C', N'Đà Nẵng', N'Trạm miền Trung', 1);
 
+-- Thêm dữ liệu mẫu cho máy bơm
+INSERT INTO Pumps (StationID, PumpName, PumpType, Capacity, Status, IsDelete, Manufacturer, SerialNumber, WarrantyExpireDate, Description)
+VALUES
+(1, 'Pump A1', 1, 100.5, 0, 0, 'Grundfos', 'SN-A1001', DATEADD(YEAR, 2, GETDATE()), 'High-capacity pump for Station 1'),
+
+(1, 'Pump A2', 2, 80.0, 1, 0, 'Siemens', 'SN-A1002', DATEADD(YEAR, 1, GETDATE()), 'Medium pump with backup'),
+
+(2, 'Pump B1', 1, 120.75, 2, 0, 'Pentair', 'SN-B1001', DATEADD(MONTH, 18, GETDATE()), 'Under maintenance'),
+
+(2, 'Pump B2', 0, 95.0, 0, 0, 'Hitachi', 'SN-B1002', DATEADD(YEAR, 3, GETDATE()), 'Normal operation'),
+
+(3, 'Pump C1', 2, 110.2, 3, 0, 'Ebara', 'SN-C1001', DATEADD(YEAR, 2, GETDATE()), 'Failed due to overload');
+
 
 -- Thêm dữ liệu mẫu cho PumpID = 1 và 2
 INSERT INTO OperatingData (PumpID, RecordTime, FlowRate, Pressure, PowerConsumption, Temperature, RunningHours, Efficiency)
@@ -129,6 +140,18 @@ VALUES
 (1, '2025-04-13 16:00:00', 122.3, 2.4, 15.8, 34.5, 5.8, 84.7),
 (2, '2025-04-13 08:00:00', 110.0, 2.3, 14.5, 33.0, 4.5, 83.2),
 (2, '2025-04-13 12:00:00', 112.8, 2.4, 14.8, 33.8, 4.8, 84.0);
+
+
+INSERT INTO Alerts (PumpID, AlertType, AlertMessage, Status, IsDelete)
+VALUES
+(1, 0, N'Nhiệt độ bơm vượt mức cho phép', 0, 0),
+(1, 1, N'Áp suất đầu ra thấp hơn bình thường', 1, 0),
+(2, 2, N'Thông báo kiểm tra định kỳ sắp đến hạn', 0, 0),
+(3, 0, N'Lỗi động cơ - cần kiểm tra ngay', 0, 0),
+(3, 1, N'Cảnh báo dòng điện không ổn định', 2, 0),
+(4, 2, N'Thông báo cập nhật firmware', 1, 0),
+(5, 0, N'Ngừng hoạt động bất thường', 0, 0),
+(5, 1, N'Cảnh báo bảo trì quá hạn', 1, 0);
 
 ---- Bảng Lịch bảo trì dự kiến (Scheduled Maintenance)
 --CREATE TABLE ScheduledMaintenance (
@@ -179,214 +202,6 @@ VALUES
 --(2, N'Máy bơm 2B', 'PMP005', N'Máy bơm chìm', 400.0, 'Maintenance', '2021-03-25', 'Wilo', 'EMU FA 15', 1, 1),
 --(3, N'Máy bơm 3A', 'PMP006', N'Máy bơm trục đứng', 600.0, 'Failed', '2019-07-15', 'KSB', 'Sewatec', 1, 1),
 --(3, N'Máy bơm 3B', 'PMP007', N'Máy bơm trục đứng', 600.0, 'Running', '2019-07-15', 'KSB', 'Sewatec', 1, 1);
-
----- Tạo Stored Procedure để lấy danh sách trạm bơm với số lượng máy bơm
---CREATE PROCEDURE GetPumpStationsList
---AS
---BEGIN
---    SELECT 
---        ps.StationID,
---        ps.StationName,
---        ps.Location,
---        ps.Description,
---        ps.Status,
---        ps.InstallationDate,
---        ps.Capacity,
---        ps.LastMaintenanceDate,
---        COUNT(p.PumpID) AS PumpCount,
---        SUM(CASE WHEN p.Status = 'Running' THEN 1 ELSE 0 END) AS RunningPumps
---    FROM PumpStations ps
---    LEFT JOIN Pumps p ON ps.StationID = p.StationID
---    GROUP BY 
---        ps.StationID,
---        ps.StationName,
---        ps.Location,
---        ps.Description,
---        ps.Status,
---        ps.InstallationDate,
---        ps.Capacity,
---        ps.LastMaintenanceDate
---    ORDER BY ps.StationName;
---END;
---GO
-
----- Tạo Stored Procedure để lấy danh sách máy bơm theo trạm
---CREATE PROCEDURE GetPumpsByStation
---    @StationID INT
---AS
---BEGIN
---    SELECT 
---        p.PumpID,
---        p.PumpName,
---        p.PumpCode,
---        p.PumpType,
---        p.Capacity,
---        p.Status,
---        p.InstallationDate,
---        p.Manufacturer,
---        p.Model,
---        p.SerialNumber,
---        p.WarrantyExpireDate,
---        p.Description,
---        ps.StationName
---    FROM Pumps p
---    JOIN PumpStations ps ON p.StationID = ps.StationID
---    WHERE p.StationID = @StationID
---    ORDER BY p.PumpName;
---END;
---GO
-
----- Tạo Stored Procedure để lấy dữ liệu vận hành của máy bơm theo khoảng thời gian
---CREATE PROCEDURE GetPumpOperatingData
---    @PumpID INT,
---    @StartDate DATETIME,
---    @EndDate DATETIME
---AS
---BEGIN
---    SELECT 
---        od.DataID,
---        od.PumpID,
---        od.RecordTime,
---        od.FlowRate,
---        od.Pressure,
---        od.PowerConsumption,
---        od.Temperature,
---        od.RunningHours,
---        od.Efficiency,
---        od.Vibration,
---        od.CurrentDrawn,
---        od.Comments,
---        p.PumpName,
---        p.PumpCode
---    FROM OperatingData od
---    JOIN Pumps p ON od.PumpID = p.PumpID
---    WHERE od.PumpID = @PumpID
---    AND od.RecordTime BETWEEN @StartDate AND @EndDate
---    ORDER BY od.RecordTime DESC;
---END;
---GO
-
----- Tạo Stored Procedure để lấy lịch sử bảo trì của máy bơm
---CREATE PROCEDURE GetPumpMaintenanceHistory
---    @PumpID INT
---AS
---BEGIN
---    SELECT 
---        mh.MaintenanceID,
---        mh.PumpID,
---        mh.MaintenanceType,
---        mh.StartDate,
---        mh.EndDate,
---        mh.Description,
---        mh.PartsReplaced,
---        mh.Cost,
---        mh.Technician,
---        mh.CompletionStatus,
---        u.FullName AS PerformedByUser,
---        p.PumpName,
---        p.PumpCode
---    FROM MaintenanceHistory mh
---    JOIN Pumps p ON mh.PumpID = p.PumpID
---    JOIN Users u ON mh.PerformedBy = u.UserID
---    WHERE mh.PumpID = @PumpID
---    ORDER BY mh.StartDate DESC;
---END;
---GO
-
----- Tạo Stored Procedure để lấy cảnh báo của máy bơm
---CREATE PROCEDURE GetPumpAlerts
---    @PumpID INT = NULL,
---    @Status NVARCHAR(50) = NULL
---AS
---BEGIN
---    SELECT 
---        a.AlertID,
---        a.PumpID,
---        a.AlertType,
---        a.AlertMessage,
---        a.AlertTime,
---        a.ResolvedTime,
---        a.Status,
---        a.Resolution,
---        p.PumpName,
---        p.PumpCode,
---        ps.StationName,
---        u.FullName AS ResolvedByUser
---    FROM Alerts a
---    JOIN Pumps p ON a.PumpID = p.PumpID
---    JOIN PumpStations ps ON p.StationID = ps.StationID
---    LEFT JOIN Users u ON a.ResolvedBy = u.UserID
---    WHERE (@PumpID IS NULL OR a.PumpID = @PumpID)
---    AND (@Status IS NULL OR a.Status = @Status)
---    ORDER BY a.AlertTime DESC;
---END;
---GO
-
----- Tạo Stored Procedure để tìm kiếm trạm bơm
---CREATE PROCEDURE SearchPumpStations
---    @SearchTerm NVARCHAR(100)
---AS
---BEGIN
---    SELECT 
---        ps.StationID,
---        ps.StationName,
---        ps.Location,
---        ps.Description,
---        ps.Status,
---        ps.InstallationDate,
---        ps.Capacity,
---        ps.LastMaintenanceDate,
---        COUNT(p.PumpID) AS PumpCount,
---        SUM(CASE WHEN p.Status = 'Running' THEN 1 ELSE 0 END) AS RunningPumps
---    FROM PumpStations ps
---    LEFT JOIN Pumps p ON ps.StationID = p.StationID
---    WHERE ps.StationName LIKE '%' + @SearchTerm + '%'
---    OR ps.Location LIKE '%' + @SearchTerm + '%'
---    OR ps.Status LIKE '%' + @SearchTerm + '%'
---    OR ps.Description LIKE '%' + @SearchTerm + '%'
---    GROUP BY 
---        ps.StationID,
---        ps.StationName,
---        ps.Location,
---        ps.Description,
---        ps.Status,
---        ps.InstallationDate,
---        ps.Capacity,
---        ps.LastMaintenanceDate
---    ORDER BY ps.StationName;
---END;
---GO
-
----- Tạo Stored Procedure để tìm kiếm máy bơm
---CREATE PROCEDURE SearchPumps
---    @SearchTerm NVARCHAR(100)
---AS
---BEGIN
---    SELECT 
---        p.PumpID,
---        p.PumpName,
---        p.PumpCode,
---        p.PumpType,
---        p.Capacity,
---        p.Status,
---        p.InstallationDate,
---        p.Manufacturer,
---        p.Model,
---        p.SerialNumber,
---        p.WarrantyExpireDate,
---        p.Description,
---        ps.StationName,
---        ps.StationID
---    FROM Pumps p
---    JOIN PumpStations ps ON p.StationID = ps.StationID
---    WHERE p.PumpName LIKE '%' + @SearchTerm + '%'
---    OR p.PumpCode LIKE '%' + @SearchTerm + '%'
---    OR p.Status LIKE '%' + @SearchTerm + '%'
---    OR p.PumpType LIKE '%' + @SearchTerm + '%'
---    OR ps.StationName LIKE '%' + @SearchTerm + '%'
---    ORDER BY ps.StationName, p.PumpName;
---END;
---GO
 
 ALTER LOGIN sa ENABLE;
 ALTER LOGIN sa WITH PASSWORD = 'YourStrongPassword';

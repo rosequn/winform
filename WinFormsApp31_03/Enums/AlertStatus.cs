@@ -2,24 +2,23 @@
 
 namespace WinFormsApp31_03.Enums;
 
-enum PumpStatus
+enum AlertStatus
 {
     /// <summary>
     /// Active
     /// </summary>
-    [Description("Đang hoạt động")]
+    [Description("Chưa xử lý")]
     Active = 0,
 
     /// <summary>
-    /// Maintenance
+    /// Ignored
     /// </summary>
-    [Description("Bảo trì")]
-    Maintenance = 1,
+    [Description("Đã bỏ qua")]
+    Ignored = 1,
 
     /// <summary>
-    /// Inactive
+    /// Resolved
     /// </summary>
-    [Description("Ngừng hoạt động")]
-    Inactive = 2,
+    [Description("Đã xử lý")]
+    Resolved = 2,
 }
-

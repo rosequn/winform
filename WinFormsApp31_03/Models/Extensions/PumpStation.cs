@@ -157,10 +157,15 @@ partial class PumpStation
         public int Status { get; set; }
 
         /// <summary>
-        /// Status
+        /// StatusName
         /// </summary>
-        [JsonIgnore]
-        public string StatusName => ((StationStatus)Status).ToString();
+        public string StatusName
+        {
+            get
+            {
+                return EnumHelper.GetDescription((PumpStatus)Status);
+            }
+        }
 
         #endregion
     }

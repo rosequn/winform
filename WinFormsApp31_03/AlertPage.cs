@@ -5,45 +5,50 @@ using static WinFormsApp31_03.Models.PumpStation;
 
 namespace WinFormsApp31_03
 {
-    public partial class OperatingPage : Form
+    public partial class AlertPage : Form
     {
         private readonly int _userId;
         private readonly UserRole _userRole;
-        private int? _dataId = null;
+        private int? _alertId = null;
         private int? _stationId = null;
 
         /// <summary>
         /// Initialize
         /// </summary>
-        public OperatingPage()
+        public AlertPage()
         {
             InitializeComponent();
             //_userId = userId;
             _userRole = UserRole.Admin;
             DeleteBtn.Enabled = false;
             UpdateBtn.Enabled = false;
-            LoadOperations();
+            ResolvedBtn.Enabled = false;
+            IgnoredBtn.Enabled = false;
+            LoadAlerts();
             LoadStation();
         }
 
         private void LoadBtn_Click(object sender, EventArgs e)
         {
-            LoadOperations();
+            LoadAlerts();
         }
 
         // Load data
-        private void LoadOperations()
+        private void LoadAlerts()
         {
-            dgOperating.AutoGenerateColumns = false;
+            dgAlert.AutoGenerateColumns = false;
             using (var db = new PumpContext())
             {
-                var query = db.OperatingData.Include(p => p.Pump).Where(p => p.IsDelete == false);
+                var query = db.Alerts
+                    .Include(p => p.Pump)
+                    .Include(p => p.ModifiedByNavigation)
+                    .Where(p => p.IsDelete == false);
                 if (_stationId != null)
                 {
                     query = query.Where(p => p.Pump.StationId == _stationId);
                 }
                 var ett = query.Select(p => p.ToSearchDto()).ToList();
-                dgOperating.DataSource = ett;
+                dgAlert.DataSource = ett;
             }
         }
 
@@ -53,14 +58,14 @@ namespace WinFormsApp31_03
             {
                 using (var db = new PumpContext())
                 {
-                    var ett = db.OperatingData.FirstOrDefault(p => p.DataId == _dataId && p.IsDelete == false);
+                    var ett = db.Alerts.FirstOrDefault(p => p.AlertId == _alertId && p.IsDelete == false);
                     if (ett != null)
                     {
                         ett.Delete(1);
                         db.SaveChanges();
+                        LoadAlerts();
+                        _alertId = null;
                         MessageBox.Show("Xóa dữ liệu thành công");
-                        LoadOperations();
-                        _dataId = null;
                     }
                     else
                     {
@@ -68,20 +73,59 @@ namespace WinFormsApp31_03
                     }
                 }
             }
+        }
 
+        private void ResolvedBtn_Click(object sender, EventArgs e)
+        {
+            using (var db = new PumpContext())
+            {
+                var ett = db.Alerts.FirstOrDefault(p => p.AlertId == _alertId && p.IsDelete == false);
+                if (ett != null)
+                {
+                    ett.UpdateStatus((int)AlertStatus.Resolved, 1);
+                    db.SaveChanges();
+                    LoadAlerts();
+                    _alertId = null;
+                    MessageBox.Show("Xử lý thành công");
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy dữ liệu này");
+                }
+            }
+        }
+
+        private void IgnoredBtn_Click(object sender, EventArgs e)
+        {
+            using (var db = new PumpContext())
+            {
+                var ett = db.Alerts.FirstOrDefault(p => p.AlertId == _alertId && p.IsDelete == false);
+                if (ett != null)
+                {
+                    ett.UpdateStatus((int)AlertStatus.Ignored, 1);
+                    db.SaveChanges();
+                    LoadAlerts();
+                    _alertId = null;
+                    MessageBox.Show("Đã bỏ qua thông báo này");
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy dữ liệu này");
+                }
+            }
         }
 
         private void CreateBtn_Click(object sender, EventArgs e)
         {
-            OperatingCreatePage createPage = new OperatingCreatePage();
+            AlertCreatePage createPage = new AlertCreatePage();
             createPage.Show();
         }
 
         private void UpdateBtn_Click(object sender, EventArgs e)
         {
-            if (_dataId != null)
+            if (_alertId != null)
             {
-                OperatingUpdatePage updatePage = new OperatingUpdatePage(_dataId);
+                AlertUpdatePage updatePage = new AlertUpdatePage(_alertId);
                 updatePage.Show();
             }
             else
@@ -95,18 +139,29 @@ namespace WinFormsApp31_03
         {
             try
             {
-                if (dgOperating.CurrentRow.Index != -1)
+                if (dgAlert.CurrentRow.Index != -1)
                 {
-                    dgOperating.AutoGenerateColumns = false;
+                    dgAlert.AutoGenerateColumns = false;
                     using (var db = new PumpContext())
                     {
-                        int dataId = Convert.ToInt32(dgOperating.CurrentRow.Cells["DataId"].Value);
-                        var ett = db.OperatingData.Where(p => p.IsDelete == false && p.DataId == dataId).Select(p => p.ToViewDto()).FirstOrDefault();
+                        int alertId = Convert.ToInt32(dgAlert.CurrentRow.Cells["AlertId"].Value);
+                        var ett = db.Alerts.Where(p => p.IsDelete == false && p.AlertId == alertId).Select(p => p.ToViewDto()).FirstOrDefault();
                         if (ett != null)
                         {
-                            _dataId = dataId;
+                            _alertId = alertId;
                             DeleteBtn.Enabled = true;
                             UpdateBtn.Enabled = true;
+                        }
+
+                        if (ett.Status != (int)AlertStatus.Resolved)
+                        {
+                            ResolvedBtn.Enabled = true;
+                            IgnoredBtn.Enabled = true;
+                        }
+                        else
+                        {
+                            ResolvedBtn.Enabled = false;
+                            IgnoredBtn.Enabled = false;
                         }
                     }
                 }
@@ -130,7 +185,7 @@ namespace WinFormsApp31_03
                         _stationId = null;
                     }
 
-                    LoadOperations();
+                    LoadAlerts();
                 }
             }
         }

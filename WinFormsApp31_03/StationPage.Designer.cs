@@ -30,11 +30,6 @@
         {
             label1 = new Label();
             dgStation = new DataGridView();
-            StationId = new DataGridViewTextBoxColumn();
-            StationName = new DataGridViewTextBoxColumn();
-            Description = new DataGridViewTextBoxColumn();
-            Location = new DataGridViewTextBoxColumn();
-            Status = new DataGridViewTextBoxColumn();
             LoadBtn = new Button();
             ResetBtn = new Button();
             SaveBtn = new Button();
@@ -46,6 +41,11 @@
             label2 = new Label();
             DeleteBtn = new Button();
             CancelBtn = new Button();
+            StationId = new DataGridViewTextBoxColumn();
+            StationName = new DataGridViewTextBoxColumn();
+            Description = new DataGridViewTextBoxColumn();
+            Location = new DataGridViewTextBoxColumn();
+            StatusName = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgStation).BeginInit();
             SuspendLayout();
             // 
@@ -64,7 +64,7 @@
             // dgStation
             // 
             dgStation.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgStation.Columns.AddRange(new DataGridViewColumn[] { StationId, StationName, Description, Location, Status });
+            dgStation.Columns.AddRange(new DataGridViewColumn[] { StationId, StationName, Description, Location, StatusName });
             dgStation.Location = new Point(33, 134);
             dgStation.Name = "dgStation";
             dgStation.ReadOnly = true;
@@ -72,51 +72,6 @@
             dgStation.Size = new Size(826, 349);
             dgStation.TabIndex = 1;
             dgStation.DoubleClick += dgStation_DoubleClick;
-            // 
-            // StationId
-            // 
-            StationId.DataPropertyName = "StationId";
-            StationId.HeaderText = "Mã";
-            StationId.MinimumWidth = 8;
-            StationId.Name = "StationId";
-            StationId.ReadOnly = true;
-            StationId.Width = 150;
-            // 
-            // StationName
-            // 
-            StationName.DataPropertyName = "StationName";
-            StationName.HeaderText = "Tên";
-            StationName.MinimumWidth = 8;
-            StationName.Name = "StationName";
-            StationName.ReadOnly = true;
-            StationName.Width = 150;
-            // 
-            // Description
-            // 
-            Description.DataPropertyName = "Description";
-            Description.HeaderText = "Mô tả";
-            Description.MinimumWidth = 8;
-            Description.Name = "Description";
-            Description.ReadOnly = true;
-            Description.Width = 150;
-            // 
-            // Location
-            // 
-            Location.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Location.DataPropertyName = "Location";
-            Location.HeaderText = "Vị trí";
-            Location.MinimumWidth = 8;
-            Location.Name = "Location";
-            Location.ReadOnly = true;
-            // 
-            // Status
-            // 
-            Status.DataPropertyName = "StatusName";
-            Status.HeaderText = "Trạng thái";
-            Status.MinimumWidth = 8;
-            Status.Name = "Status";
-            Status.ReadOnly = true;
-            Status.Width = 150;
             // 
             // LoadBtn
             // 
@@ -242,6 +197,51 @@
             CancelBtn.UseVisualStyleBackColor = true;
             CancelBtn.Click += CancelBtn_Click;
             // 
+            // StationId
+            // 
+            StationId.DataPropertyName = "StationId";
+            StationId.HeaderText = "Mã";
+            StationId.MinimumWidth = 8;
+            StationId.Name = "StationId";
+            StationId.ReadOnly = true;
+            StationId.Width = 150;
+            // 
+            // StationName
+            // 
+            StationName.DataPropertyName = "StationName";
+            StationName.HeaderText = "Tên";
+            StationName.MinimumWidth = 8;
+            StationName.Name = "StationName";
+            StationName.ReadOnly = true;
+            StationName.Width = 150;
+            // 
+            // Description
+            // 
+            Description.DataPropertyName = "Description";
+            Description.HeaderText = "Mô tả";
+            Description.MinimumWidth = 8;
+            Description.Name = "Description";
+            Description.ReadOnly = true;
+            Description.Width = 150;
+            // 
+            // Location
+            // 
+            Location.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Location.DataPropertyName = "Location";
+            Location.HeaderText = "Vị trí";
+            Location.MinimumWidth = 8;
+            Location.Name = "Location";
+            Location.ReadOnly = true;
+            // 
+            // StatusName
+            // 
+            StatusName.DataPropertyName = "StatusName";
+            StatusName.HeaderText = "Trạng thái";
+            StatusName.MinimumWidth = 8;
+            StatusName.Name = "StatusName";
+            StatusName.ReadOnly = true;
+            StatusName.Width = 150;
+            // 
             // StationPage
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -273,11 +273,6 @@
         private Label label1;
         private DataGridView dgStation;
         private Button LoadBtn;
-        private DataGridViewTextBoxColumn StationId;
-        private DataGridViewTextBoxColumn StationName;
-        private DataGridViewTextBoxColumn Description;
-        private DataGridViewTextBoxColumn Location;
-        private DataGridViewTextBoxColumn Status;
         private Button ResetBtn;
         private Button SaveBtn;
         private TextBox txtDescription;
@@ -288,5 +283,10 @@
         private Label label2;
         private Button DeleteBtn;
         private Button CancelBtn;
+        private DataGridViewTextBoxColumn StationId;
+        private DataGridViewTextBoxColumn StationName;
+        private DataGridViewTextBoxColumn Description;
+        private DataGridViewTextBoxColumn Location;
+        private DataGridViewTextBoxColumn StatusName;
     }
 }

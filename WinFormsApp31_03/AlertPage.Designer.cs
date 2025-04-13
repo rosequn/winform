@@ -1,6 +1,6 @@
 ﻿namespace WinFormsApp31_03
 {
-    partial class OperatingPage
+    partial class AlertPage
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dgOperating = new DataGridView();
+            dgAlert = new DataGridView();
             LoadBtn = new Button();
             UpdateBtn = new Button();
             CreateBtn = new Button();
@@ -37,29 +37,30 @@
             label1 = new Label();
             label2 = new Label();
             cbStation = new ComboBox();
-            DataID = new DataGridViewTextBoxColumn();
+            IgnoredBtn = new Button();
+            ResolvedBtn = new Button();
+            AlertID = new DataGridViewTextBoxColumn();
             PumpName = new DataGridViewTextBoxColumn();
-            RecordTime = new DataGridViewTextBoxColumn();
-            FlowRate = new DataGridViewTextBoxColumn();
-            Pressure = new DataGridViewTextBoxColumn();
-            PowerConsumption = new DataGridViewTextBoxColumn();
-            Temperature = new DataGridViewTextBoxColumn();
-            RunningHours = new DataGridViewTextBoxColumn();
-            Efficiency = new DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)dgOperating).BeginInit();
+            AlertName = new DataGridViewTextBoxColumn();
+            AlertMessage = new DataGridViewTextBoxColumn();
+            StatusName = new DataGridViewTextBoxColumn();
+            CreatedOn = new DataGridViewTextBoxColumn();
+            ResolvedBy = new DataGridViewTextBoxColumn();
+            ModifiedOn = new DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)dgAlert).BeginInit();
             SuspendLayout();
             // 
-            // dgOperating
+            // dgAlert
             // 
-            dgOperating.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgOperating.Columns.AddRange(new DataGridViewColumn[] { DataID, PumpName, RecordTime, FlowRate, Pressure, PowerConsumption, Temperature, RunningHours, Efficiency });
-            dgOperating.Location = new Point(33, 134);
-            dgOperating.Name = "dgOperating";
-            dgOperating.ReadOnly = true;
-            dgOperating.RowHeadersWidth = 62;
-            dgOperating.Size = new Size(1399, 349);
-            dgOperating.TabIndex = 1;
-            dgOperating.DoubleClick += dgPump_DoubleClick;
+            dgAlert.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgAlert.Columns.AddRange(new DataGridViewColumn[] { AlertID, PumpName, AlertName, AlertMessage, StatusName, CreatedOn, ResolvedBy, ModifiedOn });
+            dgAlert.Location = new Point(33, 144);
+            dgAlert.Name = "dgAlert";
+            dgAlert.ReadOnly = true;
+            dgAlert.RowHeadersWidth = 62;
+            dgAlert.Size = new Size(1224, 349);
+            dgAlert.TabIndex = 1;
+            dgAlert.DoubleClick += dgPump_DoubleClick;
             // 
             // LoadBtn
             // 
@@ -110,7 +111,7 @@
             // BackBtn
             // 
             BackBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            BackBtn.Location = new Point(991, 521);
+            BackBtn.Location = new Point(507, 509);
             BackBtn.Margin = new Padding(4);
             BackBtn.Name = "BackBtn";
             BackBtn.Size = new Size(150, 50);
@@ -122,12 +123,12 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Times New Roman", 18F, FontStyle.Bold, GraphicsUnit.Point, 163);
-            label1.Location = new Point(210, 76);
+            label1.Location = new Point(227, 76);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(424, 41);
+            label1.Size = new Size(463, 41);
             label1.TabIndex = 0;
-            label1.Text = "DANH SÁCH MÁY BƠM";
+            label1.Text = "DANH SÁCH THÔNG BÁO";
             // 
             // label2
             // 
@@ -148,14 +149,38 @@
             cbStation.TabIndex = 24;
             cbStation.SelectedIndexChanged += CbStation_SelectedIndexChanged;
             // 
-            // DataID
+            // IgnoredBtn
             // 
-            DataID.DataPropertyName = "DataID";
-            DataID.HeaderText = "Mã";
-            DataID.MinimumWidth = 8;
-            DataID.Name = "DataID";
-            DataID.ReadOnly = true;
-            DataID.Width = 150;
+            IgnoredBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            IgnoredBtn.Location = new Point(872, 509);
+            IgnoredBtn.Margin = new Padding(4);
+            IgnoredBtn.Name = "IgnoredBtn";
+            IgnoredBtn.Size = new Size(150, 50);
+            IgnoredBtn.TabIndex = 27;
+            IgnoredBtn.Text = "Bỏ qua";
+            IgnoredBtn.UseVisualStyleBackColor = true;
+            IgnoredBtn.Click += IgnoredBtn_Click;
+            // 
+            // ResolvedBtn
+            // 
+            ResolvedBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            ResolvedBtn.Location = new Point(686, 509);
+            ResolvedBtn.Margin = new Padding(4);
+            ResolvedBtn.Name = "ResolvedBtn";
+            ResolvedBtn.Size = new Size(150, 50);
+            ResolvedBtn.TabIndex = 26;
+            ResolvedBtn.Text = "Đã xử lý";
+            ResolvedBtn.UseVisualStyleBackColor = true;
+            ResolvedBtn.Click += ResolvedBtn_Click;
+            // 
+            // AlertID
+            // 
+            AlertID.DataPropertyName = "AlertID";
+            AlertID.HeaderText = "Mã";
+            AlertID.MinimumWidth = 8;
+            AlertID.Name = "AlertID";
+            AlertID.ReadOnly = true;
+            AlertID.Width = 150;
             // 
             // PumpName
             // 
@@ -166,74 +191,67 @@
             PumpName.ReadOnly = true;
             PumpName.Width = 150;
             // 
-            // RecordTime
+            // AlertName
             // 
-            RecordTime.DataPropertyName = "RecordTime";
-            RecordTime.HeaderText = "Thời gian ghi";
-            RecordTime.MinimumWidth = 8;
-            RecordTime.Name = "RecordTime";
-            RecordTime.ReadOnly = true;
-            RecordTime.Width = 150;
+            AlertName.DataPropertyName = "AlertName";
+            AlertName.HeaderText = "Loại thông báo";
+            AlertName.MinimumWidth = 8;
+            AlertName.Name = "AlertName";
+            AlertName.ReadOnly = true;
+            AlertName.Width = 150;
             // 
-            // FlowRate
+            // AlertMessage
             // 
-            FlowRate.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            FlowRate.DataPropertyName = "FlowRate";
-            FlowRate.HeaderText = "Lưu lượng";
-            FlowRate.MinimumWidth = 150;
-            FlowRate.Name = "FlowRate";
-            FlowRate.ReadOnly = true;
+            AlertMessage.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            AlertMessage.DataPropertyName = "AlertMessage";
+            AlertMessage.HeaderText = "Nội dung";
+            AlertMessage.MinimumWidth = 150;
+            AlertMessage.Name = "AlertMessage";
+            AlertMessage.ReadOnly = true;
             // 
-            // Pressure
+            // StatusName
             // 
-            Pressure.DataPropertyName = "Pressure";
-            Pressure.HeaderText = "Áp suất";
-            Pressure.MinimumWidth = 8;
-            Pressure.Name = "Pressure";
-            Pressure.ReadOnly = true;
-            Pressure.Width = 150;
+            StatusName.DataPropertyName = "StatusName";
+            StatusName.HeaderText = "Trạng thái";
+            StatusName.MinimumWidth = 8;
+            StatusName.Name = "StatusName";
+            StatusName.ReadOnly = true;
+            StatusName.Width = 150;
             // 
-            // PowerConsumption
+            // CreatedOn
             // 
-            PowerConsumption.DataPropertyName = "PowerConsumption";
-            PowerConsumption.HeaderText = "Công suất thiêu thụ";
-            PowerConsumption.MinimumWidth = 8;
-            PowerConsumption.Name = "PowerConsumption";
-            PowerConsumption.ReadOnly = true;
-            PowerConsumption.Width = 150;
+            CreatedOn.DataPropertyName = "CreatedOn";
+            CreatedOn.HeaderText = "Ngày tạo";
+            CreatedOn.MinimumWidth = 8;
+            CreatedOn.Name = "CreatedOn";
+            CreatedOn.ReadOnly = true;
+            CreatedOn.Width = 150;
             // 
-            // Temperature
+            // ResolvedBy
             // 
-            Temperature.DataPropertyName = "Temperature";
-            Temperature.HeaderText = "Nhiệt độ";
-            Temperature.MinimumWidth = 8;
-            Temperature.Name = "Temperature";
-            Temperature.ReadOnly = true;
-            Temperature.Width = 150;
+            ResolvedBy.DataPropertyName = "ResolvedBy";
+            ResolvedBy.HeaderText = "Người xử lý";
+            ResolvedBy.MinimumWidth = 8;
+            ResolvedBy.Name = "ResolvedBy";
+            ResolvedBy.ReadOnly = true;
+            ResolvedBy.Width = 150;
             // 
-            // RunningHours
+            // ModifiedOn
             // 
-            RunningHours.DataPropertyName = "RunningHours";
-            RunningHours.HeaderText = "Số giờ hoạt động";
-            RunningHours.MinimumWidth = 8;
-            RunningHours.Name = "RunningHours";
-            RunningHours.ReadOnly = true;
-            RunningHours.Width = 150;
+            ModifiedOn.DataPropertyName = "ModifiedOn";
+            ModifiedOn.HeaderText = "Ngày xử lý";
+            ModifiedOn.MinimumWidth = 8;
+            ModifiedOn.Name = "ModifiedOn";
+            ModifiedOn.ReadOnly = true;
+            ModifiedOn.Width = 150;
             // 
-            // Efficiency
-            // 
-            Efficiency.DataPropertyName = "Efficiency";
-            Efficiency.HeaderText = "Hiệu suất";
-            Efficiency.MinimumWidth = 8;
-            Efficiency.Name = "Efficiency";
-            Efficiency.ReadOnly = true;
-            Efficiency.Width = 150;
-            // 
-            // OperatingPage
+            // AlertPage
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1492, 705);
+            ClientSize = new Size(1334, 705);
+            Controls.Add(IgnoredBtn);
+            Controls.Add(ResolvedBtn);
             Controls.Add(label2);
             Controls.Add(cbStation);
             Controls.Add(BackBtn);
@@ -241,18 +259,18 @@
             Controls.Add(UpdateBtn);
             Controls.Add(CreateBtn);
             Controls.Add(LoadBtn);
-            Controls.Add(dgOperating);
+            Controls.Add(dgAlert);
             Controls.Add(label1);
             Margin = new Padding(4);
-            Name = "OperatingPage";
-            Text = "Quản lý trạm bơm";
-            ((System.ComponentModel.ISupportInitialize)dgOperating).EndInit();
+            Name = "AlertPage";
+            Text = "Quản lý thông báo";
+            ((System.ComponentModel.ISupportInitialize)dgAlert).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private DataGridView dgOperating;
+        private DataGridView dgAlert;
         private Button LoadBtn;
         private Button UpdateBtn;
         private Button CreateBtn;
@@ -261,14 +279,15 @@
         private Label label1;
         private Label label2;
         private ComboBox cbStation;
-        private DataGridViewTextBoxColumn DataID;
+        private Button IgnoredBtn;
+        private Button ResolvedBtn;
+        private DataGridViewTextBoxColumn AlertID;
         private DataGridViewTextBoxColumn PumpName;
-        private DataGridViewTextBoxColumn RecordTime;
-        private DataGridViewTextBoxColumn FlowRate;
-        private DataGridViewTextBoxColumn Pressure;
-        private DataGridViewTextBoxColumn PowerConsumption;
-        private DataGridViewTextBoxColumn Temperature;
-        private DataGridViewTextBoxColumn RunningHours;
-        private DataGridViewTextBoxColumn Efficiency;
+        private DataGridViewTextBoxColumn AlertName;
+        private DataGridViewTextBoxColumn AlertMessage;
+        private DataGridViewTextBoxColumn StatusName;
+        private DataGridViewTextBoxColumn CreatedOn;
+        private DataGridViewTextBoxColumn ResolvedBy;
+        private DataGridViewTextBoxColumn ModifiedOn;
     }
 }
