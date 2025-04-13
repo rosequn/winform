@@ -30,13 +30,6 @@
         {
             label1 = new Label();
             dgPump = new DataGridView();
-            LoadBtn = new Button();
-            UpdateBtn = new Button();
-            CreateBtn = new Button();
-            DeleteBtn = new Button();
-            BackBtn = new Button();
-            cbStation = new ComboBox();
-            label2 = new Label();
             PumpID = new DataGridViewTextBoxColumn();
             PumpName = new DataGridViewTextBoxColumn();
             Description = new DataGridViewTextBoxColumn();
@@ -46,6 +39,13 @@
             Manufacturer = new DataGridViewTextBoxColumn();
             SerialNumber = new DataGridViewTextBoxColumn();
             WarrantyExpireDate = new DataGridViewTextBoxColumn();
+            LoadBtn = new Button();
+            UpdateBtn = new Button();
+            CreateBtn = new Button();
+            DeleteBtn = new Button();
+            BackBtn = new Button();
+            cbStation = new ComboBox();
+            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgPump).BeginInit();
             SuspendLayout();
             // 
@@ -71,82 +71,6 @@
             dgPump.Size = new Size(1399, 349);
             dgPump.TabIndex = 1;
             dgPump.DoubleClick += dgPump_DoubleClick;
-            // 
-            // LoadBtn
-            // 
-            LoadBtn.Location = new Point(351, 509);
-            LoadBtn.Name = "LoadBtn";
-            LoadBtn.Size = new Size(112, 34);
-            LoadBtn.TabIndex = 2;
-            LoadBtn.Text = "Load Data";
-            LoadBtn.UseVisualStyleBackColor = true;
-            LoadBtn.Click += LoadBtn_Click;
-            // 
-            // UpdateBtn
-            // 
-            UpdateBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            UpdateBtn.Location = new Point(889, 75);
-            UpdateBtn.Margin = new Padding(4);
-            UpdateBtn.Name = "UpdateBtn";
-            UpdateBtn.Size = new Size(150, 50);
-            UpdateBtn.TabIndex = 19;
-            UpdateBtn.Text = "Sửa";
-            UpdateBtn.UseVisualStyleBackColor = true;
-            UpdateBtn.Click += UpdateBtn_Click;
-            // 
-            // CreateBtn
-            // 
-            CreateBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            CreateBtn.Location = new Point(709, 75);
-            CreateBtn.Margin = new Padding(4);
-            CreateBtn.Name = "CreateBtn";
-            CreateBtn.Size = new Size(150, 50);
-            CreateBtn.TabIndex = 17;
-            CreateBtn.Text = "+ Thêm";
-            CreateBtn.UseVisualStyleBackColor = true;
-            CreateBtn.Click += CreateBtn_Click;
-            // 
-            // DeleteBtn
-            // 
-            DeleteBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            DeleteBtn.Location = new Point(1085, 75);
-            DeleteBtn.Margin = new Padding(4);
-            DeleteBtn.Name = "DeleteBtn";
-            DeleteBtn.Size = new Size(150, 50);
-            DeleteBtn.TabIndex = 20;
-            DeleteBtn.Text = "Xóa";
-            DeleteBtn.UseVisualStyleBackColor = true;
-            DeleteBtn.Click += DeleteBtn_Click;
-            // 
-            // BackBtn
-            // 
-            BackBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            BackBtn.Location = new Point(991, 521);
-            BackBtn.Margin = new Padding(4);
-            BackBtn.Name = "BackBtn";
-            BackBtn.Size = new Size(150, 50);
-            BackBtn.TabIndex = 21;
-            BackBtn.Text = "Quay lại";
-            BackBtn.UseVisualStyleBackColor = true;
-            // 
-            // cbStation
-            // 
-            cbStation.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbStation.FormattingEnabled = true;
-            cbStation.Location = new Point(33, 40);
-            cbStation.Name = "cbStation";
-            cbStation.Size = new Size(240, 33);
-            cbStation.TabIndex = 22;
-            cbStation.SelectedIndexChanged += CbStation_SelectedIndexChanged;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(33, 9);
-            label2.Name = "label2";
-            label2.Size = new Size(102, 25);
-            label2.TabIndex = 23;
-            label2.Text = "Trạm bơm :";
             // 
             // PumpID
             // 
@@ -229,6 +153,82 @@
             WarrantyExpireDate.ReadOnly = true;
             WarrantyExpireDate.Width = 150;
             // 
+            // LoadBtn
+            // 
+            LoadBtn.Location = new Point(351, 509);
+            LoadBtn.Name = "LoadBtn";
+            LoadBtn.Size = new Size(112, 34);
+            LoadBtn.TabIndex = 2;
+            LoadBtn.Text = "Load Data";
+            LoadBtn.UseVisualStyleBackColor = true;
+            LoadBtn.Click += LoadBtn_Click;
+            // 
+            // UpdateBtn
+            // 
+            UpdateBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            UpdateBtn.Location = new Point(889, 75);
+            UpdateBtn.Margin = new Padding(4);
+            UpdateBtn.Name = "UpdateBtn";
+            UpdateBtn.Size = new Size(150, 50);
+            UpdateBtn.TabIndex = 19;
+            UpdateBtn.Text = "Sửa";
+            UpdateBtn.UseVisualStyleBackColor = true;
+            UpdateBtn.Click += UpdateBtn_Click;
+            // 
+            // CreateBtn
+            // 
+            CreateBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            CreateBtn.Location = new Point(709, 75);
+            CreateBtn.Margin = new Padding(4);
+            CreateBtn.Name = "CreateBtn";
+            CreateBtn.Size = new Size(150, 50);
+            CreateBtn.TabIndex = 17;
+            CreateBtn.Text = "+ Thêm";
+            CreateBtn.UseVisualStyleBackColor = true;
+            CreateBtn.Click += CreateBtn_Click;
+            // 
+            // DeleteBtn
+            // 
+            DeleteBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            DeleteBtn.Location = new Point(1085, 75);
+            DeleteBtn.Margin = new Padding(4);
+            DeleteBtn.Name = "DeleteBtn";
+            DeleteBtn.Size = new Size(150, 50);
+            DeleteBtn.TabIndex = 20;
+            DeleteBtn.Text = "Xóa";
+            DeleteBtn.UseVisualStyleBackColor = true;
+            DeleteBtn.Click += DeleteBtn_Click;
+            // 
+            // BackBtn
+            // 
+            BackBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            BackBtn.Location = new Point(991, 521);
+            BackBtn.Margin = new Padding(4);
+            BackBtn.Name = "BackBtn";
+            BackBtn.Size = new Size(150, 50);
+            BackBtn.TabIndex = 21;
+            BackBtn.Text = "Quay lại";
+            BackBtn.UseVisualStyleBackColor = true;
+            // 
+            // cbStation
+            // 
+            cbStation.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbStation.FormattingEnabled = true;
+            cbStation.Location = new Point(33, 40);
+            cbStation.Name = "cbStation";
+            cbStation.Size = new Size(240, 33);
+            cbStation.TabIndex = 22;
+            cbStation.SelectedIndexChanged += CbStation_SelectedIndexChanged;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(33, 9);
+            label2.Name = "label2";
+            label2.Size = new Size(102, 25);
+            label2.TabIndex = 23;
+            label2.Text = "Trạm bơm :";
+            // 
             // PumpPage
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -260,8 +260,6 @@
         private Button CreateBtn;
         private Button DeleteBtn;
         private Button BackBtn;
-        private ComboBox cbStation;
-        private Label label2;
         private DataGridViewTextBoxColumn PumpID;
         private DataGridViewTextBoxColumn PumpName;
         private DataGridViewTextBoxColumn Description;
@@ -271,5 +269,7 @@
         private DataGridViewTextBoxColumn Manufacturer;
         private DataGridViewTextBoxColumn SerialNumber;
         private DataGridViewTextBoxColumn WarrantyExpireDate;
+        private ComboBox cbStation;
+        private Label label2;
     }
 }

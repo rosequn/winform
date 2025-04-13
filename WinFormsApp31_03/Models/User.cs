@@ -33,7 +33,9 @@ public partial class User
 
     public DateTime? ModifiedOn { get; set; }
 
-    public virtual ICollection<Alert> Alerts { get; set; } = new List<Alert>();
+    public virtual ICollection<Alert> AlertModifiedByNavigations { get; set; } = new List<Alert>();
+
+    public virtual ICollection<Alert> AlertResolvedByNavigations { get; set; } = new List<Alert>();
 
     public virtual ICollection<MaintenanceHistory> MaintenanceHistories { get; set; } = new List<MaintenanceHistory>();
 

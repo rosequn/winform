@@ -7,7 +7,7 @@ namespace WinFormsApp31_03
     {
         private readonly int _userId;
         private readonly UserRole _userRole;
-        private int? _editingStationId = null;
+        private int? _stationId = null;
 
         /// <summary>
         /// Initialize
@@ -27,6 +27,7 @@ namespace WinFormsApp31_03
         private void LoadBtn_Click(object sender, EventArgs e)
         {
             LoadPumpStations();
+            _stationId = null;
         }
 
         // Load data
@@ -53,7 +54,7 @@ namespace WinFormsApp31_03
                 using (var db = new PumpContext())
                 {
                     PumpStation ett = new PumpStation();
-                    if (_editingStationId == null)
+                    if (_stationId == null)
                     {
                         // Add UserId(Replace 1)
                         ett = PumpStation.Create(txtName.Text.Trim(), txtLocation.Text.Trim(), txtDescription.Text.Trim(), 1);
@@ -63,7 +64,7 @@ namespace WinFormsApp31_03
                     else
                     {
                         // Add Status and UserId(Replace 0,1)
-                        ett = db.PumpStations.FirstOrDefault(p => p.StationId == _editingStationId && p.IsDelete == false);
+                        ett = db.PumpStations.FirstOrDefault(p => p.StationId == _stationId && p.IsDelete == false);
                         if (ett != null)
                         {
                             ett.Update(txtName.Text.Trim(), txtLocation.Text.Trim(), txtDescription.Text.Trim(), 0, 1);
@@ -87,7 +88,7 @@ namespace WinFormsApp31_03
         private void ResetBtn_Click(object sender, EventArgs e)
         {
             SaveBtn.Text = "Tạo mới";
-            _editingStationId = null;
+            _stationId = null;
             Clear();
         }
         private void DeleteBtn_Click(object sender, EventArgs e)
@@ -96,8 +97,8 @@ namespace WinFormsApp31_03
             {
                 using (var db = new PumpContext())
                 {
-                    var ett = db.PumpStations.FirstOrDefault(p => p.StationId == _editingStationId && p.IsDelete == false);
-                    var ettPump = db.Pumps.Where(p => p.StationId == _editingStationId && p.IsDelete == false).ToList();
+                    var ett = db.PumpStations.FirstOrDefault(p => p.StationId == _stationId && p.IsDelete == false);
+                    var ettPump = db.Pumps.Where(p => p.StationId == _stationId && p.IsDelete == false).ToList();
                     if (ett != null)
                     {
                         ett.Delete(1);
@@ -128,7 +129,7 @@ namespace WinFormsApp31_03
             SaveBtn.Text = "Tạo mới";
             SetFormValue(string.Empty, string.Empty, string.Empty);
             ResetBtn.Enabled = false;
-            _editingStationId = null;
+            _stationId = null;
         }
 
         private void dgStation_DoubleClick(object sender, EventArgs e)
@@ -145,7 +146,7 @@ namespace WinFormsApp31_03
                         if (ett != null)
                         {
                             SetFormValue(ett.StationName, ett.Location, ett.Description);
-                            _editingStationId = stationId;
+                            _stationId = stationId;
                             SaveBtn.Text = "Cập nhật";
                             DeleteBtn.Enabled = true;
                             ResetBtn.Enabled = true;
@@ -184,7 +185,7 @@ namespace WinFormsApp31_03
             ResetBtn.Enabled = !string.IsNullOrWhiteSpace(txtName.Text.Trim()) ||
                                !string.IsNullOrWhiteSpace(txtLocation.Text.Trim()) ||
                                !string.IsNullOrWhiteSpace(txtDescription.Text.Trim());
-            DeleteBtn.Enabled = _editingStationId != null;
+            DeleteBtn.Enabled = _stationId != null;
         }
 
         private void label1_Click(object sender, EventArgs e)

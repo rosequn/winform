@@ -69,7 +69,7 @@ namespace WinFormsApp31_03
                         SerialNumber = ett.SerialNumber,
                         Status = ett.Status,
                         StationId = ett.StationId,
-                        Type = 2,
+                        Type = ett.PumpType,
                         ExpiredDate = ett.WarrantyExpireDate
                     };
 
@@ -153,7 +153,7 @@ namespace WinFormsApp31_03
             txtManufracture.Text = info.Manufacturer;
             txtSerialNumber.Text = info.SerialNumber;
             cbStatus.SelectedIndex = info.Status;
-            cbPumpType.SelectedIndex = info.Type;
+            cbPumpType.SelectedIndex = info.Type ?? 0;
             dpGuarantee.Value = info.ExpiredDate ?? DateTime.Now;
 
             if (info.StationId.HasValue)

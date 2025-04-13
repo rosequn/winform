@@ -4,68 +4,66 @@ using static WinFormsApp31_03.Models.PumpStation;
 
 namespace WinFormsApp31_03
 {
-    public partial class PumpPage : Form
+    public partial class OperatingPage : Form
     {
         private readonly int _userId;
         private readonly UserRole _userRole;
-        private int? _pumpId = null;
+        private int? _dataId = null;
         private int? _stationId = null;
 
         /// <summary>
         /// Initialize
         /// </summary>
-        public PumpPage()
+        public OperatingPage()
         {
             InitializeComponent();
             //_userId = userId;
             _userRole = UserRole.Admin;
             DeleteBtn.Enabled = false;
             UpdateBtn.Enabled = false;
-            LoadPumps();
+            LoadOperations();
             LoadStation();
         }
 
         private void LoadBtn_Click(object sender, EventArgs e)
         {
-            LoadPumps();
-            _pumpId = null;
-            _stationId = null;
+            LoadOperations();
         }
 
         // Load data
-        private void LoadPumps()
+        private void LoadOperations()
         {
-            dgPump.AutoGenerateColumns = false;
+            dgOperating.AutoGenerateColumns = false;
             using (var db = new PumpContext())
             {
-                var query = db.Pumps.Where(p => p.IsDelete == false);
+                var query = db.OperatingData.Where(p => p.IsDelete == false);
                 if (_stationId != null)
                 {
-                    query = query.Where(p => p.StationId == _stationId);
+                    query = query.Where(p => p.Pump.StationId == _stationId);
                 }
                 var ett = query.Select(p => p.ToSearchDto()).ToList();
-                dgPump.DataSource = ett;
+                dgOperating.DataSource = ett;
             }
         }
 
         private void DeleteBtn_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Bạn có chắc chắn muốn xóa máy bơm này không", "Cảnh báo", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Bạn có chắc chắn muốn xóa dữ liệu này không", "Cảnh báo", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 using (var db = new PumpContext())
                 {
-                    var ett = db.Pumps.FirstOrDefault(p => p.PumpId == _pumpId && p.IsDelete == false);
+                    var ett = db.OperatingData.FirstOrDefault(p => p.DataId == _dataId && p.IsDelete == false);
                     if (ett != null)
                     {
                         ett.Delete(1);
                         db.SaveChanges();
-                        MessageBox.Show("Xóa máy bơm thành công");
-                        LoadPumps();
-                        _pumpId = null;
+                        MessageBox.Show("Xóa dữ liệu thành công");
+                        LoadOperations();
+                        _dataId = null;
                     }
                     else
                     {
-                        MessageBox.Show("Không tìm thấy máy bơm này");
+                        MessageBox.Show("Không tìm thấy dữ liệu này");
                     }
                 }
             }
@@ -74,15 +72,15 @@ namespace WinFormsApp31_03
 
         private void CreateBtn_Click(object sender, EventArgs e)
         {
-            PumpCreatePage createPage = new PumpCreatePage();
+            OperatingCreatePage createPage = new OperatingCreatePage();
             createPage.Show();
         }
 
         private void UpdateBtn_Click(object sender, EventArgs e)
         {
-            if (_pumpId != null)
+            if (_dataId != null)
             {
-                PumpUpdatePage updatePage = new PumpUpdatePage(_pumpId);
+                OperatingUpdatePage updatePage = new OperatingUpdatePage(_dataId);
                 updatePage.Show();
             }
             else
@@ -96,16 +94,16 @@ namespace WinFormsApp31_03
         {
             try
             {
-                if (dgPump.CurrentRow.Index != -1)
+                if (dgOperating.CurrentRow.Index != -1)
                 {
-                    dgPump.AutoGenerateColumns = false;
+                    dgOperating.AutoGenerateColumns = false;
                     using (var db = new PumpContext())
                     {
-                        int pumpId = Convert.ToInt32(dgPump.CurrentRow.Cells["PumpId"].Value);
-                        var ett = db.Pumps.Where(p => p.IsDelete == false && p.PumpId == pumpId).Select(p => p.ToViewDto()).FirstOrDefault();
+                        int dataId = Convert.ToInt32(dgOperating.CurrentRow.Cells["DataId"].Value);
+                        var ett = db.OperatingData.Where(p => p.IsDelete == false && p.DataId == dataId).Select(p => p.ToViewDto()).FirstOrDefault();
                         if (ett != null)
                         {
-                            _pumpId = pumpId;
+                            _dataId = dataId;
                             DeleteBtn.Enabled = true;
                             UpdateBtn.Enabled = true;
                         }
@@ -114,7 +112,7 @@ namespace WinFormsApp31_03
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Không tìm thấy trạm bơm này", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Không tìm thấy dữ liệu này", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -131,10 +129,11 @@ namespace WinFormsApp31_03
                         _stationId = null;
                     }
 
-                    LoadPumps();
+                    LoadOperations();
                 }
             }
         }
+
         private void LoadStation()
         {
             using (var db = new PumpContext())

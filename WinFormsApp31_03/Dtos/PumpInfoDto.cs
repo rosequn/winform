@@ -9,7 +9,7 @@ public class PumpInfoDto
     public double? Capacity { get; set; }
     public int Status { get; set; }
     public int? StationId { get; set; }
-    public int Type { get; set; }
+    public int? Type { get; set; }
     public DateTime? ExpiredDate { get; set; }
 
     public static PumpInfoDto DefaultInfo()

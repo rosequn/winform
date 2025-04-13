@@ -1,4 +1,7 @@
-﻿namespace WinFormsApp31_03.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace WinFormsApp31_03.Models;
 
 public partial class Pump
 {
@@ -39,6 +42,8 @@ public partial class Pump
     public virtual ICollection<MaintenanceHistory> MaintenanceHistories { get; set; } = new List<MaintenanceHistory>();
 
     public virtual User? ModifiedByNavigation { get; set; }
+
+    public virtual ICollection<OperatingData> OperatingData { get; set; } = new List<OperatingData>();
 
     public virtual PumpStation? Station { get; set; }
 }

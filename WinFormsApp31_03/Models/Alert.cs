@@ -23,6 +23,14 @@ public partial class Alert
 
     public int? ResolvedBy { get; set; }
 
+    public DateTime? CreatedOn { get; set; }
+
+    public int? ModifiedBy { get; set; }
+
+    public DateTime? ModifiedOn { get; set; }
+
+    public virtual User? ModifiedByNavigation { get; set; }
+
     public virtual Pump? Pump { get; set; }
 
     public virtual User? ResolvedByNavigation { get; set; }

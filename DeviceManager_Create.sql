@@ -26,7 +26,7 @@ CREATE TABLE Users (
 	CreatedBy INT NOT NULL,
     LastLogin DATETIME NULL,
 	ModifiedBy INT,
-    ModifiedOn DATETIME DEFAULT GETDATE()
+    ModifiedOn DATETIME
 );
 
 -- Bảng Trạm bơm (Pump Station)
@@ -59,7 +59,7 @@ CREATE TABLE Pumps (
     CreatedBy INT FOREIGN KEY REFERENCES Users(UserID),
     CreatedOn DATETIME DEFAULT GETDATE(),
     ModifiedBy INT FOREIGN KEY REFERENCES Users(UserID),
-    ModifiedOn DATETIME DEFAULT GETDATE()
+    ModifiedOn DATETIME
 );
 
 -- Bảng Dữ liệu vận hành (Operating Data)
@@ -74,6 +74,8 @@ CREATE TABLE OperatingData (
     RunningHours FLOAT, -- Số giờ hoạt động liên tục
     Efficiency FLOAT, -- Hiệu suất (%)
 	IsDelete BIT NOT NULL DEFAULT 0,
+    CreatedOn DATETIME DEFAULT GETDATE(),
+    ModifiedOn DATETIME
 );
 
 -- Bảng Lịch sử bảo trì (Maintenance History)
@@ -100,7 +102,10 @@ CREATE TABLE Alerts (
     ResolvedTime DATETIME NULL,
     Status INT NOT NULL DEFAULT 0, -- Active, Resolved, Ignored
 	IsDelete BIT NOT NULL DEFAULT 0,
-    ResolvedBy INT FOREIGN KEY REFERENCES Users(UserID) NULL
+    ResolvedBy INT FOREIGN KEY REFERENCES Users(UserID) NULL,
+    CreatedOn DATETIME DEFAULT GETDATE(),
+    ModifiedBy INT FOREIGN KEY REFERENCES Users(UserID),
+    ModifiedOn DATETIME
 );
 
 
@@ -115,6 +120,15 @@ VALUES
 (N'Trạm B', N'TP.HCM', N'Trạm phụ', 1),
 (N'Trạm C', N'Đà Nẵng', N'Trạm miền Trung', 1);
 
+
+-- Thêm dữ liệu mẫu cho PumpID = 1 và 2
+INSERT INTO OperatingData (PumpID, RecordTime, FlowRate, Pressure, PowerConsumption, Temperature, RunningHours, Efficiency)
+VALUES 
+(1, '2025-04-13 08:00:00', 120.5, 2.5, 15.2, 35.0, 5.5, 85.6),
+(1, '2025-04-13 12:00:00', 125.0, 2.6, 16.0, 36.2, 6.0, 86.0),
+(1, '2025-04-13 16:00:00', 122.3, 2.4, 15.8, 34.5, 5.8, 84.7),
+(2, '2025-04-13 08:00:00', 110.0, 2.3, 14.5, 33.0, 4.5, 83.2),
+(2, '2025-04-13 12:00:00', 112.8, 2.4, 14.8, 33.8, 4.8, 84.0);
 
 ---- Bảng Lịch bảo trì dự kiến (Scheduled Maintenance)
 --CREATE TABLE ScheduledMaintenance (

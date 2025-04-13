@@ -9,7 +9,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Update="OperatingUpdatePage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="OperatingCreatePage.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="PumpCreatePage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="OperatingPage.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="PumpPage.cs">

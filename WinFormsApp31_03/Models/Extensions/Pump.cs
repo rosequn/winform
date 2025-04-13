@@ -120,6 +120,18 @@ partial class Pump
         };
     }
 
+
+    public SearchCbDto ToSearchCbDto()
+    {
+        var res = new SearchCbDto();
+
+        res.PumpId = PumpId;
+        res.PumpName = PumpName;
+
+        return res;
+    }
+
+
     /// <summary>
     /// BaseDto
     /// </summary>
@@ -219,6 +231,19 @@ partial class Pump
     /// </summary>
     public class SearchDto : BaseDto
     {
+    }
+
+    public class SearchCbDto
+    {
+        /// <summary>
+        /// PumpId
+        /// </summary>
+        public int PumpId { get; set; }
+
+        /// <summary>
+        /// PumpName
+        /// </summary>
+        public string? PumpName { get; set; }
     }
 }
 
