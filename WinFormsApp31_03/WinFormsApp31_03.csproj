@@ -15,6 +15,26 @@
     <Compile Update="AlertPage.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Update="UserUpdatePage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="UserCreatePage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="UserPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="RegisterPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="LoginPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="OperatingUpdatePage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -57,6 +77,13 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

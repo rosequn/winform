@@ -109,8 +109,8 @@ CREATE TABLE Alerts (
 
 
 --Tạo dữ liêu giả
-INSERT INTO Users (Username, Password, FullName, CreatedBy)
-VALUES ('admin', '123', N'Quản trị viên', 1);
+INSERT INTO Users (Username, Password, FullName,Role, CreatedBy)
+VALUES ('admin', '123', N'Quản trị viên',1, 1);
 
 INSERT INTO PumpStations (StationName, Location, Description, CreatedBy)
 VALUES 

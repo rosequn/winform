@@ -17,9 +17,6 @@ namespace WinFormsApp31_03
         {
             InitializeComponent();
             // Gán sự kiện click cho các nút
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             this.button8.Click += new System.EventHandler(this.LoadNextData);
         }
 
@@ -103,88 +100,6 @@ namespace WinFormsApp31_03
             {
                 MessageBox.Show("Lỗi khi tải dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //Form4 form4 = new Form4();
-            //form4.Show();
-            this.Hide();  // Ẩn Form3 (tùy chọn)
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Form5 form5 = new Form5();
-            form5.Show();
-            this.Hide();  // Ẩn Form3 (tùy chọn)
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            Form6 form6 = new Form6();
-            form6.Show();
-            this.Hide();  // Ẩn Form3 (tùy chọn)
-        }
-
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBox5_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label26_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-        private void label30_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabPage3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void PumpBtn_Click(object sender, EventArgs e)
-        {
-            Form7 form7 = new Form7();
-            form7.Show();
-            this.Hide();
         }
     }
 }

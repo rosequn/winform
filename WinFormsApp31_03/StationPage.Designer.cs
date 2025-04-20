@@ -59,7 +59,6 @@
             label1.Size = new Size(447, 41);
             label1.TabIndex = 0;
             label1.Text = "DANH SÁCH TRẠM BƠM";
-            label1.Click += label1_Click;
             // 
             // dgStation
             // 

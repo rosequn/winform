@@ -187,10 +187,5 @@ namespace WinFormsApp31_03
                                !string.IsNullOrWhiteSpace(txtDescription.Text.Trim());
             DeleteBtn.Enabled = _stationId != null;
         }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

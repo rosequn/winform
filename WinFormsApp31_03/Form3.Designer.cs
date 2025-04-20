@@ -212,7 +212,6 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "GIỚI THIỆU";
             tabPage1.UseVisualStyleBackColor = true;
-            tabPage1.Click += tabPage1_Click;
             // 
             // label25
             // 
@@ -485,7 +484,6 @@
             label30.Size = new Size(320, 31);
             label30.TabIndex = 29;
             label30.Text = "DANH SÁCH TRẠM BƠM";
-            label30.Click += label30_Click;
             // 
             // button8
             // 
@@ -497,7 +495,6 @@
             button8.TabIndex = 27;
             button8.Text = "XEM THÊM";
             button8.UseVisualStyleBackColor = true;
-            button8.Click += button8_Click;
             // 
             // button3
             // 
@@ -509,7 +506,6 @@
             button3.TabIndex = 22;
             button3.Text = "XÓA";
             button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
             // 
             // button2
             // 
@@ -521,7 +517,6 @@
             button2.TabIndex = 21;
             button2.Text = "SỬA";
             button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
             // 
             // button1
             // 
@@ -545,7 +540,6 @@
             label26.Size = new Size(397, 41);
             label26.TabIndex = 19;
             label26.Text = "QUẢN LÝ TRẠM BƠM";
-            label26.Click += label26_Click;
             // 
             // tabPage3
             // 
@@ -570,7 +564,6 @@
             tabPage3.TabIndex = 2;
             tabPage3.Text = "GIÁM SÁT VÀ CẢNH BÁO ";
             tabPage3.UseVisualStyleBackColor = true;
-            tabPage3.Click += tabPage3_Click;
             // 
             // dataGridView3
             // 
@@ -633,7 +626,6 @@
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(898, 44);
             textBox1.TabIndex = 12;
-            textBox1.TextChanged += textBox1_TextChanged;
             // 
             // label27
             // 
@@ -702,7 +694,6 @@
             PumpBtn.TabIndex = 5;
             PumpBtn.Text = "Máy bơm";
             PumpBtn.UseVisualStyleBackColor = true;
-            PumpBtn.Click += PumpBtn_Click;
             // 
             // label28
             // 

@@ -51,6 +51,7 @@ namespace WinFormsApp31_03
                 MessageBox.Show("Không tìm thấy dữ liệu này", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void LoadPumps()
         {
             using (var db = new PumpContext())
@@ -89,7 +90,7 @@ namespace WinFormsApp31_03
                         ett.Update(pumpId, recordTime, flowrate, pressure, consumption, temperature, runningHours, efficiency);
                         MessageBox.Show("Chỉnh sửa dữ liệu thành công", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         db.SaveChanges();
-                        GoToPumpPage();
+                        GoToOperatingPage();
                     }
                 }
             }
@@ -107,13 +108,13 @@ namespace WinFormsApp31_03
 
         private void BackBtn_Click(object sender, EventArgs e)
         {
-            GoToPumpPage();
+            GoToOperatingPage();
         }
 
-        private void GoToPumpPage()
+        private void GoToOperatingPage()
         {
-            PumpPage pumpPage = new PumpPage();
-            pumpPage.Show();
+            OperatingPage operatingPage = new OperatingPage();
+            operatingPage.Show();
             this.Hide();
         }
 

@@ -1,13 +1,10 @@
-﻿using WinFormsApp31_03.Enums;
-using WinFormsApp31_03.Models;
+﻿using WinFormsApp31_03.Models;
 using static WinFormsApp31_03.Models.PumpStation;
 
 namespace WinFormsApp31_03
 {
     public partial class PumpPage : Form
     {
-        private readonly int _userId;
-        private readonly UserRole _userRole;
         private int? _pumpId = null;
         private int? _stationId = null;
 
@@ -17,8 +14,6 @@ namespace WinFormsApp31_03
         public PumpPage()
         {
             InitializeComponent();
-            //_userId = userId;
-            _userRole = UserRole.Admin;
             DeleteBtn.Enabled = false;
             UpdateBtn.Enabled = false;
             LoadPumps();

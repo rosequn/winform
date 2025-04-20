@@ -32,7 +32,6 @@ namespace WinFormsApp31_03
             cbPumpType.ValueMember = "Key";
         }
 
-
         private void LoadStation()
         {
             using (var db = new PumpContext())
