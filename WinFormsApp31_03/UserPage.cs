@@ -5,6 +5,7 @@ namespace WinFormsApp31_03
     public partial class UserPage : Form
     {
         private int? _userId = null;
+        private string? _keyword = null;
 
         /// <summary>
         /// Initialize
@@ -21,6 +22,7 @@ namespace WinFormsApp31_03
         {
             LoadUsers();
             _userId = null;
+            _keyword = null;
         }
 
         // Load data
@@ -30,6 +32,10 @@ namespace WinFormsApp31_03
             using (var db = new PumpContext())
             {
                 var query = db.Users.Where(p => p.IsDelete == false);
+                if (_keyword != null)
+                {
+                    query = query.Where(u => u.Username.ToLower().Contains(_keyword) || u.Username.ToLower().Contains(_keyword));
+                }
                 var ett = query.Select(p => p.ToSearchDto()).ToList();
                 dgUser.DataSource = ett;
             }
@@ -101,6 +107,11 @@ namespace WinFormsApp31_03
             {
                 MessageBox.Show("Không tìm thấy người dùng này này", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        private void Search(object sender, EventArgs e)
+        {
+            _keyword = txtSearch.Text.Trim().ToLower();
+            LoadUsers();
         }
     }
 }

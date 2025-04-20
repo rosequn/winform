@@ -7,6 +7,7 @@ namespace WinFormsApp31_03
     {
         private int? _pumpId = null;
         private int? _stationId = null;
+        private string? _keyword = null;
 
         /// <summary>
         /// Initialize
@@ -24,6 +25,7 @@ namespace WinFormsApp31_03
         {
             LoadPumps();
             _pumpId = null;
+            _keyword = null;
             _stationId = null;
         }
 
@@ -37,6 +39,10 @@ namespace WinFormsApp31_03
                 if (_stationId != null)
                 {
                     query = query.Where(p => p.StationId == _stationId);
+                }
+                if (_keyword != null)
+                {
+                    query = query.Where(u => u.PumpName.ToLower().Contains(_keyword) || u.SerialNumber.ToLower().Contains(_keyword));
                 }
                 var ett = query.Select(p => p.ToSearchDto()).ToList();
                 dgPump.DataSource = ett;
@@ -141,6 +147,12 @@ namespace WinFormsApp31_03
                 cbStation.DisplayMember = "StationName";
                 cbStation.ValueMember = "StationId";
             }
+        }
+
+        private void Search(object sender, EventArgs e)
+        {
+            _keyword = txtSearch.Text.Trim().ToLower();
+            LoadPumps();
         }
     }
 }

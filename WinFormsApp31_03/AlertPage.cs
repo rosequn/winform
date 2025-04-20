@@ -11,6 +11,7 @@ namespace WinFormsApp31_03
         private readonly UserRole _userRole;
         private int? _alertId = null;
         private int? _stationId = null;
+        private string? _keyword = null;
 
         /// <summary>
         /// Initialize
@@ -47,6 +48,11 @@ namespace WinFormsApp31_03
                 {
                     query = query.Where(p => p.Pump.StationId == _stationId);
                 }
+                if (_keyword != null)
+                {
+                    query = query.Where(u => u.Pump.PumpName.ToLower().Contains(_keyword) || u.AlertMessage.ToLower().Contains(_keyword));
+                }
+
                 var ett = query.Select(p => p.ToSearchDto()).ToList();
                 dgAlert.DataSource = ett;
             }
@@ -201,6 +207,12 @@ namespace WinFormsApp31_03
                 cbStation.DisplayMember = "StationName";
                 cbStation.ValueMember = "StationId";
             }
+        }
+
+        private void Search(object sender, EventArgs e)
+        {
+            _keyword = txtSearch.Text.Trim().ToLower();
+            LoadAlerts();
         }
     }
 }

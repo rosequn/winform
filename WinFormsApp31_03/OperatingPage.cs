@@ -11,6 +11,7 @@ namespace WinFormsApp31_03
         private readonly UserRole _userRole;
         private int? _dataId = null;
         private int? _stationId = null;
+        private string? _keyword = null;
 
         /// <summary>
         /// Initialize
@@ -41,6 +42,10 @@ namespace WinFormsApp31_03
                 if (_stationId != null)
                 {
                     query = query.Where(p => p.Pump.StationId == _stationId);
+                }
+                if (_keyword != null)
+                {
+                    query = query.Where(u => u.Pump.PumpName.ToLower().Contains(_keyword));
                 }
                 var ett = query.Select(p => p.ToSearchDto()).ToList();
                 dgOperating.DataSource = ett;
@@ -147,5 +152,11 @@ namespace WinFormsApp31_03
                 cbStation.ValueMember = "StationId";
             }
         }
+        private void Search(object sender, EventArgs e)
+        {
+            _keyword = txtSearch.Text.Trim().ToLower();
+            LoadOperations();
+        }
+
     }
 }

@@ -30,6 +30,11 @@
         {
             label1 = new Label();
             dgStation = new DataGridView();
+            StationId = new DataGridViewTextBoxColumn();
+            StationName = new DataGridViewTextBoxColumn();
+            Description = new DataGridViewTextBoxColumn();
+            Location = new DataGridViewTextBoxColumn();
+            StatusName = new DataGridViewTextBoxColumn();
             LoadBtn = new Button();
             ResetBtn = new Button();
             SaveBtn = new Button();
@@ -41,12 +46,12 @@
             label2 = new Label();
             DeleteBtn = new Button();
             CancelBtn = new Button();
-            StationId = new DataGridViewTextBoxColumn();
-            StationName = new DataGridViewTextBoxColumn();
-            Description = new DataGridViewTextBoxColumn();
-            Location = new DataGridViewTextBoxColumn();
-            StatusName = new DataGridViewTextBoxColumn();
+            panel1 = new Panel();
+            txtSearch = new TextBox();
+            pictureBox1 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)dgStation).BeginInit();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -71,6 +76,51 @@
             dgStation.Size = new Size(826, 349);
             dgStation.TabIndex = 1;
             dgStation.DoubleClick += dgStation_DoubleClick;
+            // 
+            // StationId
+            // 
+            StationId.DataPropertyName = "StationId";
+            StationId.HeaderText = "Mã";
+            StationId.MinimumWidth = 8;
+            StationId.Name = "StationId";
+            StationId.ReadOnly = true;
+            StationId.Width = 150;
+            // 
+            // StationName
+            // 
+            StationName.DataPropertyName = "StationName";
+            StationName.HeaderText = "Tên";
+            StationName.MinimumWidth = 8;
+            StationName.Name = "StationName";
+            StationName.ReadOnly = true;
+            StationName.Width = 150;
+            // 
+            // Description
+            // 
+            Description.DataPropertyName = "Description";
+            Description.HeaderText = "Mô tả";
+            Description.MinimumWidth = 8;
+            Description.Name = "Description";
+            Description.ReadOnly = true;
+            Description.Width = 150;
+            // 
+            // Location
+            // 
+            Location.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Location.DataPropertyName = "Location";
+            Location.HeaderText = "Vị trí";
+            Location.MinimumWidth = 8;
+            Location.Name = "Location";
+            Location.ReadOnly = true;
+            // 
+            // StatusName
+            // 
+            StatusName.DataPropertyName = "StatusName";
+            StatusName.HeaderText = "Trạng thái";
+            StatusName.MinimumWidth = 8;
+            StatusName.Name = "StatusName";
+            StatusName.ReadOnly = true;
+            StatusName.Width = 150;
             // 
             // LoadBtn
             // 
@@ -196,56 +246,43 @@
             CancelBtn.UseVisualStyleBackColor = true;
             CancelBtn.Click += CancelBtn_Click;
             // 
-            // StationId
+            // panel1
             // 
-            StationId.DataPropertyName = "StationId";
-            StationId.HeaderText = "Mã";
-            StationId.MinimumWidth = 8;
-            StationId.Name = "StationId";
-            StationId.ReadOnly = true;
-            StationId.Width = 150;
+            panel1.BackColor = SystemColors.ActiveCaption;
+            panel1.Controls.Add(txtSearch);
+            panel1.Location = new Point(706, 28);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(300, 63);
+            panel1.TabIndex = 29;
             // 
-            // StationName
+            // txtSearch
             // 
-            StationName.DataPropertyName = "StationName";
-            StationName.HeaderText = "Tên";
-            StationName.MinimumWidth = 8;
-            StationName.Name = "StationName";
-            StationName.ReadOnly = true;
-            StationName.Width = 150;
+            txtSearch.BackColor = SystemColors.ActiveCaption;
+            txtSearch.BorderStyle = BorderStyle.None;
+            txtSearch.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtSearch.Location = new Point(3, 16);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Size = new Size(294, 28);
+            txtSearch.TabIndex = 24;
+            txtSearch.TextChanged += Search;
             // 
-            // Description
+            // pictureBox1
             // 
-            Description.DataPropertyName = "Description";
-            Description.HeaderText = "Mô tả";
-            Description.MinimumWidth = 8;
-            Description.Name = "Description";
-            Description.ReadOnly = true;
-            Description.Width = 150;
-            // 
-            // Location
-            // 
-            Location.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Location.DataPropertyName = "Location";
-            Location.HeaderText = "Vị trí";
-            Location.MinimumWidth = 8;
-            Location.Name = "Location";
-            Location.ReadOnly = true;
-            // 
-            // StatusName
-            // 
-            StatusName.DataPropertyName = "StatusName";
-            StatusName.HeaderText = "Trạng thái";
-            StatusName.MinimumWidth = 8;
-            StatusName.Name = "StatusName";
-            StatusName.ReadOnly = true;
-            StatusName.Width = 150;
+            pictureBox1.Image = Properties.Resources.E;
+            pictureBox1.Location = new Point(1012, 28);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(76, 63);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 28;
+            pictureBox1.TabStop = false;
             // 
             // StationPage
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1689, 705);
+            Controls.Add(panel1);
+            Controls.Add(pictureBox1);
             Controls.Add(CancelBtn);
             Controls.Add(DeleteBtn);
             Controls.Add(ResetBtn);
@@ -263,6 +300,9 @@
             Name = "StationPage";
             Text = "Quản lý trạm bơm";
             ((System.ComponentModel.ISupportInitialize)dgStation).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -287,5 +327,8 @@
         private DataGridViewTextBoxColumn Description;
         private DataGridViewTextBoxColumn Location;
         private DataGridViewTextBoxColumn StatusName;
+        private Panel panel1;
+        private TextBox txtSearch;
+        private PictureBox pictureBox1;
     }
 }

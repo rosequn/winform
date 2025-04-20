@@ -1,13 +1,11 @@
-﻿using WinFormsApp31_03.Enums;
-using WinFormsApp31_03.Models;
+﻿using WinFormsApp31_03.Models;
 
 namespace WinFormsApp31_03
 {
     public partial class StationPage : Form
     {
-        private readonly int _userId;
-        private readonly UserRole _userRole;
         private int? _stationId = null;
+        private string? _keyword = null;
 
         /// <summary>
         /// Initialize
@@ -15,11 +13,10 @@ namespace WinFormsApp31_03
         public StationPage()
         {
             InitializeComponent();
-            //_userId = userId;
-            _userRole = UserRole.Admin;
             DeleteBtn.Enabled = false;
             ResetBtn.Enabled = false;
             SaveBtn.Text = "Tạo mới";
+            _keyword = null;
             Clear();
             LoadPumpStations();
         }
@@ -36,7 +33,12 @@ namespace WinFormsApp31_03
             dgStation.AutoGenerateColumns = false;
             using (var db = new PumpContext())
             {
-                var ett = db.PumpStations.Where(p => p.IsDelete == false).Select(p => p.ToSearchDto()).ToList();
+                var query = db.PumpStations.Where(p => p.IsDelete == false);
+                if (_keyword != null)
+                {
+                    query = query.Where(u => u.StationName.ToLower().Contains(_keyword) || u.Location.ToLower().Contains(_keyword));
+                }
+                var ett = query.Select(p => p.ToSearchDto()).ToList();
                 dgStation.DataSource = ett;
             }
         }
@@ -46,10 +48,7 @@ namespace WinFormsApp31_03
         {
             try
             {
-                if (_userRole != UserRole.Admin)
-                {
-                    MessageBox.Show("Bạn không có quyền tạo mới", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+
 
                 using (var db = new PumpContext())
                 {
@@ -186,6 +185,12 @@ namespace WinFormsApp31_03
                                !string.IsNullOrWhiteSpace(txtLocation.Text.Trim()) ||
                                !string.IsNullOrWhiteSpace(txtDescription.Text.Trim());
             DeleteBtn.Enabled = _stationId != null;
+        }
+
+        private void Search(object sender, EventArgs e)
+        {
+            _keyword = txtSearch.Text.Trim().ToLower();
+            LoadPumpStations();
         }
     }
 }
