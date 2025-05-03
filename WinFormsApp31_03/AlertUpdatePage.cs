@@ -6,9 +6,8 @@ namespace WinFormsApp31_03
 {
     public partial class AlertUpdatePage : Form
     {
-        private readonly User _user;
-        private readonly UserRole _userRole;
         private readonly int? _alertId = null;
+        public event EventHandler UpdateAlertCompleted;
 
         /// <summary>
         /// Initialize
@@ -17,8 +16,6 @@ namespace WinFormsApp31_03
         public AlertUpdatePage(int? alertId)
         {
             InitializeComponent();
-            //_user = user;
-            _userRole = UserRole.Admin;
             _alertId = alertId;
             ResetBtn.Enabled = false;
             LoadAlertType();
@@ -63,11 +60,6 @@ namespace WinFormsApp31_03
         {
             try
             {
-                if (_userRole != UserRole.Admin)
-                {
-                    MessageBox.Show("Bạn không có quyền chỉnh sửa", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
                 using (var db = new PumpContext())
                 {
 
@@ -76,10 +68,11 @@ namespace WinFormsApp31_03
                     int pumpId = Convert.ToInt32(selectedStation.PumpId);
 
                     var ett = db.Alerts.Where(p => p.IsDelete == false && p.AlertId == _alertId).FirstOrDefault();
-                    ett.Update(pumpId, alertType, txtMessage.Text.Trim(), 1);
+                    ett.Update(pumpId, alertType, txtMessage.Text.Trim(), Properties.Settings.Default.UserId);
                     MessageBox.Show("Chỉnh sửa thông báo thành công", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     db.SaveChanges();
-                    GoToPumpPage();
+                    UpdateAlertCompleted?.Invoke(this, EventArgs.Empty);
+                    ClosePage();
                 }
             }
             catch (Exception ex)
@@ -96,14 +89,12 @@ namespace WinFormsApp31_03
 
         private void BackBtn_Click(object sender, EventArgs e)
         {
-            GoToPumpPage();
+            ClosePage();
         }
 
-        private void GoToPumpPage()
+        private void ClosePage()
         {
-            PumpPage pumpPage = new PumpPage();
-            pumpPage.Show();
-            this.Hide();
+            this.Close();
         }
 
         private void SetFormValue(int? pumpId, int? alertType, string? message)

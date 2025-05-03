@@ -1,4 +1,6 @@
-﻿namespace WinFormsApp31_03
+﻿using WinFormsApp31_03.Models;
+
+namespace WinFormsApp31_03
 {
     partial class UserPage
     {
@@ -28,6 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserPage));
             label1 = new Label();
             dgUser = new DataGridView();
             UserID = new DataGridViewTextBoxColumn();
@@ -35,11 +38,10 @@
             FullName = new DataGridViewTextBoxColumn();
             PhoneNumber = new DataGridViewTextBoxColumn();
             RoleName = new DataGridViewTextBoxColumn();
-            LoadBtn = new Button();
-            UpdateBtn = new Button();
-            CreateBtn = new Button();
-            DeleteBtn = new Button();
-            BackBtn = new Button();
+            LoadBtn = new CustomButton();
+            UpdateBtn = new CustomButton();
+            CreateBtn = new CustomButton();
+            DeleteBtn = new CustomButton();
             panel1 = new Panel();
             txtSearch = new TextBox();
             pictureBox1 = new PictureBox();
@@ -52,22 +54,22 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Times New Roman", 18F, FontStyle.Bold, GraphicsUnit.Point, 163);
-            label1.Location = new Point(341, 69);
-            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Location = new Point(50, 45);
             label1.Name = "label1";
-            label1.Size = new Size(424, 41);
+            label1.Size = new Size(404, 35);
             label1.TabIndex = 0;
-            label1.Text = "DANH SÁCH MÁY BƠM";
+            label1.Text = "DANH SÁCH NGƯỜI DÙNG";
             // 
             // dgUser
             // 
             dgUser.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgUser.Columns.AddRange(new DataGridViewColumn[] { UserID, Username, FullName, PhoneNumber, RoleName });
-            dgUser.Location = new Point(62, 132);
+            dgUser.Location = new Point(50, 106);
+            dgUser.Margin = new Padding(2);
             dgUser.Name = "dgUser";
             dgUser.ReadOnly = true;
             dgUser.RowHeadersWidth = 62;
-            dgUser.Size = new Size(977, 349);
+            dgUser.Size = new Size(782, 279);
             dgUser.TabIndex = 1;
             dgUser.DoubleClick += dgPump_DoubleClick;
             // 
@@ -118,108 +120,129 @@
             // 
             // LoadBtn
             // 
-            LoadBtn.Location = new Point(351, 509);
+            LoadBtn.BackColor = Color.MediumSlateBlue;
+            LoadBtn.BackgroundColor = Color.MediumSlateBlue;
+            LoadBtn.BorderColor = Color.PaleVioletRed;
+            LoadBtn.BorderRadius = 20;
+            LoadBtn.BorderSize = 0;
+            LoadBtn.FlatStyle = FlatStyle.Flat;
+            LoadBtn.Font = new Font("Times New Roman", 13.2000008F);
+            LoadBtn.ForeColor = Color.White;
+            LoadBtn.Location = new Point(50, 390);
+            LoadBtn.Margin = new Padding(2);
             LoadBtn.Name = "LoadBtn";
-            LoadBtn.Size = new Size(112, 34);
+            LoadBtn.Size = new Size(158, 63);
             LoadBtn.TabIndex = 2;
-            LoadBtn.Text = "Load Data";
+            LoadBtn.Text = "Làm mới";
+            LoadBtn.TextColor = Color.White;
             LoadBtn.UseVisualStyleBackColor = true;
             LoadBtn.Click += LoadBtn_Click;
             // 
             // UpdateBtn
             // 
+            UpdateBtn.BackColor = Color.MediumSlateBlue;
+            UpdateBtn.BackgroundColor = Color.MediumSlateBlue;
+            UpdateBtn.BorderColor = Color.PaleVioletRed;
+            UpdateBtn.BorderRadius = 20;
+            UpdateBtn.BorderSize = 0;
+            UpdateBtn.FlatStyle = FlatStyle.Flat;
             UpdateBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            UpdateBtn.Location = new Point(1085, 217);
-            UpdateBtn.Margin = new Padding(4);
+            UpdateBtn.ForeColor = Color.White;
+            UpdateBtn.Location = new Point(434, 390);
             UpdateBtn.Name = "UpdateBtn";
-            UpdateBtn.Size = new Size(150, 50);
+            UpdateBtn.Size = new Size(158, 63);
             UpdateBtn.TabIndex = 19;
             UpdateBtn.Text = "Sửa";
+            UpdateBtn.TextColor = Color.White;
             UpdateBtn.UseVisualStyleBackColor = true;
             UpdateBtn.Click += UpdateBtn_Click;
             // 
             // CreateBtn
             // 
+            CreateBtn.BackColor = Color.MediumSlateBlue;
+            CreateBtn.BackgroundColor = Color.MediumSlateBlue;
+            CreateBtn.BorderColor = Color.PaleVioletRed;
+            CreateBtn.BorderRadius = 20;
+            CreateBtn.BorderSize = 0;
+            CreateBtn.FlatStyle = FlatStyle.Flat;
             CreateBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            CreateBtn.Location = new Point(1085, 133);
-            CreateBtn.Margin = new Padding(4);
+            CreateBtn.ForeColor = Color.White;
+            CreateBtn.Location = new Point(242, 390);
             CreateBtn.Name = "CreateBtn";
-            CreateBtn.Size = new Size(150, 50);
+            CreateBtn.Size = new Size(158, 63);
             CreateBtn.TabIndex = 17;
             CreateBtn.Text = "+ Thêm";
+            CreateBtn.TextColor = Color.White;
             CreateBtn.UseVisualStyleBackColor = true;
             CreateBtn.Click += CreateBtn_Click;
             // 
             // DeleteBtn
             // 
+            DeleteBtn.BackColor = Color.MediumSlateBlue;
+            DeleteBtn.BackgroundColor = Color.MediumSlateBlue;
+            DeleteBtn.BorderColor = Color.PaleVioletRed;
+            DeleteBtn.BorderRadius = 20;
+            DeleteBtn.BorderSize = 0;
+            DeleteBtn.FlatStyle = FlatStyle.Flat;
             DeleteBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            DeleteBtn.Location = new Point(1085, 298);
-            DeleteBtn.Margin = new Padding(4);
+            DeleteBtn.ForeColor = Color.White;
+            DeleteBtn.Location = new Point(626, 390);
             DeleteBtn.Name = "DeleteBtn";
-            DeleteBtn.Size = new Size(150, 50);
+            DeleteBtn.Size = new Size(158, 63);
             DeleteBtn.TabIndex = 20;
             DeleteBtn.Text = "Xóa";
+            DeleteBtn.TextColor = Color.White;
             DeleteBtn.UseVisualStyleBackColor = true;
             DeleteBtn.Click += DeleteBtn_Click;
-            // 
-            // BackBtn
-            // 
-            BackBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            BackBtn.Location = new Point(701, 509);
-            BackBtn.Margin = new Padding(4);
-            BackBtn.Name = "BackBtn";
-            BackBtn.Size = new Size(150, 50);
-            BackBtn.TabIndex = 21;
-            BackBtn.Text = "Quay lại";
-            BackBtn.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
             panel1.BackColor = SystemColors.ActiveCaption;
             panel1.Controls.Add(txtSearch);
-            panel1.Location = new Point(795, 34);
+            panel1.Controls.Add(pictureBox1);
+            panel1.Location = new Point(560, 46);
+            panel1.Margin = new Padding(2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(300, 63);
-            panel1.TabIndex = 29;
+            panel1.Size = new Size(272, 37);
+            panel1.TabIndex = 28;
             // 
             // txtSearch
             // 
             txtSearch.BackColor = SystemColors.ActiveCaption;
             txtSearch.BorderStyle = BorderStyle.None;
             txtSearch.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtSearch.Location = new Point(3, 16);
+            txtSearch.Location = new Point(2, 7);
+            txtSearch.Margin = new Padding(2);
             txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(294, 28);
+            txtSearch.Size = new Size(235, 23);
             txtSearch.TabIndex = 24;
             txtSearch.TextChanged += Search;
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.E;
-            pictureBox1.Location = new Point(1101, 34);
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(239, 2);
+            pictureBox1.Margin = new Padding(2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(76, 63);
+            pictureBox1.Size = new Size(32, 32);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 28;
+            pictureBox1.TabIndex = 25;
             pictureBox1.TabStop = false;
             // 
             // UserPage
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1492, 705);
+            ClientSize = new Size(850, 465);
             Controls.Add(panel1);
-            Controls.Add(pictureBox1);
-            Controls.Add(BackBtn);
             Controls.Add(DeleteBtn);
             Controls.Add(UpdateBtn);
             Controls.Add(CreateBtn);
             Controls.Add(LoadBtn);
             Controls.Add(dgUser);
             Controls.Add(label1);
-            Margin = new Padding(4);
             Name = "UserPage";
-            Text = "Quản lý trạm bơm";
+            Text = "Quản lý người dùng";
             ((System.ComponentModel.ISupportInitialize)dgUser).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -232,11 +255,11 @@
 
         private Label label1;
         private DataGridView dgUser;
-        private Button LoadBtn;
-        private Button UpdateBtn;
-        private Button CreateBtn;
-        private Button DeleteBtn;
-        private Button BackBtn;
+        private CustomButton LoadBtn;
+        private CustomButton UpdateBtn;
+        private CustomButton CreateBtn;
+        private CustomButton DeleteBtn;
+        private CustomButton BackBtn;
         private DataGridViewTextBoxColumn UserID;
         private DataGridViewTextBoxColumn Username;
         private DataGridViewTextBoxColumn FullName;

@@ -1,4 +1,6 @@
-﻿namespace WinFormsApp31_03
+﻿using WinFormsApp31_03.Models;
+
+namespace WinFormsApp31_03
 {
     partial class StationPage
     {
@@ -28,6 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StationPage));
             label1 = new Label();
             dgStation = new DataGridView();
             StationId = new DataGridViewTextBoxColumn();
@@ -35,17 +38,10 @@
             Description = new DataGridViewTextBoxColumn();
             Location = new DataGridViewTextBoxColumn();
             StatusName = new DataGridViewTextBoxColumn();
-            LoadBtn = new Button();
-            ResetBtn = new Button();
-            SaveBtn = new Button();
-            txtDescription = new TextBox();
-            label4 = new Label();
-            txtLocation = new TextBox();
-            label3 = new Label();
-            txtName = new TextBox();
-            label2 = new Label();
-            DeleteBtn = new Button();
-            CancelBtn = new Button();
+            LoadBtn = new CustomButton();
+            UpdateBtn = new CustomButton();
+            CreateBtn = new CustomButton();
+            DeleteBtn = new CustomButton();
             panel1 = new Panel();
             txtSearch = new TextBox();
             pictureBox1 = new PictureBox();
@@ -58,10 +54,9 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Times New Roman", 18F, FontStyle.Bold, GraphicsUnit.Point, 163);
-            label1.Location = new Point(209, 50);
-            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Location = new Point(26, 55);
             label1.Name = "label1";
-            label1.Size = new Size(447, 41);
+            label1.Size = new Size(373, 35);
             label1.TabIndex = 0;
             label1.Text = "DANH SÁCH TRẠM BƠM";
             // 
@@ -69,11 +64,12 @@
             // 
             dgStation.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgStation.Columns.AddRange(new DataGridViewColumn[] { StationId, StationName, Description, Location, StatusName });
-            dgStation.Location = new Point(33, 134);
+            dgStation.Location = new Point(26, 107);
+            dgStation.Margin = new Padding(2);
             dgStation.Name = "dgStation";
             dgStation.ReadOnly = true;
             dgStation.RowHeadersWidth = 62;
-            dgStation.Size = new Size(826, 349);
+            dgStation.Size = new Size(816, 279);
             dgStation.TabIndex = 1;
             dgStation.DoubleClick += dgStation_DoubleClick;
             // 
@@ -88,12 +84,12 @@
             // 
             // StationName
             // 
+            StationName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             StationName.DataPropertyName = "StationName";
             StationName.HeaderText = "Tên";
             StationName.MinimumWidth = 8;
             StationName.Name = "StationName";
             StationName.ReadOnly = true;
-            StationName.Width = 150;
             // 
             // Description
             // 
@@ -109,194 +105,139 @@
             Location.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             Location.DataPropertyName = "Location";
             Location.HeaderText = "Vị trí";
-            Location.MinimumWidth = 8;
+            Location.MinimumWidth = 100;
             Location.Name = "Location";
             Location.ReadOnly = true;
             // 
             // StatusName
             // 
+            StatusName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             StatusName.DataPropertyName = "StatusName";
             StatusName.HeaderText = "Trạng thái";
             StatusName.MinimumWidth = 8;
             StatusName.Name = "StatusName";
             StatusName.ReadOnly = true;
-            StatusName.Width = 150;
             // 
             // LoadBtn
             // 
-            LoadBtn.Location = new Point(351, 509);
+            LoadBtn.BackColor = Color.MediumSlateBlue;
+            LoadBtn.BackgroundColor = Color.MediumSlateBlue;
+            LoadBtn.BorderColor = Color.PaleVioletRed;
+            LoadBtn.BorderRadius = 20;
+            LoadBtn.BorderSize = 0;
+            LoadBtn.FlatStyle = FlatStyle.Flat;
+            LoadBtn.Font = new Font("Times New Roman", 13.2000008F);
+            LoadBtn.ForeColor = Color.White;
+            LoadBtn.Location = new Point(85, 406);
+            LoadBtn.Margin = new Padding(2);
             LoadBtn.Name = "LoadBtn";
-            LoadBtn.Size = new Size(112, 34);
+            LoadBtn.Size = new Size(158, 63);
             LoadBtn.TabIndex = 2;
-            LoadBtn.Text = "Load Data";
+            LoadBtn.Text = "Làm mới";
+            LoadBtn.TextColor = Color.White;
             LoadBtn.UseVisualStyleBackColor = true;
             LoadBtn.Click += LoadBtn_Click;
             // 
-            // ResetBtn
+            // UpdateBtn
             // 
-            ResetBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            ResetBtn.Location = new Point(1387, 218);
-            ResetBtn.Margin = new Padding(4);
-            ResetBtn.Name = "ResetBtn";
-            ResetBtn.Size = new Size(150, 50);
-            ResetBtn.TabIndex = 19;
-            ResetBtn.Text = "Đặt lại";
-            ResetBtn.UseVisualStyleBackColor = true;
-            ResetBtn.Click += ResetBtn_Click;
+            UpdateBtn.BackColor = Color.MediumSlateBlue;
+            UpdateBtn.BackgroundColor = Color.MediumSlateBlue;
+            UpdateBtn.BorderColor = Color.PaleVioletRed;
+            UpdateBtn.BorderRadius = 20;
+            UpdateBtn.BorderSize = 0;
+            UpdateBtn.FlatStyle = FlatStyle.Flat;
+            UpdateBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            UpdateBtn.ForeColor = Color.White;
+            UpdateBtn.Location = new Point(441, 406);
+            UpdateBtn.Name = "UpdateBtn";
+            UpdateBtn.Size = new Size(158, 63);
+            UpdateBtn.TabIndex = 19;
+            UpdateBtn.Text = "Sửa";
+            UpdateBtn.TextColor = Color.White;
+            UpdateBtn.UseVisualStyleBackColor = true;
             // 
-            // SaveBtn
+            // CreateBtn
             // 
-            SaveBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            SaveBtn.Location = new Point(1387, 142);
-            SaveBtn.Margin = new Padding(4);
-            SaveBtn.Name = "SaveBtn";
-            SaveBtn.Size = new Size(150, 50);
-            SaveBtn.TabIndex = 17;
-            SaveBtn.Text = "Lưu";
-            SaveBtn.UseVisualStyleBackColor = true;
-            SaveBtn.Click += SaveBtn_Click;
-            // 
-            // txtDescription
-            // 
-            txtDescription.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            txtDescription.Location = new Point(986, 255);
-            txtDescription.Margin = new Padding(4);
-            txtDescription.Multiline = true;
-            txtDescription.Name = "txtDescription";
-            txtDescription.Size = new Size(346, 151);
-            txtDescription.TabIndex = 16;
-            txtDescription.TextChanged += CheckEnableReset;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Times New Roman", 14F);
-            label4.Location = new Point(886, 260);
-            label4.Margin = new Padding(4, 0, 4, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(96, 33);
-            label4.TabIndex = 15;
-            label4.Text = "Mô tả :";
-            // 
-            // txtLocation
-            // 
-            txtLocation.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            txtLocation.Location = new Point(986, 200);
-            txtLocation.Margin = new Padding(4);
-            txtLocation.Multiline = true;
-            txtLocation.Name = "txtLocation";
-            txtLocation.Size = new Size(346, 30);
-            txtLocation.TabIndex = 14;
-            txtLocation.TextChanged += CheckEnableReset;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Times New Roman", 14F);
-            label3.Location = new Point(886, 199);
-            label3.Margin = new Padding(4, 0, 4, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(90, 33);
-            label3.TabIndex = 13;
-            label3.Text = "Vị trí :";
-            // 
-            // txtName
-            // 
-            txtName.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            txtName.Location = new Point(986, 143);
-            txtName.Margin = new Padding(4);
-            txtName.Multiline = true;
-            txtName.Name = "txtName";
-            txtName.Size = new Size(346, 32);
-            txtName.TabIndex = 12;
-            txtName.TextChanged += CheckEnableReset;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Times New Roman", 14F);
-            label2.Location = new Point(886, 142);
-            label2.Margin = new Padding(4, 0, 4, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(72, 33);
-            label2.TabIndex = 11;
-            label2.Text = "Tên :";
+            CreateBtn.BackColor = Color.MediumSlateBlue;
+            CreateBtn.BackgroundColor = Color.MediumSlateBlue;
+            CreateBtn.BorderColor = Color.PaleVioletRed;
+            CreateBtn.BorderRadius = 20;
+            CreateBtn.BorderSize = 0;
+            CreateBtn.FlatStyle = FlatStyle.Flat;
+            CreateBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            CreateBtn.ForeColor = Color.White;
+            CreateBtn.Location = new Point(263, 406);
+            CreateBtn.Name = "CreateBtn";
+            CreateBtn.Size = new Size(158, 63);
+            CreateBtn.TabIndex = 17;
+            CreateBtn.Text = "Thêm";
+            CreateBtn.TextColor = Color.White;
+            CreateBtn.UseVisualStyleBackColor = true;
             // 
             // DeleteBtn
             // 
+            DeleteBtn.BackColor = Color.MediumSlateBlue;
+            DeleteBtn.BackgroundColor = Color.MediumSlateBlue;
+            DeleteBtn.BorderColor = Color.PaleVioletRed;
+            DeleteBtn.BorderRadius = 20;
+            DeleteBtn.BorderSize = 0;
+            DeleteBtn.FlatStyle = FlatStyle.Flat;
             DeleteBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            DeleteBtn.Location = new Point(1387, 303);
-            DeleteBtn.Margin = new Padding(4);
+            DeleteBtn.ForeColor = Color.White;
+            DeleteBtn.Location = new Point(619, 406);
             DeleteBtn.Name = "DeleteBtn";
-            DeleteBtn.Size = new Size(150, 50);
+            DeleteBtn.Size = new Size(158, 63);
             DeleteBtn.TabIndex = 20;
             DeleteBtn.Text = "Xóa";
+            DeleteBtn.TextColor = Color.White;
             DeleteBtn.UseVisualStyleBackColor = true;
-            DeleteBtn.Click += DeleteBtn_Click;
-            // 
-            // CancelBtn
-            // 
-            CancelBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            CancelBtn.Location = new Point(1387, 383);
-            CancelBtn.Margin = new Padding(4);
-            CancelBtn.Name = "CancelBtn";
-            CancelBtn.Size = new Size(150, 50);
-            CancelBtn.TabIndex = 21;
-            CancelBtn.Text = "Hủy";
-            CancelBtn.UseVisualStyleBackColor = true;
-            CancelBtn.Click += CancelBtn_Click;
             // 
             // panel1
             // 
             panel1.BackColor = SystemColors.ActiveCaption;
             panel1.Controls.Add(txtSearch);
-            panel1.Location = new Point(706, 28);
+            panel1.Controls.Add(pictureBox1);
+            panel1.Location = new Point(569, 53);
+            panel1.Margin = new Padding(2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(300, 63);
-            panel1.TabIndex = 29;
+            panel1.Size = new Size(272, 37);
+            panel1.TabIndex = 28;
             // 
             // txtSearch
             // 
             txtSearch.BackColor = SystemColors.ActiveCaption;
             txtSearch.BorderStyle = BorderStyle.None;
             txtSearch.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtSearch.Location = new Point(3, 16);
+            txtSearch.Location = new Point(2, 7);
+            txtSearch.Margin = new Padding(2);
             txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(294, 28);
+            txtSearch.Size = new Size(235, 23);
             txtSearch.TabIndex = 24;
             txtSearch.TextChanged += Search;
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.E;
-            pictureBox1.Location = new Point(1012, 28);
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(239, 2);
+            pictureBox1.Margin = new Padding(2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(76, 63);
+            pictureBox1.Size = new Size(32, 32);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 28;
+            pictureBox1.TabIndex = 25;
             pictureBox1.TabStop = false;
             // 
             // StationPage
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1689, 705);
+            ClientSize = new Size(852, 496);
             Controls.Add(panel1);
-            Controls.Add(pictureBox1);
-            Controls.Add(CancelBtn);
             Controls.Add(DeleteBtn);
-            Controls.Add(ResetBtn);
-            Controls.Add(SaveBtn);
-            Controls.Add(txtDescription);
-            Controls.Add(label4);
-            Controls.Add(txtLocation);
-            Controls.Add(label3);
-            Controls.Add(txtName);
-            Controls.Add(label2);
+            Controls.Add(UpdateBtn);
+            Controls.Add(CreateBtn);
             Controls.Add(LoadBtn);
             Controls.Add(dgStation);
             Controls.Add(label1);
-            Margin = new Padding(4);
             Name = "StationPage";
             Text = "Quản lý trạm bơm";
             ((System.ComponentModel.ISupportInitialize)dgStation).EndInit();
@@ -311,17 +252,10 @@
 
         private Label label1;
         private DataGridView dgStation;
-        private Button LoadBtn;
-        private Button ResetBtn;
-        private Button SaveBtn;
-        private TextBox txtDescription;
-        private Label label4;
-        private TextBox txtLocation;
-        private Label label3;
-        private TextBox txtName;
-        private Label label2;
-        private Button DeleteBtn;
-        private Button CancelBtn;
+        private CustomButton LoadBtn;
+        private CustomButton UpdateBtn;
+        private CustomButton CreateBtn;
+        private CustomButton DeleteBtn;
         private DataGridViewTextBoxColumn StationId;
         private DataGridViewTextBoxColumn StationName;
         private DataGridViewTextBoxColumn Description;

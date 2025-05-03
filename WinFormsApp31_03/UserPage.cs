@@ -16,8 +16,14 @@ namespace WinFormsApp31_03
             DeleteBtn.Enabled = false;
             UpdateBtn.Enabled = false;
             LoadUsers();
+            LoadComponents();
         }
 
+        private void LoadComponents()
+        {
+            DataGridViewStyler.ApplyCustomStyle(dgUser);
+            dgUser.RowPrePaint += DataGridViewStyler.RowRepaint;
+        }
         private void LoadBtn_Click(object sender, EventArgs e)
         {
             LoadUsers();
@@ -66,7 +72,14 @@ namespace WinFormsApp31_03
 
         private void CreateBtn_Click(object sender, EventArgs e)
         {
+            CreateBtn.Enabled = false;
             UserCreatePage createPage = new UserCreatePage();
+            createPage.StartPosition = FormStartPosition.CenterScreen;
+            createPage.FormClosed += (s, eArgs) =>
+            {
+                CreateBtn.Enabled = true;
+            };
+
             createPage.Show();
         }
 
@@ -74,7 +87,22 @@ namespace WinFormsApp31_03
         {
             if (_userId != null)
             {
+                UpdateBtn.Enabled = false;
+                DeleteBtn.Enabled = false;
                 UserUpdatePage updatePage = new UserUpdatePage(_userId);
+                updatePage.StartPosition = FormStartPosition.CenterScreen;
+                updatePage.UpdateUserCompleted += (s, args) =>
+                {
+                    _userId = null;
+                    LoadUsers();
+                };
+
+                updatePage.FormClosed += (s, eArgs) =>
+                {
+                    UpdateBtn.Enabled = _userId != null;
+                    DeleteBtn.Enabled = _userId != null;
+                };
+
                 updatePage.Show();
             }
             else

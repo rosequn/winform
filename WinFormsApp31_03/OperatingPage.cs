@@ -20,11 +20,17 @@ namespace WinFormsApp31_03
         {
             InitializeComponent();
             //_userId = userId;
-            _userRole = UserRole.Admin;
             DeleteBtn.Enabled = false;
             UpdateBtn.Enabled = false;
             LoadOperations();
             LoadStation();
+            LoadComponents();
+        }
+
+        private void LoadComponents()
+        {
+            DataGridViewStyler.ApplyCustomStyle(dgOperating);
+            dgOperating.RowPrePaint += DataGridViewStyler.RowRepaint;
         }
 
         private void LoadBtn_Click(object sender, EventArgs e)
@@ -78,7 +84,14 @@ namespace WinFormsApp31_03
 
         private void CreateBtn_Click(object sender, EventArgs e)
         {
+            CreateBtn.Enabled = false;
             OperatingCreatePage createPage = new OperatingCreatePage();
+            createPage.StartPosition = FormStartPosition.CenterScreen;
+            createPage.FormClosed += (s, eArgs) =>
+            {
+                CreateBtn.Enabled = true;
+            };
+
             createPage.Show();
         }
 
@@ -86,7 +99,22 @@ namespace WinFormsApp31_03
         {
             if (_dataId != null)
             {
+                UpdateBtn.Enabled = false;
+                DeleteBtn.Enabled = false;
                 OperatingUpdatePage updatePage = new OperatingUpdatePage(_dataId);
+                updatePage.StartPosition = FormStartPosition.CenterScreen;
+                updatePage.UpdateOperatingCompleted += (s, args) =>
+                {
+                    _dataId = null;
+                    LoadOperations();
+                };
+
+                updatePage.FormClosed += (s, eArgs) =>
+                {
+                    UpdateBtn.Enabled = _dataId != null;
+                    DeleteBtn.Enabled = _dataId != null;
+                };
+
                 updatePage.Show();
             }
             else
@@ -96,7 +124,7 @@ namespace WinFormsApp31_03
 
         }
 
-        private void dgPump_DoubleClick(object sender, EventArgs e)
+        private void dgOperating_DoubleClick(object sender, EventArgs e)
         {
             try
             {

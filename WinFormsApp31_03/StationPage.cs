@@ -14,13 +14,17 @@ namespace WinFormsApp31_03
         {
             InitializeComponent();
             DeleteBtn.Enabled = false;
-            ResetBtn.Enabled = false;
-            SaveBtn.Text = "Tạo mới";
+            UpdateBtn.Enabled = false;
             _keyword = null;
-            Clear();
             LoadPumpStations();
+            LoadComponents();
         }
 
+        private void LoadComponents()
+        {
+            DataGridViewStyler.ApplyCustomStyle(dgStation);
+            dgStation.RowPrePaint += DataGridViewStyler.RowRepaint;
+        }
         private void LoadBtn_Click(object sender, EventArgs e)
         {
             LoadPumpStations();
@@ -43,94 +47,6 @@ namespace WinFormsApp31_03
             }
         }
 
-        // Nút lưu
-        private void SaveBtn_Click(object sender, EventArgs e)
-        {
-            try
-            {
-
-
-                using (var db = new PumpContext())
-                {
-                    PumpStation ett = new PumpStation();
-                    if (_stationId == null)
-                    {
-                        // Add UserId(Replace 1)
-                        ett = PumpStation.Create(txtName.Text.Trim(), txtLocation.Text.Trim(), txtDescription.Text.Trim(), 1);
-                        db.PumpStations.Add(ett);
-                        MessageBox.Show("Tạo mới trạm bơm thành công", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        // Add Status and UserId(Replace 0,1)
-                        ett = db.PumpStations.FirstOrDefault(p => p.StationId == _stationId && p.IsDelete == false);
-                        if (ett != null)
-                        {
-                            ett.Update(txtName.Text.Trim(), txtLocation.Text.Trim(), txtDescription.Text.Trim(), 0, 1);
-                            MessageBox.Show("Cập nhật trạm bơm thành công", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                    }
-
-                    db.SaveChanges();
-                    LoadPumpStations();
-                }
-
-                Clear();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        // Đặt lại
-        private void ResetBtn_Click(object sender, EventArgs e)
-        {
-            SaveBtn.Text = "Tạo mới";
-            _stationId = null;
-            Clear();
-        }
-        private void DeleteBtn_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Bạn có chắc chắn muốn xóa trạm bơm này không", "Cảnh báo", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                using (var db = new PumpContext())
-                {
-                    var ett = db.PumpStations.FirstOrDefault(p => p.StationId == _stationId && p.IsDelete == false);
-                    var ettPump = db.Pumps.Where(p => p.StationId == _stationId && p.IsDelete == false).ToList();
-                    if (ett != null)
-                    {
-                        ett.Delete(1);
-                        db.SaveChanges();
-                        MessageBox.Show("Xóa trạm bơm thành công");
-                        LoadPumpStations();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Không tìm thấy trạm bơm");
-                    }
-
-                    if (ettPump != null)
-                    {
-                        foreach (var i in ettPump)
-                        {
-                            i.Delete(1);
-                        }
-                    }
-                }
-            }
-
-        }
-
-        // Nút hủy
-        private void CancelBtn_Click(object sender, EventArgs e)
-        {
-            SaveBtn.Text = "Tạo mới";
-            SetFormValue(string.Empty, string.Empty, string.Empty);
-            ResetBtn.Enabled = false;
-            _stationId = null;
-        }
-
         private void dgStation_DoubleClick(object sender, EventArgs e)
         {
             try
@@ -144,11 +60,10 @@ namespace WinFormsApp31_03
                         var ett = db.PumpStations.Where(p => p.IsDelete == false && p.StationId == stationId).Select(p => p.ToViewDto()).FirstOrDefault();
                         if (ett != null)
                         {
-                            SetFormValue(ett.StationName, ett.Location, ett.Description);
                             _stationId = stationId;
-                            SaveBtn.Text = "Cập nhật";
+                            CreateBtn.Text = "Cập nhật";
                             DeleteBtn.Enabled = true;
-                            ResetBtn.Enabled = true;
+                            UpdateBtn.Enabled = true;
                         }
                     }
                 }
@@ -159,32 +74,68 @@ namespace WinFormsApp31_03
             }
         }
 
-        /// <summary>
-        /// SetFormValue
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="location"></param>
-        /// <param name="description"></param>
-        private void SetFormValue(string? name, string? location, string? description)
+        private void DeleteBtn_Click(object sender, EventArgs e)
         {
-            txtName.Text = name;
-            txtLocation.Text = location;
-            txtDescription.Text = description;
+            if (MessageBox.Show("Bạn có chắc chắn muốn xóa trạm bơm này không", "Cảnh báo", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                using (var db = new PumpContext())
+                {
+                    var ett = db.PumpStations.FirstOrDefault(p => p.StationId == _stationId && p.IsDelete == false);
+                    if (ett != null)
+                    {
+                        ett.Delete(1);
+                        db.SaveChanges();
+                        MessageBox.Show("Xóa máy bơm thành công");
+                        LoadPumpStations();
+                        _stationId = null;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy máy bơm này");
+                    }
+                }
+            }
         }
 
-        private void Clear()
+        private void CreateBtn_Click(object sender, EventArgs e)
         {
-            SetFormValue(string.Empty, string.Empty, string.Empty);
-            ResetBtn.Enabled = false;
+            CreateBtn.Enabled = false;
+            StationCreatePage createPage = new StationCreatePage();
+            createPage.StartPosition = FormStartPosition.CenterScreen;
+            createPage.FormClosed += (s, eArgs) =>
+            {
+                CreateBtn.Enabled = true;
+            };
+
+            createPage.Show();
         }
 
-        // Điều kiện bật tắt nút reset
-        private void CheckEnableReset(object sender, EventArgs e)
+        private void UpdateBtn_Click(object sender, EventArgs e)
         {
-            ResetBtn.Enabled = !string.IsNullOrWhiteSpace(txtName.Text.Trim()) ||
-                               !string.IsNullOrWhiteSpace(txtLocation.Text.Trim()) ||
-                               !string.IsNullOrWhiteSpace(txtDescription.Text.Trim());
-            DeleteBtn.Enabled = _stationId != null;
+            if (_stationId != null)
+            {
+                UpdateBtn.Enabled = false;
+                DeleteBtn.Enabled = false;
+                StationUpdatePage updatePage = new StationUpdatePage(_stationId);
+                updatePage.StartPosition = FormStartPosition.CenterScreen;
+                updatePage.UpdateStationCompeleted += (s, args) =>
+                {
+                    _stationId = null;
+                    LoadPumpStations();
+                };
+
+                updatePage.FormClosed += (s, eArgs) =>
+                {
+                    UpdateBtn.Enabled = _stationId != null;
+                    DeleteBtn.Enabled = _stationId != null;
+                };
+
+                updatePage.Show();
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn ", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void Search(object sender, EventArgs e)

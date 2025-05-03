@@ -6,9 +6,6 @@ namespace WinFormsApp31_03
 {
     public partial class PumpCreatePage : Form
     {
-        private readonly User _user;
-        private readonly UserRole _userRole;
-
         /// <summary>
         /// Initialize
         /// </summary>
@@ -16,8 +13,6 @@ namespace WinFormsApp31_03
         public PumpCreatePage()
         {
             InitializeComponent();
-            //_user = user;
-            _userRole = UserRole.Admin;
             ResetBtn.Enabled = false;
             LoadStation();
             LoadPumpType();
@@ -48,11 +43,6 @@ namespace WinFormsApp31_03
         {
             try
             {
-                if (_userRole != UserRole.Admin)
-                {
-                    MessageBox.Show("Bạn không có quyền tạo mới", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
                 using (var db = new PumpContext())
                 {
                     Pump ett = new Pump();
@@ -70,11 +60,11 @@ namespace WinFormsApp31_03
                     }
                     else
                     {
-                        ett = Pump.Create(txtName.Text.Trim(), pumpType, capacity, txtManufracture.Text.Trim(), serialNumber, txtDescription.Text.Trim(), warrantyExpireDate, stationId, 1);
+                        ett = Pump.Create(txtName.Text.Trim(), pumpType, capacity, txtManufracture.Text.Trim(), serialNumber, txtDescription.Text.Trim(), warrantyExpireDate, stationId, Properties.Settings.Default.UserId);
                         db.Pumps.Add(ett);
                         MessageBox.Show("Tạo máy bơm thành công", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         db.SaveChanges();
-                        GoToPumpPage();
+                        ClosePage();
                     }
                 }
             }
@@ -92,14 +82,12 @@ namespace WinFormsApp31_03
 
         private void BackBtn_Click(object sender, EventArgs e)
         {
-            GoToPumpPage();
+            ClosePage();
         }
 
-        private void GoToPumpPage()
+        private void ClosePage()
         {
-            PumpPage pumpPage = new PumpPage();
-            pumpPage.Show();
-            this.Hide();
+            this.Close();
         }
 
         /// <summary>

@@ -86,11 +86,12 @@ CREATE TABLE MaintenanceHistory (
     StartDate DATETIME NOT NULL,
     EndDate DATETIME,
     Description NVARCHAR(500),
-    Status INT NOT NULL DEFAULT 0, -- Completed, In Progress, Scheduled
+    Status INT NOT NULL DEFAULT 0, -- In Progress, Completed, , Scheduled
     PerformedBy INT FOREIGN KEY REFERENCES Users(UserID),	
 	IsDelete BIT NOT NULL DEFAULT 0,
     CreatedOn DATETIME DEFAULT GETDATE()
 );
+
 
 -- Bảng Cảnh báo (Alerts)
 CREATE TABLE Alerts (
@@ -108,10 +109,13 @@ CREATE TABLE Alerts (
 
 
 
---Tạo dữ liêu giả
+--Tạo dữ liêu giả cho user
 INSERT INTO Users (Username, Password, FullName,Role, CreatedBy)
-VALUES ('admin', '123', N'Quản trị viên',1, 1);
+VALUES 
+('admin', '123', N'Quản trị viên',1, 1),
+('user', 'User@123', N'Công Minh',0, 1);
 
+-- Dữ liệu giả cho trạm bơm
 INSERT INTO PumpStations (StationName, Location, Description, CreatedBy)
 VALUES 
 (N'Trạm A', N'Hà Nội', N'Trạm trung tâm', 1),
@@ -132,7 +136,7 @@ VALUES
 (3, 'Pump C1', 2, 110.2, 3, 0, 'Ebara', 'SN-C1001', DATEADD(YEAR, 2, GETDATE()), 'Failed due to overload');
 
 
--- Thêm dữ liệu mẫu cho PumpID = 1 và 2
+-- Thêm dữ liệu mẫu cho PumpID = 1 và 2(vận hành)
 INSERT INTO OperatingData (PumpID, RecordTime, FlowRate, Pressure, PowerConsumption, Temperature, RunningHours, Efficiency)
 VALUES 
 (1, '2025-04-13 08:00:00', 120.5, 2.5, 15.2, 35.0, 5.5, 85.6),
@@ -141,7 +145,7 @@ VALUES
 (2, '2025-04-13 08:00:00', 110.0, 2.3, 14.5, 33.0, 4.5, 83.2),
 (2, '2025-04-13 12:00:00', 112.8, 2.4, 14.8, 33.8, 4.8, 84.0);
 
-
+-- Cảnh báo
 INSERT INTO Alerts (PumpID, AlertType, AlertMessage, Status, IsDelete)
 VALUES
 (1, 0, N'Nhiệt độ bơm vượt mức cho phép', 0, 0),
@@ -152,6 +156,16 @@ VALUES
 (4, 2, N'Thông báo cập nhật firmware', 1, 0),
 (5, 0, N'Ngừng hoạt động bất thường', 0, 0),
 (5, 1, N'Cảnh báo bảo trì quá hạn', 1, 0);
+
+
+-- Dữ liệu giả cho lịch sử vận hành
+INSERT INTO MaintenanceHistory (PumpID, MaintenanceType, StartDate, EndDate, Description, Status, PerformedBy)
+VALUES 
+(1, 0, '2024-01-10 08:00:00', '2024-01-10 12:00:00', N'Bảo trì định kỳ quý I', 0, 1),
+(2, 1, '2024-02-15 09:00:00', '2024-02-15 15:00:00', N'Sửa chữa do rò rỉ', 0, 1),
+(3, 2, '2024-03-05 13:30:00', NULL, N'Xử lý khẩn cấp do mất điện', 1, 1),
+(1, 0, '2024-04-01 10:00:00', NULL, N'Lên lịch bảo trì quý II', 2, 1),
+(2, 1, '2024-04-20 07:30:00', '2024-04-20 11:45:00', N'Thay van mới', 0, 1);
 
 ---- Bảng Lịch bảo trì dự kiến (Scheduled Maintenance)
 --CREATE TABLE ScheduledMaintenance (

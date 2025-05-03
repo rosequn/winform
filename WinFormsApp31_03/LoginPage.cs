@@ -33,15 +33,22 @@ namespace WinFormsApp31_03
             {
                 SaveInformation(username, password);
                 MessageBox.Show("Đăng nhập thành công!");
-                this.Hide();
-                PumpPage form3 = new PumpPage();
-                form3.Show();
-
+                //FrmMain mainPage = new FrmMain();
+                //mainPage.Show();
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
             else
             {
                 MessageBox.Show("Sai tài khoản hoặc mật khẩu.");
             }
+        }
+
+        public void RegisterBtn_Click(object sender, EventArgs e)
+        {
+            RegisterPage registerPage = new RegisterPage();
+            registerPage.Show();
+            this.Close();
         }
 
         public async void SaveInformation(string userName, string password)

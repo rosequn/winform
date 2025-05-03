@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace WinFormsApp31_03.Models;
+﻿namespace WinFormsApp31_03.Models;
 
 public partial class MaintenanceHistory
 {

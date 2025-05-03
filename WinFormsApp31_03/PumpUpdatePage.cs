@@ -6,9 +6,9 @@ namespace WinFormsApp31_03
 {
     public partial class PumpUpdatePage : Form
     {
-        private readonly User _user;
-        private readonly UserRole _userRole;
         private readonly int? _pumpId = null;
+        public event EventHandler UpdatePumpCompleted;
+
 
         /// <summary>
         /// Initialize
@@ -17,8 +17,6 @@ namespace WinFormsApp31_03
         public PumpUpdatePage(int? pumpId)
         {
             InitializeComponent();
-            //_user = user;
-            _userRole = UserRole.Admin;
             _pumpId = pumpId;
             ResetBtn.Enabled = false;
             LoadStation();
@@ -87,10 +85,6 @@ namespace WinFormsApp31_03
         {
             try
             {
-                if (_userRole != UserRole.Admin)
-                {
-                    MessageBox.Show("Bạn không có quyền tạo mới", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
 
                 using (var db = new PumpContext())
                 {
@@ -110,10 +104,10 @@ namespace WinFormsApp31_03
                     else
                     {
                         var ett = db.Pumps.Where(p => p.IsDelete == false && p.PumpId == _pumpId).FirstOrDefault();
-                        ett.Update(txtName.Text.Trim(), pumpType, capacity, txtManufracture.Text.Trim(), serialNumber, txtDescription.Text.Trim(), warrantyExpireDate, status, stationId, 1);
+                        ett.Update(txtName.Text.Trim(), pumpType, capacity, txtManufracture.Text.Trim(), serialNumber, txtDescription.Text.Trim(), warrantyExpireDate, status, stationId, Properties.Settings.Default.UserId);
                         db.SaveChanges();
+                        UpdatePumpCompleted?.Invoke(this, EventArgs.Empty);
                         MessageBox.Show("Cập nhật máy bơm thành công", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        GoToPumpPage();
                     }
                 }
             }
@@ -131,14 +125,7 @@ namespace WinFormsApp31_03
 
         private void BackBtn_Click(object sender, EventArgs e)
         {
-            GoToPumpPage();
-        }
-
-        private void GoToPumpPage()
-        {
-            PumpPage pumpPage = new PumpPage();
-            pumpPage.Show();
-            this.Hide();
+            this.Close();
         }
 
         /// <summary>

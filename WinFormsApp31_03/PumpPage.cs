@@ -19,8 +19,14 @@ namespace WinFormsApp31_03
             UpdateBtn.Enabled = false;
             LoadPumps();
             LoadStation();
+            LoadComponents();
         }
 
+        private void LoadComponents()
+        {
+            DataGridViewStyler.ApplyCustomStyle(dgPump);
+            dgPump.RowPrePaint += DataGridViewStyler.RowRepaint;
+        }
         private void LoadBtn_Click(object sender, EventArgs e)
         {
             LoadPumps();
@@ -75,7 +81,15 @@ namespace WinFormsApp31_03
 
         private void CreateBtn_Click(object sender, EventArgs e)
         {
+            CreateBtn.Enabled = false;
             PumpCreatePage createPage = new PumpCreatePage();
+            createPage.StartPosition = FormStartPosition.CenterScreen;
+
+            createPage.FormClosed += (s, eArgs) =>
+            {
+                CreateBtn.Enabled = true;
+            };
+
             createPage.Show();
         }
 
@@ -83,7 +97,22 @@ namespace WinFormsApp31_03
         {
             if (_pumpId != null)
             {
+                UpdateBtn.Enabled = false;
+                DeleteBtn.Enabled = false;
                 PumpUpdatePage updatePage = new PumpUpdatePage(_pumpId);
+                updatePage.StartPosition = FormStartPosition.CenterScreen;
+                updatePage.UpdatePumpCompleted += (s, args) =>
+                {
+                    _pumpId = null;
+                    LoadPumps();
+                };
+
+                updatePage.FormClosed += (s, eArgs) =>
+                {
+                    UpdateBtn.Enabled = _pumpId != null;
+                    DeleteBtn.Enabled = _pumpId != null;
+                };
+
                 updatePage.Show();
             }
             else
@@ -99,6 +128,8 @@ namespace WinFormsApp31_03
             {
                 if (dgPump.CurrentRow.Index != -1)
                 {
+                    dgPump.CurrentRow.Selected = true;
+                    dgPump.Refresh();
                     dgPump.AutoGenerateColumns = false;
                     using (var db = new PumpContext())
                     {
@@ -154,5 +185,6 @@ namespace WinFormsApp31_03
             _keyword = txtSearch.Text.Trim().ToLower();
             LoadPumps();
         }
+
     }
 }

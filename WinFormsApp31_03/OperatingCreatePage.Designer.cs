@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            ResetBtn = new Button();
-            SaveBtn = new Button();
-            BackBtn = new Button();
+            ResetBtn = new CustomButton();
+            SaveBtn = new CustomButton();
+            BackBtn = new CustomButton();
             label2 = new Label();
             txtFlowRate = new TextBox();
             label3 = new Label();
@@ -54,20 +54,18 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Times New Roman", 18F, FontStyle.Bold, GraphicsUnit.Point, 163);
-            label1.Location = new Point(392, 33);
-            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Location = new Point(314, 26);
             label1.Name = "label1";
-            label1.Size = new Size(491, 41);
+            label1.Size = new Size(411, 35);
             label1.TabIndex = 0;
             label1.Text = "THÊM DỮ LIỆU VẬN HÀNH";
             // 
             // ResetBtn
             // 
             ResetBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            ResetBtn.Location = new Point(1118, 167);
-            ResetBtn.Margin = new Padding(4);
+            ResetBtn.Location = new Point(375, 283);
             ResetBtn.Name = "ResetBtn";
-            ResetBtn.Size = new Size(150, 50);
+            ResetBtn.Size = new Size(158, 63);
             ResetBtn.TabIndex = 19;
             ResetBtn.Text = "Đặt lại";
             ResetBtn.UseVisualStyleBackColor = true;
@@ -76,10 +74,9 @@
             // SaveBtn
             // 
             SaveBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            SaveBtn.Location = new Point(1118, 93);
-            SaveBtn.Margin = new Padding(4);
+            SaveBtn.Location = new Point(190, 283);
             SaveBtn.Name = "SaveBtn";
-            SaveBtn.Size = new Size(150, 50);
+            SaveBtn.Size = new Size(158, 63);
             SaveBtn.TabIndex = 17;
             SaveBtn.Text = "Lưu";
             SaveBtn.UseVisualStyleBackColor = true;
@@ -88,10 +85,9 @@
             // BackBtn
             // 
             BackBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            BackBtn.Location = new Point(1118, 256);
-            BackBtn.Margin = new Padding(4);
+            BackBtn.Location = new Point(560, 283);
             BackBtn.Name = "BackBtn";
-            BackBtn.Size = new Size(150, 50);
+            BackBtn.Size = new Size(158, 63);
             BackBtn.TabIndex = 21;
             BackBtn.Text = "Quay lại";
             BackBtn.UseVisualStyleBackColor = true;
@@ -101,21 +97,19 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Times New Roman", 14F);
-            label2.Location = new Point(0, 93);
-            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Location = new Point(17, 79);
             label2.Name = "label2";
-            label2.Size = new Size(132, 33);
+            label2.Size = new Size(113, 27);
             label2.TabIndex = 11;
             label2.Text = "Lưu lượng";
             // 
             // txtFlowRate
             // 
             txtFlowRate.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            txtFlowRate.Location = new Point(132, 94);
-            txtFlowRate.Margin = new Padding(4);
+            txtFlowRate.Location = new Point(136, 71);
             txtFlowRate.Multiline = true;
             txtFlowRate.Name = "txtFlowRate";
-            txtFlowRate.Size = new Size(346, 32);
+            txtFlowRate.Size = new Size(300, 35);
             txtFlowRate.TabIndex = 12;
             txtFlowRate.TextChanged += CheckEnableReset;
             txtFlowRate.KeyPress += CheckTextBox.Number_KeyPress;
@@ -124,21 +118,19 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Times New Roman", 14F);
-            label3.Location = new Point(0, 151);
-            label3.Margin = new Padding(4, 0, 4, 0);
+            label3.Location = new Point(17, 126);
             label3.Name = "label3";
-            label3.Size = new Size(101, 33);
+            label3.Size = new Size(86, 27);
             label3.TabIndex = 13;
             label3.Text = "Áp suất";
             // 
             // txtPressure
             // 
             txtPressure.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            txtPressure.Location = new Point(132, 151);
-            txtPressure.Margin = new Padding(4);
+            txtPressure.Location = new Point(136, 120);
             txtPressure.Multiline = true;
             txtPressure.Name = "txtPressure";
-            txtPressure.Size = new Size(346, 30);
+            txtPressure.Size = new Size(300, 35);
             txtPressure.TabIndex = 14;
             txtPressure.TextChanged += CheckEnableReset;
             txtPressure.KeyPress += CheckTextBox.Number_KeyPress;
@@ -147,30 +139,29 @@
             // 
             cbPump.DropDownStyle = ComboBoxStyle.DropDownList;
             cbPump.FormattingEnabled = true;
-            cbPump.Location = new Point(665, 215);
+            cbPump.Location = new Point(649, 173);
+            cbPump.Margin = new Padding(2, 2, 2, 2);
             cbPump.Name = "cbPump";
-            cbPump.Size = new Size(346, 33);
+            cbPump.Size = new Size(300, 28);
             cbPump.TabIndex = 28;
             // 
             // label5
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Times New Roman", 14F);
-            label5.Location = new Point(522, 215);
-            label5.Margin = new Padding(4, 0, 4, 0);
+            label5.Location = new Point(456, 171);
             label5.Name = "label5";
-            label5.Size = new Size(121, 33);
+            label5.Size = new Size(105, 27);
             label5.TabIndex = 27;
             label5.Text = "Máy bơm";
             // 
             // txtTemperature
             // 
             txtTemperature.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            txtTemperature.Location = new Point(665, 152);
-            txtTemperature.Margin = new Padding(4);
+            txtTemperature.Location = new Point(649, 122);
             txtTemperature.Multiline = true;
             txtTemperature.Name = "txtTemperature";
-            txtTemperature.Size = new Size(346, 30);
+            txtTemperature.Size = new Size(300, 35);
             txtTemperature.TabIndex = 26;
             txtTemperature.TextChanged += CheckEnableReset;
             txtTemperature.KeyPress += CheckTextBox.Number_KeyPress;
@@ -179,21 +170,19 @@
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Times New Roman", 14F);
-            label11.Location = new Point(534, 151);
-            label11.Margin = new Padding(4, 0, 4, 0);
+            label11.Location = new Point(456, 125);
             label11.Name = "label11";
-            label11.Size = new Size(112, 33);
+            label11.Size = new Size(95, 27);
             label11.TabIndex = 25;
             label11.Text = "Nhiệt độ";
             // 
             // txtConsumption
             // 
             txtConsumption.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            txtConsumption.Location = new Point(665, 95);
-            txtConsumption.Margin = new Padding(4);
+            txtConsumption.Location = new Point(649, 71);
             txtConsumption.Multiline = true;
             txtConsumption.Name = "txtConsumption";
-            txtConsumption.Size = new Size(346, 32);
+            txtConsumption.Size = new Size(300, 35);
             txtConsumption.TabIndex = 24;
             txtConsumption.TextChanged += CheckEnableReset;
             txtConsumption.KeyPress += CheckTextBox.Number_KeyPress;
@@ -202,10 +191,9 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Times New Roman", 14F);
-            label7.Location = new Point(512, 94);
-            label7.Margin = new Padding(4, 0, 4, 0);
+            label7.Location = new Point(456, 79);
             label7.Name = "label7";
-            label7.Size = new Size(219, 33);
+            label7.Size = new Size(187, 27);
             label7.TabIndex = 23;
             label7.Text = "Công suất tiêu thụ";
             // 
@@ -213,29 +201,28 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Times New Roman", 14F);
-            label9.Location = new Point(494, 273);
-            label9.Margin = new Padding(4, 0, 4, 0);
+            label9.Location = new Point(456, 217);
             label9.Name = "label9";
-            label9.Size = new Size(164, 33);
+            label9.Size = new Size(138, 27);
             label9.TabIndex = 31;
             label9.Text = "Thời gian ghi";
             // 
             // dpRecord
             // 
             dpRecord.CustomFormat = "dddd, dd 'tháng' MM 'năm' yyyy";
-            dpRecord.Location = new Point(665, 278);
+            dpRecord.Location = new Point(649, 217);
+            dpRecord.Margin = new Padding(2, 2, 2, 2);
             dpRecord.Name = "dpRecord";
-            dpRecord.Size = new Size(346, 31);
+            dpRecord.Size = new Size(300, 27);
             dpRecord.TabIndex = 32;
             // 
             // txtRunningHours
             // 
             txtRunningHours.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            txtRunningHours.Location = new Point(132, 215);
-            txtRunningHours.Margin = new Padding(4);
+            txtRunningHours.Location = new Point(136, 169);
             txtRunningHours.Multiline = true;
             txtRunningHours.Name = "txtRunningHours";
-            txtRunningHours.Size = new Size(346, 30);
+            txtRunningHours.Size = new Size(300, 35);
             txtRunningHours.TabIndex = 34;
             txtRunningHours.KeyPress += CheckTextBox.Number_KeyPress;
             // 
@@ -243,21 +230,19 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Times New Roman", 14F);
-            label4.Location = new Point(0, 212);
-            label4.Margin = new Padding(4, 0, 4, 0);
+            label4.Location = new Point(17, 173);
             label4.Name = "label4";
-            label4.Size = new Size(134, 33);
+            label4.Size = new Size(112, 27);
             label4.TabIndex = 33;
             label4.Text = "Số giờ HD";
             // 
             // txtEfficiency
             // 
             txtEfficiency.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            txtEfficiency.Location = new Point(132, 278);
-            txtEfficiency.Margin = new Padding(4);
+            txtEfficiency.Location = new Point(136, 218);
             txtEfficiency.Multiline = true;
             txtEfficiency.Name = "txtEfficiency";
-            txtEfficiency.Size = new Size(346, 30);
+            txtEfficiency.Size = new Size(300, 35);
             txtEfficiency.TabIndex = 36;
             txtEfficiency.KeyPress += CheckTextBox.Number_KeyPress;
             // 
@@ -265,18 +250,17 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Times New Roman", 14F);
-            label6.Location = new Point(0, 278);
-            label6.Margin = new Padding(4, 0, 4, 0);
+            label6.Location = new Point(17, 220);
             label6.Name = "label6";
-            label6.Size = new Size(120, 33);
+            label6.Size = new Size(103, 27);
             label6.TabIndex = 35;
             label6.Text = "Hiệu suất";
             // 
             // OperatingCreatePage
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1689, 705);
+            ClientSize = new Size(958, 376);
             Controls.Add(txtEfficiency);
             Controls.Add(label6);
             Controls.Add(txtRunningHours);
@@ -297,7 +281,6 @@
             Controls.Add(txtFlowRate);
             Controls.Add(label2);
             Controls.Add(label1);
-            Margin = new Padding(4);
             Name = "OperatingCreatePage";
             Text = "Quản lý trạm bơm";
             ResumeLayout(false);
@@ -307,10 +290,9 @@
         #endregion
 
         private Label label1;
-        private Button LoadBtn;
-        private Button ResetBtn;
-        private Button SaveBtn;
-        private Button BackBtn;
+        private CustomButton ResetBtn;
+        private CustomButton SaveBtn;
+        private CustomButton BackBtn;
         private Label label2;
         private TextBox txtFlowRate;
         private Label label3;

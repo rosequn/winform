@@ -54,11 +54,11 @@ namespace WinFormsApp31_03
                         else
                         {
                             string hashPassword = PasswordHash.HashPassword(password);
-                            ett = User.Create(username, hashPassword, fullName, 1);
+                            ett = User.Create(username, hashPassword, fullName, Properties.Settings.Default.UserId);
                             db.Users.Add(ett);
                             MessageBox.Show("Tạo mới tài khoản thành công", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             db.SaveChanges();
-                            GoToPumpPage();
+                            ClosePage();
                         }
                     }
                     else
@@ -81,14 +81,12 @@ namespace WinFormsApp31_03
 
         private void BackBtn_Click(object sender, EventArgs e)
         {
-            GoToPumpPage();
+            ClosePage();
         }
 
-        private void GoToPumpPage()
+        private void ClosePage()
         {
-            UserPage userPage = new UserPage();
-            userPage.Show();
-            this.Hide();
+            this.Close();
         }
 
         /// <summary>

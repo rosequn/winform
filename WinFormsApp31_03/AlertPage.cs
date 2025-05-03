@@ -27,6 +27,13 @@ namespace WinFormsApp31_03
             IgnoredBtn.Enabled = false;
             LoadAlerts();
             LoadStation();
+            LoadComponents();
+        }
+
+        private void LoadComponents()
+        {
+            DataGridViewStyler.ApplyCustomStyle(dgAlert);
+            dgAlert.RowPrePaint += DataGridViewStyler.RowRepaint;
         }
 
         private void LoadBtn_Click(object sender, EventArgs e)
@@ -88,7 +95,7 @@ namespace WinFormsApp31_03
                 var ett = db.Alerts.FirstOrDefault(p => p.AlertId == _alertId && p.IsDelete == false);
                 if (ett != null)
                 {
-                    ett.UpdateStatus((int)AlertStatus.Resolved, 1);
+                    ett.UpdateStatus((int)AlertStatus.Resolved, Properties.Settings.Default.UserId);
                     db.SaveChanges();
                     LoadAlerts();
                     _alertId = null;
@@ -108,7 +115,7 @@ namespace WinFormsApp31_03
                 var ett = db.Alerts.FirstOrDefault(p => p.AlertId == _alertId && p.IsDelete == false);
                 if (ett != null)
                 {
-                    ett.UpdateStatus((int)AlertStatus.Ignored, 1);
+                    ett.UpdateStatus((int)AlertStatus.Ignored, Properties.Settings.Default.UserId);
                     db.SaveChanges();
                     LoadAlerts();
                     _alertId = null;
@@ -123,16 +130,40 @@ namespace WinFormsApp31_03
 
         private void CreateBtn_Click(object sender, EventArgs e)
         {
+            CreateBtn.Enabled = false;
             AlertCreatePage createPage = new AlertCreatePage();
+            createPage.StartPosition = FormStartPosition.CenterScreen;
             createPage.Show();
+            createPage.FormClosed += (s, eArgs) =>
+            {
+                CreateBtn.Enabled = true;
+            };
         }
 
         private void UpdateBtn_Click(object sender, EventArgs e)
         {
             if (_alertId != null)
             {
+                UpdateBtn.Enabled = false;
+                DeleteBtn.Enabled = false;
+                IgnoredBtn.Enabled = false;
+                ResolvedBtn.Enabled = false;
                 AlertUpdatePage updatePage = new AlertUpdatePage(_alertId);
+                updatePage.StartPosition = FormStartPosition.CenterScreen;
                 updatePage.Show();
+                updatePage.UpdateAlertCompleted += (s, args) =>
+                {
+                    _alertId = null;
+                    LoadAlerts();
+                };
+
+                updatePage.FormClosed += (s, eArgs) =>
+                {
+                    UpdateBtn.Enabled = _alertId != null;
+                    DeleteBtn.Enabled = _alertId != null;
+                    IgnoredBtn.Enabled = _alertId != null;
+                    ResolvedBtn.Enabled = _alertId != null;
+                };
             }
             else
             {

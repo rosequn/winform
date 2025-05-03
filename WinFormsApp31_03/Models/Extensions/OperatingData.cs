@@ -100,7 +100,7 @@ partial class OperatingData
             Temperature = Temperature,
             RunningHours = RunningHours,
             Efficiency = Efficiency,
-            PumpName = Pump.PumpName
+            PumpName = Pump?.PumpName
         };
     }
 

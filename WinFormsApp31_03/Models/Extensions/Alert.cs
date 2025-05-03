@@ -99,7 +99,7 @@ partial class Alert
             CreatedOn = CreatedOn,
             ModifiedBy = ModifiedBy,
             ModifiedOn = ModifiedOn,
-            ResolvedBy = ModifiedByNavigation?.Username + ""
+            ResolvedBy = ModifiedByNavigation?.FullName + ""
         };
     }
 

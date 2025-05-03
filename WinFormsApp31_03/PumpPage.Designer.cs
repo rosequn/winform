@@ -1,4 +1,6 @@
-﻿namespace WinFormsApp31_03
+﻿using System.Windows.Forms;
+
+namespace WinFormsApp31_03
 {
     partial class PumpPage
     {
@@ -28,6 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PumpPage));
             label1 = new Label();
             dgPump = new DataGridView();
             PumpID = new DataGridViewTextBoxColumn();
@@ -39,41 +42,42 @@
             Manufacturer = new DataGridViewTextBoxColumn();
             SerialNumber = new DataGridViewTextBoxColumn();
             WarrantyExpireDate = new DataGridViewTextBoxColumn();
-            LoadBtn = new Button();
-            UpdateBtn = new Button();
-            CreateBtn = new Button();
-            DeleteBtn = new Button();
-            BackBtn = new Button();
+            LoadBtn = new CustomButton();
+            UpdateBtn = new CustomButton();
+            CreateBtn = new CustomButton();
+            DeleteBtn = new CustomButton();
             cbStation = new ComboBox();
             label2 = new Label();
             txtSearch = new TextBox();
-            pictureBox1 = new PictureBox();
             panel1 = new Panel();
+            pictureBox1 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)dgPump).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Times New Roman", 18F, FontStyle.Bold, GraphicsUnit.Point, 163);
-            label1.Location = new Point(210, 76);
-            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Location = new Point(541, 9);
             label1.Name = "label1";
-            label1.Size = new Size(424, 41);
+            label1.Size = new Size(354, 35);
             label1.TabIndex = 0;
             label1.Text = "DANH SÁCH MÁY BƠM";
             // 
             // dgPump
             // 
+            dgPump.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgPump.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgPump.Columns.AddRange(new DataGridViewColumn[] { PumpID, PumpName, Description, PumpTypeName, Status, Capacity, Manufacturer, SerialNumber, WarrantyExpireDate });
-            dgPump.Location = new Point(62, 132);
+            dgPump.GridColor = SystemColors.ActiveBorder;
+            dgPump.Location = new Point(50, 106);
+            dgPump.Margin = new Padding(2);
             dgPump.Name = "dgPump";
             dgPump.ReadOnly = true;
             dgPump.RowHeadersWidth = 62;
-            dgPump.Size = new Size(1399, 349);
+            dgPump.Size = new Size(1265, 279);
             dgPump.TabIndex = 1;
             dgPump.DoubleClick += dgPump_DoubleClick;
             // 
@@ -84,7 +88,6 @@
             PumpID.MinimumWidth = 8;
             PumpID.Name = "PumpID";
             PumpID.ReadOnly = true;
-            PumpID.Width = 150;
             // 
             // PumpName
             // 
@@ -93,7 +96,6 @@
             PumpName.MinimumWidth = 8;
             PumpName.Name = "PumpName";
             PumpName.ReadOnly = true;
-            PumpName.Width = 150;
             // 
             // Description
             // 
@@ -102,14 +104,12 @@
             Description.MinimumWidth = 8;
             Description.Name = "Description";
             Description.ReadOnly = true;
-            Description.Width = 150;
             // 
             // PumpTypeName
             // 
-            PumpTypeName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             PumpTypeName.DataPropertyName = "PumpTypeName";
             PumpTypeName.HeaderText = "Loại Bơm";
-            PumpTypeName.MinimumWidth = 150;
+            PumpTypeName.MinimumWidth = 8;
             PumpTypeName.Name = "PumpTypeName";
             PumpTypeName.ReadOnly = true;
             // 
@@ -120,7 +120,6 @@
             Status.MinimumWidth = 8;
             Status.Name = "Status";
             Status.ReadOnly = true;
-            Status.Width = 150;
             // 
             // Capacity
             // 
@@ -129,7 +128,6 @@
             Capacity.MinimumWidth = 8;
             Capacity.Name = "Capacity";
             Capacity.ReadOnly = true;
-            Capacity.Width = 150;
             // 
             // Manufacturer
             // 
@@ -138,7 +136,6 @@
             Manufacturer.MinimumWidth = 8;
             Manufacturer.Name = "Manufacturer";
             Manufacturer.ReadOnly = true;
-            Manufacturer.Width = 150;
             // 
             // SerialNumber
             // 
@@ -147,7 +144,6 @@
             SerialNumber.MinimumWidth = 8;
             SerialNumber.Name = "SerialNumber";
             SerialNumber.ReadOnly = true;
-            SerialNumber.Width = 150;
             // 
             // WarrantyExpireDate
             // 
@@ -156,81 +152,102 @@
             WarrantyExpireDate.MinimumWidth = 8;
             WarrantyExpireDate.Name = "WarrantyExpireDate";
             WarrantyExpireDate.ReadOnly = true;
-            WarrantyExpireDate.Width = 150;
             // 
             // LoadBtn
             // 
-            LoadBtn.Location = new Point(96, 500);
+            LoadBtn.BackColor = Color.MediumSlateBlue;
+            LoadBtn.BackgroundColor = Color.MediumSlateBlue;
+            LoadBtn.BorderColor = Color.PaleVioletRed;
+            LoadBtn.BorderRadius = 25;
+            LoadBtn.BorderSize = 0;
+            LoadBtn.FlatStyle = FlatStyle.Flat;
+            LoadBtn.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            LoadBtn.ForeColor = Color.White;
+            LoadBtn.Location = new Point(153, 404);
             LoadBtn.Name = "LoadBtn";
-            LoadBtn.Size = new Size(132, 50);
+            LoadBtn.Size = new Size(158, 63);
             LoadBtn.TabIndex = 2;
-            LoadBtn.Text = "Load Data";
+            LoadBtn.Text = "Làm mới";
+            LoadBtn.TextColor = Color.White;
             LoadBtn.UseVisualStyleBackColor = true;
             LoadBtn.Click += LoadBtn_Click;
             // 
             // UpdateBtn
             // 
-            UpdateBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            UpdateBtn.Location = new Point(765, 500);
-            UpdateBtn.Margin = new Padding(4);
+            UpdateBtn.BackColor = Color.MediumSlateBlue;
+            UpdateBtn.BackgroundColor = Color.MediumSlateBlue;
+            UpdateBtn.BorderColor = Color.PaleVioletRed;
+            UpdateBtn.BorderRadius = 25;
+            UpdateBtn.BorderSize = 0;
+            UpdateBtn.FlatStyle = FlatStyle.Flat;
+            UpdateBtn.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            UpdateBtn.ForeColor = Color.White;
+            UpdateBtn.Location = new Point(563, 404);
             UpdateBtn.Name = "UpdateBtn";
-            UpdateBtn.Size = new Size(150, 50);
+            UpdateBtn.Size = new Size(158, 63);
             UpdateBtn.TabIndex = 19;
             UpdateBtn.Text = "Sửa";
+            UpdateBtn.TextColor = Color.White;
             UpdateBtn.UseVisualStyleBackColor = true;
             UpdateBtn.Click += UpdateBtn_Click;
             // 
             // CreateBtn
             // 
-            CreateBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            CreateBtn.Location = new Point(512, 500);
-            CreateBtn.Margin = new Padding(4);
+            CreateBtn.BackColor = Color.MediumSlateBlue;
+            CreateBtn.BackgroundColor = Color.MediumSlateBlue;
+            CreateBtn.BorderColor = Color.PaleVioletRed;
+            CreateBtn.BorderRadius = 25;
+            CreateBtn.BorderSize = 0;
+            CreateBtn.FlatStyle = FlatStyle.Flat;
+            CreateBtn.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            CreateBtn.ForeColor = Color.White;
+            CreateBtn.Location = new Point(358, 404);
             CreateBtn.Name = "CreateBtn";
-            CreateBtn.Size = new Size(150, 50);
+            CreateBtn.Size = new Size(158, 63);
             CreateBtn.TabIndex = 17;
             CreateBtn.Text = "+ Thêm";
+            CreateBtn.TextColor = Color.White;
             CreateBtn.UseVisualStyleBackColor = true;
             CreateBtn.Click += CreateBtn_Click;
             // 
             // DeleteBtn
             // 
-            DeleteBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            DeleteBtn.Location = new Point(969, 500);
-            DeleteBtn.Margin = new Padding(4);
+            DeleteBtn.BackColor = Color.MediumSlateBlue;
+            DeleteBtn.BackgroundColor = Color.MediumSlateBlue;
+            DeleteBtn.BorderColor = Color.PaleVioletRed;
+            DeleteBtn.BorderRadius = 25;
+            DeleteBtn.BorderSize = 0;
+            DeleteBtn.FlatStyle = FlatStyle.Flat;
+            DeleteBtn.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            DeleteBtn.ForeColor = Color.White;
+            DeleteBtn.Location = new Point(768, 404);
             DeleteBtn.Name = "DeleteBtn";
-            DeleteBtn.Size = new Size(150, 50);
+            DeleteBtn.Size = new Size(158, 63);
             DeleteBtn.TabIndex = 20;
             DeleteBtn.Text = "Xóa";
+            DeleteBtn.TextColor = Color.White;
             DeleteBtn.UseVisualStyleBackColor = true;
             DeleteBtn.Click += DeleteBtn_Click;
-            // 
-            // BackBtn
-            // 
-            BackBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            BackBtn.Location = new Point(285, 500);
-            BackBtn.Margin = new Padding(4);
-            BackBtn.Name = "BackBtn";
-            BackBtn.Size = new Size(150, 50);
-            BackBtn.TabIndex = 21;
-            BackBtn.Text = "Quay lại";
-            BackBtn.UseVisualStyleBackColor = true;
             // 
             // cbStation
             // 
             cbStation.DropDownStyle = ComboBoxStyle.DropDownList;
             cbStation.FormattingEnabled = true;
-            cbStation.Location = new Point(33, 40);
+            cbStation.Location = new Point(196, 50);
+            cbStation.Margin = new Padding(2);
             cbStation.Name = "cbStation";
-            cbStation.Size = new Size(240, 33);
-            cbStation.TabIndex = 22;
+            cbStation.Size = new Size(193, 28);
+            cbStation.TabIndex = 24;
             cbStation.SelectedIndexChanged += CbStation_SelectedIndexChanged;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(33, 9);
+            label2.Font = new Font("Times New Roman", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(50, 45);
+            label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
-            label2.Size = new Size(102, 25);
+            label2.Size = new Size(142, 33);
             label2.TabIndex = 23;
             label2.Text = "Trạm bơm :";
             // 
@@ -239,54 +256,57 @@
             txtSearch.BackColor = SystemColors.ActiveCaption;
             txtSearch.BorderStyle = BorderStyle.None;
             txtSearch.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtSearch.Location = new Point(3, 16);
+            txtSearch.Location = new Point(2, 7);
+            txtSearch.Margin = new Padding(2);
             txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(294, 28);
+            txtSearch.Size = new Size(235, 23);
             txtSearch.TabIndex = 24;
             txtSearch.TextChanged += Search;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = Properties.Resources.E;
-            pictureBox1.Location = new Point(965, 12);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(76, 63);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 25;
-            pictureBox1.TabStop = false;
             // 
             // panel1
             // 
             panel1.BackColor = SystemColors.ActiveCaption;
             panel1.Controls.Add(txtSearch);
-            panel1.Location = new Point(659, 12);
+            panel1.Controls.Add(pictureBox1);
+            panel1.Location = new Point(948, 39);
+            panel1.Margin = new Padding(2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(300, 63);
+            panel1.Size = new Size(272, 37);
             panel1.TabIndex = 27;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(239, 2);
+            pictureBox1.Margin = new Padding(2);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(32, 32);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 25;
+            pictureBox1.TabStop = false;
             // 
             // PumpPage
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1492, 705);
+            AutoSize = true;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            ClientSize = new Size(1322, 564);
             Controls.Add(panel1);
-            Controls.Add(pictureBox1);
             Controls.Add(label2);
             Controls.Add(cbStation);
-            Controls.Add(BackBtn);
             Controls.Add(DeleteBtn);
             Controls.Add(UpdateBtn);
             Controls.Add(CreateBtn);
             Controls.Add(LoadBtn);
             Controls.Add(dgPump);
             Controls.Add(label1);
-            Margin = new Padding(4);
             Name = "PumpPage";
-            Text = "Quản lý trạm bơm";
+            Text = "Quản lý máy bơm";
             ((System.ComponentModel.ISupportInitialize)dgPump).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -295,13 +315,16 @@
 
         private Label label1;
         private DataGridView dgPump;
-        private Button LoadBtn;
-        private Button UpdateBtn;
-        private Button CreateBtn;
-        private Button DeleteBtn;
-        private Button BackBtn;
+        private CustomButton LoadBtn;
+        private CustomButton UpdateBtn;
+        private CustomButton CreateBtn;
+        private CustomButton DeleteBtn;
+        private CustomButton BackBtn;
         private ComboBox cbStation;
         private Label label2;
+        private TextBox txtSearch;
+        private Panel panel1;
+        private PictureBox pictureBox1;
         private DataGridViewTextBoxColumn PumpID;
         private DataGridViewTextBoxColumn PumpName;
         private DataGridViewTextBoxColumn Description;
@@ -311,8 +334,5 @@
         private DataGridViewTextBoxColumn Manufacturer;
         private DataGridViewTextBoxColumn SerialNumber;
         private DataGridViewTextBoxColumn WarrantyExpireDate;
-        private TextBox txtSearch;
-        private PictureBox pictureBox1;
-        private Panel panel1;
     }
 }

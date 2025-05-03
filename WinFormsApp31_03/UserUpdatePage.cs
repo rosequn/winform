@@ -6,6 +6,7 @@ using Models;
 public partial class UserUpdatePage : Form
 {
     private readonly int? _userId = null;
+    public event EventHandler UpdateUserCompleted;
 
     /// <summary>
     /// Initialize
@@ -60,14 +61,25 @@ public partial class UserUpdatePage : Form
             using (var db = new PumpContext())
             {
                 var query = db.Users.Where(p => p.UserId != _userId && p.IsDelete != false);
-                var hasUserName = db.Users.FirstOrDefault(p => p.Username == username && p.UserId != _userId);
-                var hasPhoneNumber = db.Users.FirstOrDefault(p => p.PhoneNumber == phoneNumber && p.UserId != _userId);
+                var existUserName = db.Users.FirstOrDefault(p => p.Username == username && p.UserId != _userId);
+                var existPhoneNumber = db.Users.FirstOrDefault(p => p.PhoneNumber == phoneNumber && p.UserId != _userId);
+
+                if (existPhoneNumber != null)
+                {
+                    MessageBox.Show("Số điện thoại đã được sử dụng vui lòng sử dụng một số điện thoại khác");
+                }
+
+                if (existUserName != null)
+                {
+                    MessageBox.Show("Username đã tồn tại vui lòng chọn một username khác");
+                }
 
                 var ett = db.Users.Where(p => p.IsDelete == false && p.UserId == _userId).FirstOrDefault();
-                ett.Update(username, phoneNumber, userRole, fullName, 1);
+                ett.Update(username, phoneNumber, userRole, fullName, Properties.Settings.Default.UserId);
                 db.SaveChanges();
+                UpdateUserCompleted?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show("Cập nhật người dùng thành công", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                GoToPumpPage();
+                ClosePage();
             }
         }
         catch (Exception ex)
@@ -84,14 +96,12 @@ public partial class UserUpdatePage : Form
 
     private void BackBtn_Click(object sender, EventArgs e)
     {
-        GoToPumpPage();
+        ClosePage();
     }
 
-    private void GoToPumpPage()
+    private void ClosePage()
     {
-        UserPage userPage = new UserPage();
-        userPage.Show();
-        this.Hide();
+        this.Close();
     }
 
     /// <summary>

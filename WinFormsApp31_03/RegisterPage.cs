@@ -35,10 +35,11 @@ namespace WinFormsApp31_03
                     else
                     {
                         string hashPassword = PasswordHash.HashPassword(password);
-                        ett = User.Create(username, hashPassword, fullName, 1);
+                        ett = User.Create(username, hashPassword, fullName, Properties.Settings.Default.UserId);
                         db.Users.Add(ett);
                         MessageBox.Show("Đăng ký tài khoản thành công", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         db.SaveChanges();
+                        LoadLoginPage();
                     }
                 }
             }
@@ -46,6 +47,18 @@ namespace WinFormsApp31_03
             {
                 MessageBox.Show("Thông tin đăng ký không được để trống ");
             }
+        }
+
+        public void BackBtn_Click(object sender, EventArgs e)
+        {
+            LoadLoginPage();
+        }
+
+        public void LoadLoginPage()
+        {
+            LoginPage loginPage = new LoginPage();
+            loginPage.Show();
+            this.Close();
         }
     }
 }

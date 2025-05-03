@@ -1,14 +1,13 @@
-﻿using WinFormsApp31_03.Enums;
-using WinFormsApp31_03.Models;
+﻿using WinFormsApp31_03.Models;
 using static WinFormsApp31_03.Models.Pump;
 
 namespace WinFormsApp31_03
 {
     public partial class OperatingUpdatePage : Form
     {
-        private readonly User _user;
-        private readonly UserRole _userRole;
         private readonly int? _dataId = null;
+        public event EventHandler UpdateOperatingCompleted;
+
 
         /// <summary>
         /// OperatingCreatePage
@@ -16,9 +15,7 @@ namespace WinFormsApp31_03
         public OperatingUpdatePage(int? dataId)
         {
             InitializeComponent();
-            //_user = user;
             _dataId = dataId;
-            _userRole = UserRole.Admin;
             ResetBtn.Enabled = false;
             LoadPumps();
             LoadOperating();
@@ -68,30 +65,24 @@ namespace WinFormsApp31_03
         {
             try
             {
-                if (_userRole != UserRole.Admin)
+                using (var db = new PumpContext())
                 {
-                    MessageBox.Show("Bạn không có quyền tạo mới", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    using (var db = new PumpContext())
-                    {
-                        int pumpId = Convert.ToInt32(cbPump.SelectedValue);
-                        var selectedPump = cbPump.SelectedItem as SearchCbDto;
-                        double pressure = Convert.ToDouble(txtPressure.Text.Trim());
-                        DateTime recordTime = dpRecord.Value;
-                        double temperature = Convert.ToDouble(txtTemperature.Text.Trim());
-                        double flowrate = Convert.ToDouble(txtFlowRate.Text.Trim());
-                        double consumption = Convert.ToDouble(txtConsumption.Text.Trim());
-                        double runningHours = Convert.ToDouble(txtRunningHours.Text.Trim());
-                        double efficiency = Convert.ToDouble(txtEfficiency.Text.Trim());
+                    int pumpId = Convert.ToInt32(cbPump.SelectedValue);
+                    var selectedPump = cbPump.SelectedItem as SearchCbDto;
+                    double pressure = Convert.ToDouble(txtPressure.Text.Trim());
+                    DateTime recordTime = dpRecord.Value;
+                    double temperature = Convert.ToDouble(txtTemperature.Text.Trim());
+                    double flowrate = Convert.ToDouble(txtFlowRate.Text.Trim());
+                    double consumption = Convert.ToDouble(txtConsumption.Text.Trim());
+                    double runningHours = Convert.ToDouble(txtRunningHours.Text.Trim());
+                    double efficiency = Convert.ToDouble(txtEfficiency.Text.Trim());
 
-                        var ett = db.OperatingData.Where(p => p.IsDelete == false && p.DataId == _dataId).FirstOrDefault();
-                        ett.Update(pumpId, recordTime, flowrate, pressure, consumption, temperature, runningHours, efficiency);
-                        MessageBox.Show("Chỉnh sửa dữ liệu thành công", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        db.SaveChanges();
-                        GoToOperatingPage();
-                    }
+                    var ett = db.OperatingData.Where(p => p.IsDelete == false && p.DataId == _dataId).FirstOrDefault();
+                    ett.Update(pumpId, recordTime, flowrate, pressure, consumption, temperature, runningHours, efficiency);
+                    MessageBox.Show("Chỉnh sửa dữ liệu thành công", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    db.SaveChanges();
+                    UpdateOperatingCompleted?.Invoke(this, EventArgs.Empty);
+                    GoToOperatingPage();
                 }
             }
             catch (Exception ex)
@@ -113,9 +104,7 @@ namespace WinFormsApp31_03
 
         private void GoToOperatingPage()
         {
-            OperatingPage operatingPage = new OperatingPage();
-            operatingPage.Show();
-            this.Hide();
+            this.Close();
         }
 
         /// <summary>
@@ -129,6 +118,7 @@ namespace WinFormsApp31_03
             txtTemperature.Text = info.Temperature.ToString();
             txtRunningHours.Text = info.RunningHours.ToString();
             txtEfficiency.Text = info.Efficiency.ToString();
+            dpRecord.Value = info?.RecordTime ?? DateTime.Now;
             if (info.PumpId.HasValue)
             {
                 var stationIndex = cbPump.Items.Cast<dynamic>().ToList().FindIndex(item => item.PumpId == info.PumpId.Value);

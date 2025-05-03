@@ -1,4 +1,6 @@
-﻿namespace WinFormsApp31_03
+﻿using WinFormsApp31_03.Models;
+
+namespace WinFormsApp31_03
 {
     partial class OperatingPage
     {
@@ -28,6 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OperatingPage));
             dgOperating = new DataGridView();
             DataID = new DataGridViewTextBoxColumn();
             PumpName = new DataGridViewTextBoxColumn();
@@ -38,11 +41,10 @@
             Temperature = new DataGridViewTextBoxColumn();
             RunningHours = new DataGridViewTextBoxColumn();
             Efficiency = new DataGridViewTextBoxColumn();
-            LoadBtn = new Button();
-            UpdateBtn = new Button();
-            CreateBtn = new Button();
-            DeleteBtn = new Button();
-            BackBtn = new Button();
+            LoadBtn = new CustomButton();
+            UpdateBtn = new CustomButton();
+            CreateBtn = new CustomButton();
+            DeleteBtn = new CustomButton();
             label1 = new Label();
             label2 = new Label();
             cbStation = new ComboBox();
@@ -58,13 +60,14 @@
             // 
             dgOperating.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgOperating.Columns.AddRange(new DataGridViewColumn[] { DataID, PumpName, RecordTime, FlowRate, Pressure, PowerConsumption, Temperature, RunningHours, Efficiency });
-            dgOperating.Location = new Point(33, 134);
+            dgOperating.Location = new Point(26, 91);
+            dgOperating.Margin = new Padding(2);
             dgOperating.Name = "dgOperating";
             dgOperating.ReadOnly = true;
             dgOperating.RowHeadersWidth = 62;
-            dgOperating.Size = new Size(1399, 349);
+            dgOperating.Size = new Size(1398, 237);
             dgOperating.TabIndex = 1;
-            dgOperating.DoubleClick += dgPump_DoubleClick;
+            dgOperating.DoubleClick += dgOperating_DoubleClick;
             // 
             // DataID
             // 
@@ -149,78 +152,98 @@
             // 
             // LoadBtn
             // 
-            LoadBtn.Location = new Point(116, 521);
+            LoadBtn.BackColor = Color.MediumSlateBlue;
+            LoadBtn.BackgroundColor = Color.MediumSlateBlue;
+            LoadBtn.BorderColor = Color.PaleVioletRed;
+            LoadBtn.BorderRadius = 20;
+            LoadBtn.BorderSize = 0;
+            LoadBtn.FlatStyle = FlatStyle.Flat;
+            LoadBtn.ForeColor = Color.White;
+            LoadBtn.Location = new Point(124, 360);
+            LoadBtn.Margin = new Padding(2);
             LoadBtn.Name = "LoadBtn";
-            LoadBtn.Size = new Size(112, 34);
+            LoadBtn.Size = new Size(158, 54);
             LoadBtn.TabIndex = 2;
             LoadBtn.Text = "Load Data";
+            LoadBtn.TextColor = Color.White;
             LoadBtn.UseVisualStyleBackColor = true;
             LoadBtn.Click += LoadBtn_Click;
             // 
             // UpdateBtn
             // 
+            UpdateBtn.BackColor = Color.MediumSlateBlue;
+            UpdateBtn.BackgroundColor = Color.MediumSlateBlue;
+            UpdateBtn.BorderColor = Color.PaleVioletRed;
+            UpdateBtn.BorderRadius = 20;
+            UpdateBtn.BorderSize = 0;
+            UpdateBtn.FlatStyle = FlatStyle.Flat;
             UpdateBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            UpdateBtn.Location = new Point(640, 512);
-            UpdateBtn.Margin = new Padding(4);
+            UpdateBtn.ForeColor = Color.White;
+            UpdateBtn.Location = new Point(572, 359);
             UpdateBtn.Name = "UpdateBtn";
-            UpdateBtn.Size = new Size(150, 50);
+            UpdateBtn.Size = new Size(158, 54);
             UpdateBtn.TabIndex = 19;
             UpdateBtn.Text = "Sửa";
+            UpdateBtn.TextColor = Color.White;
             UpdateBtn.UseVisualStyleBackColor = true;
             UpdateBtn.Click += UpdateBtn_Click;
             // 
             // CreateBtn
             // 
+            CreateBtn.BackColor = Color.MediumSlateBlue;
+            CreateBtn.BackgroundColor = Color.MediumSlateBlue;
+            CreateBtn.BorderColor = Color.PaleVioletRed;
+            CreateBtn.BorderRadius = 20;
+            CreateBtn.BorderSize = 0;
+            CreateBtn.FlatStyle = FlatStyle.Flat;
             CreateBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            CreateBtn.Location = new Point(449, 512);
-            CreateBtn.Margin = new Padding(4);
+            CreateBtn.ForeColor = Color.White;
+            CreateBtn.Location = new Point(348, 359);
             CreateBtn.Name = "CreateBtn";
-            CreateBtn.Size = new Size(150, 50);
+            CreateBtn.Size = new Size(158, 54);
             CreateBtn.TabIndex = 17;
             CreateBtn.Text = "+ Thêm";
+            CreateBtn.TextColor = Color.White;
             CreateBtn.UseVisualStyleBackColor = true;
             CreateBtn.Click += CreateBtn_Click;
             // 
             // DeleteBtn
             // 
+            DeleteBtn.BackColor = Color.MediumSlateBlue;
+            DeleteBtn.BackgroundColor = Color.MediumSlateBlue;
+            DeleteBtn.BorderColor = Color.PaleVioletRed;
+            DeleteBtn.BorderRadius = 20;
+            DeleteBtn.BorderSize = 0;
+            DeleteBtn.FlatStyle = FlatStyle.Flat;
             DeleteBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            DeleteBtn.Location = new Point(839, 512);
-            DeleteBtn.Margin = new Padding(4);
+            DeleteBtn.ForeColor = Color.White;
+            DeleteBtn.Location = new Point(796, 359);
             DeleteBtn.Name = "DeleteBtn";
-            DeleteBtn.Size = new Size(150, 50);
+            DeleteBtn.Size = new Size(158, 54);
             DeleteBtn.TabIndex = 20;
             DeleteBtn.Text = "Xóa";
+            DeleteBtn.TextColor = Color.White;
             DeleteBtn.UseVisualStyleBackColor = true;
             DeleteBtn.Click += DeleteBtn_Click;
-            // 
-            // BackBtn
-            // 
-            BackBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            BackBtn.Location = new Point(253, 512);
-            BackBtn.Margin = new Padding(4);
-            BackBtn.Name = "BackBtn";
-            BackBtn.Size = new Size(150, 50);
-            BackBtn.TabIndex = 21;
-            BackBtn.Text = "Quay lại";
-            BackBtn.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Times New Roman", 18F, FontStyle.Bold, GraphicsUnit.Point, 163);
-            label1.Location = new Point(210, 76);
-            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Location = new Point(530, 8);
             label1.Name = "label1";
-            label1.Size = new Size(424, 41);
+            label1.Size = new Size(364, 35);
             label1.TabIndex = 0;
-            label1.Text = "DANH SÁCH MÁY BƠM";
+            label1.Text = "DANH SÁCH VẬN HÀNH";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(33, 9);
+            label2.Font = new Font("Times New Roman", 16.2F);
+            label2.Location = new Point(26, 43);
+            label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
-            label2.Size = new Size(102, 25);
+            label2.Size = new Size(142, 33);
             label2.TabIndex = 25;
             label2.Text = "Trạm bơm :";
             // 
@@ -228,9 +251,10 @@
             // 
             cbStation.DropDownStyle = ComboBoxStyle.DropDownList;
             cbStation.FormattingEnabled = true;
-            cbStation.Location = new Point(33, 40);
+            cbStation.Location = new Point(185, 48);
+            cbStation.Margin = new Padding(2);
             cbStation.Name = "cbStation";
-            cbStation.Size = new Size(240, 33);
+            cbStation.Size = new Size(193, 25);
             cbStation.TabIndex = 24;
             cbStation.SelectedIndexChanged += CbStation_SelectedIndexChanged;
             // 
@@ -238,51 +262,53 @@
             // 
             panel1.BackColor = SystemColors.ActiveCaption;
             panel1.Controls.Add(txtSearch);
-            panel1.Location = new Point(759, 40);
+            panel1.Controls.Add(pictureBox1);
+            panel1.Location = new Point(1065, 36);
+            panel1.Margin = new Padding(2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(300, 63);
-            panel1.TabIndex = 29;
+            panel1.Size = new Size(272, 31);
+            panel1.TabIndex = 28;
             // 
             // txtSearch
             // 
             txtSearch.BackColor = SystemColors.ActiveCaption;
             txtSearch.BorderStyle = BorderStyle.None;
             txtSearch.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtSearch.Location = new Point(3, 16);
+            txtSearch.Location = new Point(2, 6);
+            txtSearch.Margin = new Padding(2);
             txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(294, 28);
+            txtSearch.Size = new Size(235, 23);
             txtSearch.TabIndex = 24;
             txtSearch.TextChanged += Search;
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.E;
-            pictureBox1.Location = new Point(1065, 40);
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(239, 2);
+            pictureBox1.Margin = new Padding(2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(76, 63);
+            pictureBox1.Size = new Size(32, 27);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 28;
+            pictureBox1.TabIndex = 25;
             pictureBox1.TabStop = false;
             // 
             // OperatingPage
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1492, 705);
+            ClientSize = new Size(1435, 441);
             Controls.Add(panel1);
-            Controls.Add(pictureBox1);
             Controls.Add(label2);
             Controls.Add(cbStation);
-            Controls.Add(BackBtn);
             Controls.Add(DeleteBtn);
             Controls.Add(UpdateBtn);
             Controls.Add(CreateBtn);
             Controls.Add(LoadBtn);
             Controls.Add(dgOperating);
             Controls.Add(label1);
-            Margin = new Padding(4);
+            Font = new Font("Microsoft Sans Serif", 8.25F);
             Name = "OperatingPage";
-            Text = "Quản lý trạm bơm";
+            Text = "Quản lý vận hành";
             ((System.ComponentModel.ISupportInitialize)dgOperating).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -293,11 +319,11 @@
 
         #endregion
         private DataGridView dgOperating;
-        private Button LoadBtn;
-        private Button UpdateBtn;
-        private Button CreateBtn;
-        private Button DeleteBtn;
-        private Button BackBtn;
+        private CustomButton LoadBtn;
+        private CustomButton UpdateBtn;
+        private CustomButton CreateBtn;
+        private CustomButton DeleteBtn;
+        private CustomButton BackBtn;
         private Label label1;
         private Label label2;
         private ComboBox cbStation;

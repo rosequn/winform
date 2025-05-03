@@ -6,9 +6,6 @@ namespace WinFormsApp31_03
 {
     public partial class AlertCreatePage : Form
     {
-        private readonly User _user;
-        private readonly UserRole _userRole;
-
         /// <summary>
         /// Initialize
         /// </summary>
@@ -16,8 +13,6 @@ namespace WinFormsApp31_03
         public AlertCreatePage()
         {
             InitializeComponent();
-            //_user = user;
-            _userRole = UserRole.Admin;
             ResetBtn.Enabled = false;
             LoadAlertType();
             LoadPump();
@@ -46,11 +41,6 @@ namespace WinFormsApp31_03
         {
             try
             {
-                if (_userRole != UserRole.Admin)
-                {
-                    MessageBox.Show("Bạn không có quyền tạo mới", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
                 using (var db = new PumpContext())
                 {
                     Alert ett = new Alert();
@@ -58,11 +48,11 @@ namespace WinFormsApp31_03
                     var selectedStation = cbPump.SelectedItem as SearchCbDto;
                     int pumpId = Convert.ToInt32(selectedStation.PumpId);
 
-                    ett = Alert.Create(pumpId, alertType, txtMessage.Text.Trim(), 1);
+                    ett = Alert.Create(pumpId, alertType, txtMessage.Text.Trim(), Properties.Settings.Default.UserId);
                     db.Alerts.Add(ett);
                     MessageBox.Show("Tạo thông báo thành công", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     db.SaveChanges();
-                    GoToPumpPage();
+                    ClosePage();
                 }
             }
             catch (Exception ex)
@@ -79,14 +69,12 @@ namespace WinFormsApp31_03
 
         private void BackBtn_Click(object sender, EventArgs e)
         {
-            GoToPumpPage();
+            ClosePage();
         }
 
-        private void GoToPumpPage()
+        private void ClosePage()
         {
-            PumpPage pumpPage = new PumpPage();
-            pumpPage.Show();
-            this.Hide();
+            this.Close();
         }
 
         private void SetFormValue(string? message)
