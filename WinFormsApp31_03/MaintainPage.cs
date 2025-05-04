@@ -20,9 +20,9 @@ namespace WinFormsApp31_03
             DeleteBtn.Enabled = false;
             UpdateBtn.Enabled = false;
             CompletedBtn.Enabled = false;
+            LoadComponents();
             LoadMaintenanceHistories();
             LoadStation();
-            LoadComponents();
         }
 
         private void LoadComponents()
@@ -141,6 +141,15 @@ namespace WinFormsApp31_03
                             DeleteBtn.Enabled = true;
                             UpdateBtn.Enabled = true;
                         }
+
+                        if (ett.Status != (int)MaintainStatus.Completed)
+                        {
+                            CompletedBtn.Enabled = true;
+                        }
+                        else
+                        {
+                            CompletedBtn.Enabled = false;
+                        }
                     }
                 }
             }
@@ -191,7 +200,7 @@ namespace WinFormsApp31_03
                     ett.UpdateStatus((int)MaintainStatus.Completed, Properties.Settings.Default.UserId);
                     db.SaveChanges();
                     LoadMaintenanceHistories();
-                    dgMaintain = null;
+                    _maintainId = null;
                     MessageBox.Show("Cập nhật trạng thái thành công");
                 }
                 else

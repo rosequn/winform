@@ -113,7 +113,7 @@ CREATE TABLE Alerts (
 INSERT INTO Users (Username, Password, FullName,Role, CreatedBy)
 VALUES 
 ('admin', '123', N'Quản trị viên',1, 1),
-('user', 'User@123', N'Công Minh',0, 1);
+('user', 'User@123', N'User1',0, 1);
 
 -- Dữ liệu giả cho trạm bơm
 INSERT INTO PumpStations (StationName, Location, Description, CreatedBy)

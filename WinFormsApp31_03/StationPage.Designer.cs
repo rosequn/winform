@@ -155,6 +155,7 @@ namespace WinFormsApp31_03
             UpdateBtn.Text = "Sửa";
             UpdateBtn.TextColor = Color.White;
             UpdateBtn.UseVisualStyleBackColor = true;
+            UpdateBtn.Click += UpdateBtn_Click;
             // 
             // CreateBtn
             // 
@@ -173,6 +174,7 @@ namespace WinFormsApp31_03
             CreateBtn.Text = "Thêm";
             CreateBtn.TextColor = Color.White;
             CreateBtn.UseVisualStyleBackColor = true;
+            CreateBtn.Click += CreateBtn_Click;
             // 
             // DeleteBtn
             // 

@@ -178,6 +178,7 @@
             btnOperating.TabIndex = 2;
             btnOperating.Text = "Vận hành";
             btnOperating.UseVisualStyleBackColor = false;
+            btnOperating.Click += OperatingBtn_Click;
             // 
             // btnPump
             // 

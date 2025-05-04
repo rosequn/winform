@@ -131,6 +131,7 @@ public partial class FrmMain : Form
     {
         OpenChildForm(new PumpPage(), sender);
     }
+
     private void OperatingBtn_Click(object sender, EventArgs e)
     {
         OpenChildForm(new OperatingPage(), sender);
@@ -148,7 +149,7 @@ public partial class FrmMain : Form
         OpenChildForm(new UserPage(), sender);
     }
 
-    private void LogoutBtn_Click(Object sender, EventArgs e)
+    private void LogoutBtn_Click(object sender, EventArgs e)
     {
         LoginPage loginPage = new LoginPage();
         loginPage.Show();

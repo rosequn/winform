@@ -60,11 +60,13 @@ namespace WinFormsApp31_03
             SessionManager.FullName = ett.FullName;
             SessionManager.Role = ett.Role;
             SessionManager.Password = password;
+            SessionManager.UserId = ett.UserId;
 
             // Nếu muốn ghi nhớ cho lần sau
             if (chkRememberMe.Checked)
             {
                 Properties.Settings.Default.Username = ett.Username;
+                Properties.Settings.Default.UserId = ett.UserId;
                 Properties.Settings.Default.FullName = ett.FullName;
                 Properties.Settings.Default.Role = ett.Role;
                 Properties.Settings.Default.RememberMe = true;
