@@ -27,6 +27,7 @@ namespace WinFormsApp31_03
             DataGridViewStyler.ApplyCustomStyle(dgPump);
             dgPump.RowPrePaint += DataGridViewStyler.RowRepaint;
         }
+
         private void LoadBtn_Click(object sender, EventArgs e)
         {
             LoadPumps();

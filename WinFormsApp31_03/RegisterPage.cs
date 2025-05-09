@@ -56,8 +56,6 @@ namespace WinFormsApp31_03
 
         public void LoadLoginPage()
         {
-            LoginPage loginPage = new LoginPage();
-            loginPage.Show();
             this.Close();
         }
     }

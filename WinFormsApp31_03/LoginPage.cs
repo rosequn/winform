@@ -33,8 +33,6 @@ namespace WinFormsApp31_03
             {
                 SaveInformation(username, password);
                 MessageBox.Show("Đăng nhập thành công!");
-                //FrmMain mainPage = new FrmMain();
-                //mainPage.Show();
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
@@ -46,9 +44,16 @@ namespace WinFormsApp31_03
 
         public void RegisterBtn_Click(object sender, EventArgs e)
         {
+            RegisterBtn.Enabled = false;
+            LoginBtn.Enabled = false;
             RegisterPage registerPage = new RegisterPage();
+            registerPage.StartPosition = FormStartPosition.CenterScreen;
+            registerPage.FormClosed += (s, eArgs) =>
+            {
+                RegisterBtn.Enabled = true;
+                LoginBtn.Enabled = true;
+            };
             registerPage.Show();
-            this.Close();
         }
 
         public async void SaveInformation(string userName, string password)

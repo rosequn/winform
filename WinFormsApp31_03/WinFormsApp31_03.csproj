@@ -44,9 +44,7 @@
     <Compile Update="UserPage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="RegisterPage.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Update="RegisterPage.cs" />
     <Compile Update="LoginPage.cs">
       <SubType>Form</SubType>
     </Compile>
