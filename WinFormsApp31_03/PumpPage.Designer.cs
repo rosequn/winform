@@ -51,6 +51,7 @@ namespace WinFormsApp31_03
             txtSearch = new TextBox();
             panel1 = new Panel();
             pictureBox1 = new PictureBox();
+            ExportBtn = new CustomButton();
             ((System.ComponentModel.ISupportInitialize)dgPump).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -77,7 +78,8 @@ namespace WinFormsApp31_03
             dgPump.Name = "dgPump";
             dgPump.ReadOnly = true;
             dgPump.RowHeadersWidth = 62;
-            dgPump.Size = new Size(1265, 279);
+            dgPump.RowTemplate.Height = 30;
+            dgPump.Size = new Size(1265, 350);
             dgPump.TabIndex = 1;
             dgPump.DoubleClick += dgPump_DoubleClick;
             // 
@@ -163,7 +165,7 @@ namespace WinFormsApp31_03
             LoadBtn.FlatStyle = FlatStyle.Flat;
             LoadBtn.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
             LoadBtn.ForeColor = Color.White;
-            LoadBtn.Location = new Point(153, 404);
+            LoadBtn.Location = new Point(153, 473);
             LoadBtn.Name = "LoadBtn";
             LoadBtn.Size = new Size(158, 63);
             LoadBtn.TabIndex = 2;
@@ -182,7 +184,7 @@ namespace WinFormsApp31_03
             UpdateBtn.FlatStyle = FlatStyle.Flat;
             UpdateBtn.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
             UpdateBtn.ForeColor = Color.White;
-            UpdateBtn.Location = new Point(563, 404);
+            UpdateBtn.Location = new Point(563, 473);
             UpdateBtn.Name = "UpdateBtn";
             UpdateBtn.Size = new Size(158, 63);
             UpdateBtn.TabIndex = 19;
@@ -201,7 +203,7 @@ namespace WinFormsApp31_03
             CreateBtn.FlatStyle = FlatStyle.Flat;
             CreateBtn.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
             CreateBtn.ForeColor = Color.White;
-            CreateBtn.Location = new Point(358, 404);
+            CreateBtn.Location = new Point(358, 473);
             CreateBtn.Name = "CreateBtn";
             CreateBtn.Size = new Size(158, 63);
             CreateBtn.TabIndex = 17;
@@ -220,7 +222,7 @@ namespace WinFormsApp31_03
             DeleteBtn.FlatStyle = FlatStyle.Flat;
             DeleteBtn.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
             DeleteBtn.ForeColor = Color.White;
-            DeleteBtn.Location = new Point(768, 404);
+            DeleteBtn.Location = new Point(768, 473);
             DeleteBtn.Name = "DeleteBtn";
             DeleteBtn.Size = new Size(158, 63);
             DeleteBtn.TabIndex = 20;
@@ -285,6 +287,25 @@ namespace WinFormsApp31_03
             pictureBox1.TabIndex = 25;
             pictureBox1.TabStop = false;
             // 
+            // ExportBtn
+            // 
+            ExportBtn.BackColor = Color.MediumSlateBlue;
+            ExportBtn.BackgroundColor = Color.MediumSlateBlue;
+            ExportBtn.BorderColor = Color.PaleVioletRed;
+            ExportBtn.BorderRadius = 25;
+            ExportBtn.BorderSize = 0;
+            ExportBtn.FlatStyle = FlatStyle.Flat;
+            ExportBtn.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            ExportBtn.ForeColor = Color.White;
+            ExportBtn.Location = new Point(976, 473);
+            ExportBtn.Name = "ExportBtn";
+            ExportBtn.Size = new Size(158, 63);
+            ExportBtn.TabIndex = 28;
+            ExportBtn.Text = "Xuất Excel";
+            ExportBtn.TextColor = Color.White;
+            ExportBtn.UseVisualStyleBackColor = true;
+            ExportBtn.Click += ExportBtn_Click;
+            // 
             // PumpPage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -292,6 +313,7 @@ namespace WinFormsApp31_03
             AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(1322, 564);
+            Controls.Add(ExportBtn);
             Controls.Add(panel1);
             Controls.Add(label2);
             Controls.Add(cbStation);
@@ -334,5 +356,6 @@ namespace WinFormsApp31_03
         private DataGridViewTextBoxColumn Manufacturer;
         private DataGridViewTextBoxColumn SerialNumber;
         private DataGridViewTextBoxColumn WarrantyExpireDate;
+        private CustomButton ExportBtn;
     }
 }

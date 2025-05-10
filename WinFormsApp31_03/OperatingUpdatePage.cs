@@ -1,4 +1,5 @@
 ﻿using WinFormsApp31_03.Models;
+using WinFormsApp31_03.Public;
 using static WinFormsApp31_03.Models.Pump;
 
 namespace WinFormsApp31_03
@@ -69,16 +70,15 @@ namespace WinFormsApp31_03
                 {
                     int pumpId = Convert.ToInt32(cbPump.SelectedValue);
                     var selectedPump = cbPump.SelectedItem as SearchCbDto;
-                    double pressure = Convert.ToDouble(txtPressure.Text.Trim());
+                    double pressure = CaculateHelper.ConvertToDouble(txtPressure.Text.Trim());
                     DateTime recordTime = dpRecord.Value;
-                    double temperature = Convert.ToDouble(txtTemperature.Text.Trim());
-                    double flowrate = Convert.ToDouble(txtFlowRate.Text.Trim());
-                    double consumption = Convert.ToDouble(txtConsumption.Text.Trim());
-                    double runningHours = Convert.ToDouble(txtRunningHours.Text.Trim());
-                    double efficiency = Convert.ToDouble(txtEfficiency.Text.Trim());
+                    double temperature = CaculateHelper.ConvertToDouble(txtTemperature.Text.Trim());
+                    double flowrate = CaculateHelper.ConvertToDouble(txtFlowRate.Text.Trim());
+                    double consumption = CaculateHelper.ConvertToDouble(txtConsumption.Text.Trim());
+                    double runningHours = CaculateHelper.ConvertToDouble(txtRunningHours.Text.Trim());
 
                     var ett = db.OperatingData.Where(p => p.IsDelete == false && p.DataId == _dataId).FirstOrDefault();
-                    ett.Update(pumpId, recordTime, flowrate, pressure, consumption, temperature, runningHours, efficiency);
+                    ett.Update(pumpId, recordTime, flowrate, pressure, consumption, temperature, runningHours);
                     MessageBox.Show("Chỉnh sửa dữ liệu thành công", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     db.SaveChanges();
                     UpdateOperatingCompleted?.Invoke(this, EventArgs.Empty);
@@ -117,7 +117,6 @@ namespace WinFormsApp31_03
             txtConsumption.Text = info.PowerConsumption.ToString();
             txtTemperature.Text = info.Temperature.ToString();
             txtRunningHours.Text = info.RunningHours.ToString();
-            txtEfficiency.Text = info.Efficiency.ToString();
             dpRecord.Value = info?.RecordTime ?? DateTime.Now;
             if (info.PumpId.HasValue)
             {
@@ -150,7 +149,6 @@ namespace WinFormsApp31_03
                                !string.IsNullOrWhiteSpace(txtPressure.Text.Trim()) ||
                                !string.IsNullOrWhiteSpace(txtConsumption.Text.Trim()) ||
                                !string.IsNullOrWhiteSpace(txtTemperature.Text.Trim()) ||
-                               !string.IsNullOrWhiteSpace(txtEfficiency.Text.Trim()) ||
                                !string.IsNullOrWhiteSpace(txtRunningHours.Text.Trim());
         }
 

@@ -33,7 +33,7 @@ public partial class PumpContext : DbContext
     {
         modelBuilder.Entity<Alert>(entity =>
         {
-            entity.HasKey(e => e.AlertId).HasName("PK__Alerts__EBB16AEDBDCCF601");
+            entity.HasKey(e => e.AlertId).HasName("PK__Alerts__EBB16AED882F49C3");
 
             entity.Property(e => e.AlertId).HasColumnName("AlertID");
             entity.Property(e => e.AlertMessage).HasMaxLength(500);
@@ -45,20 +45,20 @@ public partial class PumpContext : DbContext
 
             entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.AlertCreatedByNavigations)
                 .HasForeignKey(d => d.CreatedBy)
-                .HasConstraintName("FK__Alerts__CreatedB__71D1E811");
+                .HasConstraintName("FK__Alerts__CreatedB__72C60C4A");
 
             entity.HasOne(d => d.ModifiedByNavigation).WithMany(p => p.AlertModifiedByNavigations)
                 .HasForeignKey(d => d.ModifiedBy)
-                .HasConstraintName("FK__Alerts__Modified__73BA3083");
+                .HasConstraintName("FK__Alerts__Modified__74AE54BC");
 
             entity.HasOne(d => d.Pump).WithMany(p => p.Alerts)
                 .HasForeignKey(d => d.PumpId)
-                .HasConstraintName("FK__Alerts__PumpID__6E01572D");
+                .HasConstraintName("FK__Alerts__PumpID__6EF57B66");
         });
 
         modelBuilder.Entity<MaintenanceHistory>(entity =>
         {
-            entity.HasKey(e => e.MaintenanceId).HasName("PK__Maintena__E60542B5C9031ED4");
+            entity.HasKey(e => e.MaintenanceId).HasName("PK__Maintena__E60542B575DD1167");
 
             entity.ToTable("MaintenanceHistory");
 
@@ -73,16 +73,16 @@ public partial class PumpContext : DbContext
 
             entity.HasOne(d => d.PerformedByNavigation).WithMany(p => p.MaintenanceHistories)
                 .HasForeignKey(d => d.PerformedBy)
-                .HasConstraintName("FK__Maintenan__Perfo__693CA210");
+                .HasConstraintName("FK__Maintenan__Perfo__6A30C649");
 
             entity.HasOne(d => d.Pump).WithMany(p => p.MaintenanceHistories)
                 .HasForeignKey(d => d.PumpId)
-                .HasConstraintName("FK__Maintenan__PumpI__66603565");
+                .HasConstraintName("FK__Maintenan__PumpI__6754599E");
         });
 
         modelBuilder.Entity<OperatingData>(entity =>
         {
-            entity.HasKey(e => e.DataId).HasName("PK__Operatin__9D05305D06358B3B");
+            entity.HasKey(e => e.DataId).HasName("PK__Operatin__9D05305D1350330A");
 
             entity.Property(e => e.DataId).HasColumnName("DataID");
             entity.Property(e => e.CreatedOn)
@@ -101,7 +101,7 @@ public partial class PumpContext : DbContext
 
         modelBuilder.Entity<Pump>(entity =>
         {
-            entity.HasKey(e => e.PumpId).HasName("PK__Pumps__5CC3F6052C9CEB7E");
+            entity.HasKey(e => e.PumpId).HasName("PK__Pumps__5CC3F605DAD74854");
 
             entity.Property(e => e.PumpId).HasColumnName("PumpID");
             entity.Property(e => e.CreatedOn)
@@ -132,7 +132,7 @@ public partial class PumpContext : DbContext
 
         modelBuilder.Entity<PumpStation>(entity =>
         {
-            entity.HasKey(e => e.StationId).HasName("PK__PumpStat__E0D8A6DD7E92093D");
+            entity.HasKey(e => e.StationId).HasName("PK__PumpStat__E0D8A6DD6CE073DA");
 
             entity.Property(e => e.StationId).HasColumnName("StationID");
             entity.Property(e => e.CreatedOn)
@@ -154,9 +154,9 @@ public partial class PumpContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCACDFD08CA1");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCAC1187667E");
 
-            entity.HasIndex(e => e.Username, "UQ__Users__536C85E4ECF60093").IsUnique();
+            entity.HasIndex(e => e.Username, "UQ__Users__536C85E430F8E320").IsUnique();
 
             entity.Property(e => e.UserId).HasColumnName("UserID");
             entity.Property(e => e.CreatedOn)

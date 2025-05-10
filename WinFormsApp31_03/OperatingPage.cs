@@ -1,14 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WinFormsApp31_03.Enums;
 using WinFormsApp31_03.Models;
+using WinFormsApp31_03.Public;
 using static WinFormsApp31_03.Models.PumpStation;
 
 namespace WinFormsApp31_03
 {
     public partial class OperatingPage : Form
     {
-        private readonly int _userId;
-        private readonly UserRole _userRole;
         private int? _dataId = null;
         private int? _stationId = null;
         private string? _keyword = null;
@@ -19,7 +17,6 @@ namespace WinFormsApp31_03
         public OperatingPage()
         {
             InitializeComponent();
-            //_userId = userId;
             DeleteBtn.Enabled = false;
             UpdateBtn.Enabled = false;
             LoadOperations();
@@ -90,6 +87,7 @@ namespace WinFormsApp31_03
             createPage.FormClosed += (s, eArgs) =>
             {
                 CreateBtn.Enabled = true;
+                LoadOperations();
             };
 
             createPage.Show();
@@ -185,6 +183,9 @@ namespace WinFormsApp31_03
             _keyword = txtSearch.Text.Trim().ToLower();
             LoadOperations();
         }
-
+        private void ExportBtn_Click(object sender, EventArgs e)
+        {
+            ExcelHelper.ExportDataGridViewToExcel(dgOperating, "Dữ liệu vận hành", "Dữ liệu vận hành.xlsx");
+        }
     }
 }

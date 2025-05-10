@@ -1,4 +1,7 @@
-﻿namespace WinFormsApp31_03.Models;
+﻿using WinFormsApp31_03.Enums;
+using WinFormsApp31_03.Public;
+
+namespace WinFormsApp31_03.Models;
 partial class OperatingData
 {
     public OperatingData() { }
@@ -13,10 +16,10 @@ partial class OperatingData
     /// <param name="powerConsumption"></param>
     /// <param name="temperature"></param>
     /// <param name="runningHours"></param>
-    /// <param name="efficiency"></param>
     /// <returns></returns>
-    public static OperatingData Create(int pumpId, DateTime recordTime, double flowRate, double pressure, double powerConsumption, double temperature, double runningHours, double efficiency)
+    public static OperatingData Create(int pumpId, DateTime recordTime, double flowRate, double pressure, double powerConsumption, double temperature, double runningHours)
     {
+        var efficiency = CaculateHelper.CaculateEfficiency(flowRate, pressure, powerConsumption);
         var res = new OperatingData
         {
             PumpId = pumpId,
@@ -26,8 +29,8 @@ partial class OperatingData
             PowerConsumption = powerConsumption,
             Temperature = temperature,
             RunningHours = runningHours,
-            Efficiency = efficiency
-
+            Efficiency = efficiency,
+            Status = CaculateHelper.EfficiencyStatus(efficiency)
         };
 
         return res;
@@ -43,9 +46,10 @@ partial class OperatingData
     /// <param name="powerConsumption"></param>
     /// <param name="temperature"></param>
     /// <param name="runningHours"></param>
-    /// <param name="efficiency"></param>
-    public void Update(int pumpId, DateTime recordTime, double flowRate, double pressure, double powerConsumption, double temperature, double runningHours, double efficiency)
+    public void Update(int pumpId, DateTime recordTime, double flowRate, double pressure, double powerConsumption, double temperature, double runningHours)
     {
+        var efficiency = CaculateHelper.CaculateEfficiency(flowRate, pressure, powerConsumption);
+
         PumpId = pumpId;
         RecordTime = recordTime;
         FlowRate = flowRate;
@@ -54,6 +58,7 @@ partial class OperatingData
         Temperature = temperature;
         RunningHours = runningHours;
         Efficiency = efficiency;
+        Status = CaculateHelper.EfficiencyStatus(efficiency);
 
         ModifiedOn = DateTime.Now;
     }
@@ -99,7 +104,8 @@ partial class OperatingData
             PowerConsumption = PowerConsumption,
             Temperature = Temperature,
             RunningHours = RunningHours,
-            Efficiency = Efficiency,
+            Efficiency = Math.Round(Efficiency ?? 0, 2),
+            Status = Status,
             PumpName = Pump?.PumpName
         };
     }
@@ -160,6 +166,22 @@ partial class OperatingData
         /// Efficiency
         /// </summary>
         public double? Efficiency { get; set; }
+
+        /// <summary>
+        /// Status
+        /// </summary>
+        public int Status { get; set; }
+
+        /// <summary>
+        /// StatusName
+        /// </summary>
+        public string StatusName
+        {
+            get
+            {
+                return EnumHelper.GetDescription((OperatingStatus)Status);
+            }
+        }
 
         /// <summary>
         /// CreatedOn

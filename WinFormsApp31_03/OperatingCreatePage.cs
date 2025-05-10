@@ -1,5 +1,6 @@
 ﻿using WinFormsApp31_03.Enums;
 using WinFormsApp31_03.Models;
+using WinFormsApp31_03.Public;
 using static WinFormsApp31_03.Models.Pump;
 
 namespace WinFormsApp31_03
@@ -44,19 +45,18 @@ namespace WinFormsApp31_03
 
                     int pumpId = Convert.ToInt32(cbPump.SelectedValue);
                     var selectedPump = cbPump.SelectedItem as SearchCbDto;
-                    double pressure = Convert.ToDouble(txtPressure.Text.Trim());
+                    double pressure = CaculateHelper.ConvertToDouble(txtPressure.Text.Trim());
                     DateTime recordTime = dpRecord.Value;
-                    double temperature = Convert.ToDouble(txtTemperature.Text.Trim());
-                    double flowrate = Convert.ToDouble(txtFlowRate.Text.Trim());
-                    double consumption = Convert.ToDouble(txtConsumption.Text.Trim());
-                    double runningHours = Convert.ToDouble(txtRunningHours.Text.Trim());
-                    double efficiency = Convert.ToDouble(txtEfficiency.Text.Trim());
+                    double temperature = CaculateHelper.ConvertToDouble(txtTemperature.Text.Trim());
+                    double flowrate = CaculateHelper.ConvertToDouble(txtFlowRate.Text.Trim());
+                    double consumption = CaculateHelper.ConvertToDouble(txtConsumption.Text.Trim());
+                    double runningHours = CaculateHelper.ConvertToDouble(txtRunningHours.Text.Trim());
 
-                    ett = OperatingData.Create(pumpId, recordTime, flowrate, pressure, consumption, temperature, runningHours, efficiency);
+                    ett = OperatingData.Create(pumpId, recordTime, flowrate, pressure, consumption, temperature, runningHours);
                     db.OperatingData.Add(ett);
                     MessageBox.Show("Tạo dữ liệu thành công", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     db.SaveChanges();
-                    GoToOperatingPage();
+                    ClosePage();
                 }
             }
             catch (Exception ex)
@@ -73,14 +73,12 @@ namespace WinFormsApp31_03
 
         private void BackBtn_Click(object sender, EventArgs e)
         {
-            GoToOperatingPage();
+            ClosePage();
         }
 
-        private void GoToOperatingPage()
+        private void ClosePage()
         {
-            OperatingPage operatingPage = new OperatingPage();
-            operatingPage.Show();
-            this.Hide();
+            this.Close();
         }
 
         /// <summary>
@@ -88,13 +86,11 @@ namespace WinFormsApp31_03
         /// </summary>
         private void SetFormValue(string? flowrate, string? pressure, string? consumption, string? temperature, string? runningHours, string? efficiency)
         {
-
             txtFlowRate.Text = flowrate;
             txtPressure.Text = pressure;
             txtConsumption.Text = consumption;
             txtTemperature.Text = temperature;
             txtRunningHours.Text = runningHours;
-            txtEfficiency.Text = efficiency;
         }
 
         private void Clear()
@@ -110,9 +106,7 @@ namespace WinFormsApp31_03
                                !string.IsNullOrWhiteSpace(txtPressure.Text.Trim()) ||
                                !string.IsNullOrWhiteSpace(txtConsumption.Text.Trim()) ||
                                !string.IsNullOrWhiteSpace(txtTemperature.Text.Trim()) ||
-                               !string.IsNullOrWhiteSpace(txtEfficiency.Text.Trim()) ||
                                !string.IsNullOrWhiteSpace(txtRunningHours.Text.Trim());
         }
-
     }
 }

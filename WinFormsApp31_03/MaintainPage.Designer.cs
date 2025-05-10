@@ -51,6 +51,7 @@ namespace WinFormsApp31_03
             txtSearch = new TextBox();
             pictureBox1 = new PictureBox();
             CompletedBtn = new CustomButton();
+            ExportBtn = new CustomButton();
             ((System.ComponentModel.ISupportInitialize)dgMaintain).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -65,7 +66,8 @@ namespace WinFormsApp31_03
             dgMaintain.Name = "dgMaintain";
             dgMaintain.ReadOnly = true;
             dgMaintain.RowHeadersWidth = 62;
-            dgMaintain.Size = new Size(1256, 279);
+            dgMaintain.RowTemplate.Height = 30;
+            dgMaintain.Size = new Size(1256, 350);
             dgMaintain.TabIndex = 1;
             dgMaintain.DoubleClick += dgPump_DoubleClick;
             // 
@@ -157,12 +159,12 @@ namespace WinFormsApp31_03
             LoadBtn.FlatStyle = FlatStyle.Flat;
             LoadBtn.Font = new Font("Times New Roman", 13.2000008F);
             LoadBtn.ForeColor = Color.White;
-            LoadBtn.Location = new Point(53, 429);
+            LoadBtn.Location = new Point(44, 489);
             LoadBtn.Margin = new Padding(2);
             LoadBtn.Name = "LoadBtn";
             LoadBtn.Size = new Size(158, 63);
             LoadBtn.TabIndex = 2;
-            LoadBtn.Text = "Load Data";
+            LoadBtn.Text = "Làm mới";
             LoadBtn.TextColor = Color.White;
             LoadBtn.UseVisualStyleBackColor = true;
             LoadBtn.Click += LoadBtn_Click;
@@ -177,7 +179,7 @@ namespace WinFormsApp31_03
             UpdateBtn.FlatStyle = FlatStyle.Flat;
             UpdateBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
             UpdateBtn.ForeColor = Color.White;
-            UpdateBtn.Location = new Point(692, 429);
+            UpdateBtn.Location = new Point(683, 489);
             UpdateBtn.Name = "UpdateBtn";
             UpdateBtn.Size = new Size(158, 63);
             UpdateBtn.TabIndex = 19;
@@ -196,7 +198,7 @@ namespace WinFormsApp31_03
             CreateBtn.FlatStyle = FlatStyle.Flat;
             CreateBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
             CreateBtn.ForeColor = Color.White;
-            CreateBtn.Location = new Point(266, 429);
+            CreateBtn.Location = new Point(257, 489);
             CreateBtn.Name = "CreateBtn";
             CreateBtn.Size = new Size(158, 63);
             CreateBtn.TabIndex = 17;
@@ -215,7 +217,7 @@ namespace WinFormsApp31_03
             DeleteBtn.FlatStyle = FlatStyle.Flat;
             DeleteBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
             DeleteBtn.ForeColor = Color.White;
-            DeleteBtn.Location = new Point(479, 429);
+            DeleteBtn.Location = new Point(470, 489);
             DeleteBtn.Name = "DeleteBtn";
             DeleteBtn.Size = new Size(158, 63);
             DeleteBtn.TabIndex = 20;
@@ -300,7 +302,7 @@ namespace WinFormsApp31_03
             CompletedBtn.FlatStyle = FlatStyle.Flat;
             CompletedBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
             CompletedBtn.ForeColor = Color.White;
-            CompletedBtn.Location = new Point(891, 429);
+            CompletedBtn.Location = new Point(882, 489);
             CompletedBtn.Name = "CompletedBtn";
             CompletedBtn.Size = new Size(158, 63);
             CompletedBtn.TabIndex = 29;
@@ -309,11 +311,31 @@ namespace WinFormsApp31_03
             CompletedBtn.UseVisualStyleBackColor = true;
             CompletedBtn.Click += CompletedBtn_Click;
             // 
+            // ExportBtn
+            // 
+            ExportBtn.BackColor = Color.MediumSlateBlue;
+            ExportBtn.BackgroundColor = Color.MediumSlateBlue;
+            ExportBtn.BorderColor = Color.PaleVioletRed;
+            ExportBtn.BorderRadius = 20;
+            ExportBtn.BorderSize = 0;
+            ExportBtn.FlatStyle = FlatStyle.Flat;
+            ExportBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            ExportBtn.ForeColor = Color.White;
+            ExportBtn.Location = new Point(1080, 489);
+            ExportBtn.Name = "ExportBtn";
+            ExportBtn.Size = new Size(158, 63);
+            ExportBtn.TabIndex = 30;
+            ExportBtn.Text = "Xuất Excel";
+            ExportBtn.TextColor = Color.White;
+            ExportBtn.UseVisualStyleBackColor = true;
+            ExportBtn.Click += ExportBtn_Click;
+            // 
             // MaintainPage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1293, 564);
+            Controls.Add(ExportBtn);
             Controls.Add(CompletedBtn);
             Controls.Add(panel1);
             Controls.Add(label2);
@@ -355,5 +377,6 @@ namespace WinFormsApp31_03
         private DataGridViewTextBoxColumn EndDate;
         private DataGridViewTextBoxColumn PerformedName;
         private CustomButton CompletedBtn;
+        private CustomButton ExportBtn;
     }
 }

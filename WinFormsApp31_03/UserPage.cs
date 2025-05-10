@@ -78,6 +78,7 @@ namespace WinFormsApp31_03
             createPage.FormClosed += (s, eArgs) =>
             {
                 CreateBtn.Enabled = true;
+                LoadUsers();
             };
 
             createPage.Show();

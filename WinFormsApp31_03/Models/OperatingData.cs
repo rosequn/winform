@@ -20,6 +20,8 @@ public partial class OperatingData
 
     public double? Efficiency { get; set; }
 
+    public int Status { get; set; }
+
     public bool IsDelete { get; set; }
 
     public DateTime? CreatedOn { get; set; }

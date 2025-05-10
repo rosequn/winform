@@ -41,6 +41,7 @@ namespace WinFormsApp31_03
             Temperature = new DataGridViewTextBoxColumn();
             RunningHours = new DataGridViewTextBoxColumn();
             Efficiency = new DataGridViewTextBoxColumn();
+            StatusName = new DataGridViewTextBoxColumn();
             LoadBtn = new CustomButton();
             UpdateBtn = new CustomButton();
             CreateBtn = new CustomButton();
@@ -51,6 +52,7 @@ namespace WinFormsApp31_03
             panel1 = new Panel();
             txtSearch = new TextBox();
             pictureBox1 = new PictureBox();
+            ExportBtn = new CustomButton();
             ((System.ComponentModel.ISupportInitialize)dgOperating).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -59,13 +61,14 @@ namespace WinFormsApp31_03
             // dgOperating
             // 
             dgOperating.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgOperating.Columns.AddRange(new DataGridViewColumn[] { DataID, PumpName, RecordTime, FlowRate, Pressure, PowerConsumption, Temperature, RunningHours, Efficiency });
+            dgOperating.Columns.AddRange(new DataGridViewColumn[] { DataID, PumpName, RecordTime, FlowRate, Pressure, PowerConsumption, Temperature, RunningHours, Efficiency, StatusName });
             dgOperating.Location = new Point(26, 91);
             dgOperating.Margin = new Padding(2);
             dgOperating.Name = "dgOperating";
             dgOperating.ReadOnly = true;
             dgOperating.RowHeadersWidth = 62;
-            dgOperating.Size = new Size(1398, 237);
+            dgOperating.RowTemplate.Height = 30;
+            dgOperating.Size = new Size(1539, 350);
             dgOperating.TabIndex = 1;
             dgOperating.DoubleClick += dgOperating_DoubleClick;
             // 
@@ -150,6 +153,15 @@ namespace WinFormsApp31_03
             Efficiency.ReadOnly = true;
             Efficiency.Width = 150;
             // 
+            // StatusName
+            // 
+            StatusName.DataPropertyName = "StatusName";
+            StatusName.HeaderText = "Đánh giá";
+            StatusName.MinimumWidth = 6;
+            StatusName.Name = "StatusName";
+            StatusName.ReadOnly = true;
+            StatusName.Width = 125;
+            // 
             // LoadBtn
             // 
             LoadBtn.BackColor = Color.MediumSlateBlue;
@@ -158,13 +170,14 @@ namespace WinFormsApp31_03
             LoadBtn.BorderRadius = 20;
             LoadBtn.BorderSize = 0;
             LoadBtn.FlatStyle = FlatStyle.Flat;
+            LoadBtn.Font = new Font("Times New Roman", 13.2000008F);
             LoadBtn.ForeColor = Color.White;
-            LoadBtn.Location = new Point(124, 360);
+            LoadBtn.Location = new Point(146, 463);
             LoadBtn.Margin = new Padding(2);
             LoadBtn.Name = "LoadBtn";
             LoadBtn.Size = new Size(158, 54);
             LoadBtn.TabIndex = 2;
-            LoadBtn.Text = "Load Data";
+            LoadBtn.Text = "Làm mới";
             LoadBtn.TextColor = Color.White;
             LoadBtn.UseVisualStyleBackColor = true;
             LoadBtn.Click += LoadBtn_Click;
@@ -179,7 +192,7 @@ namespace WinFormsApp31_03
             UpdateBtn.FlatStyle = FlatStyle.Flat;
             UpdateBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
             UpdateBtn.ForeColor = Color.White;
-            UpdateBtn.Location = new Point(572, 359);
+            UpdateBtn.Location = new Point(594, 462);
             UpdateBtn.Name = "UpdateBtn";
             UpdateBtn.Size = new Size(158, 54);
             UpdateBtn.TabIndex = 19;
@@ -198,7 +211,7 @@ namespace WinFormsApp31_03
             CreateBtn.FlatStyle = FlatStyle.Flat;
             CreateBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
             CreateBtn.ForeColor = Color.White;
-            CreateBtn.Location = new Point(348, 359);
+            CreateBtn.Location = new Point(370, 462);
             CreateBtn.Name = "CreateBtn";
             CreateBtn.Size = new Size(158, 54);
             CreateBtn.TabIndex = 17;
@@ -217,7 +230,7 @@ namespace WinFormsApp31_03
             DeleteBtn.FlatStyle = FlatStyle.Flat;
             DeleteBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
             DeleteBtn.ForeColor = Color.White;
-            DeleteBtn.Location = new Point(796, 359);
+            DeleteBtn.Location = new Point(818, 462);
             DeleteBtn.Name = "DeleteBtn";
             DeleteBtn.Size = new Size(158, 54);
             DeleteBtn.TabIndex = 20;
@@ -292,11 +305,31 @@ namespace WinFormsApp31_03
             pictureBox1.TabIndex = 25;
             pictureBox1.TabStop = false;
             // 
+            // ExportBtn
+            // 
+            ExportBtn.BackColor = Color.MediumSlateBlue;
+            ExportBtn.BackgroundColor = Color.MediumSlateBlue;
+            ExportBtn.BorderColor = Color.PaleVioletRed;
+            ExportBtn.BorderRadius = 20;
+            ExportBtn.BorderSize = 0;
+            ExportBtn.FlatStyle = FlatStyle.Flat;
+            ExportBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            ExportBtn.ForeColor = Color.White;
+            ExportBtn.Location = new Point(1024, 462);
+            ExportBtn.Name = "ExportBtn";
+            ExportBtn.Size = new Size(158, 54);
+            ExportBtn.TabIndex = 29;
+            ExportBtn.Text = "Xuất Excel";
+            ExportBtn.TextColor = Color.White;
+            ExportBtn.UseVisualStyleBackColor = true;
+            ExportBtn.Click += ExportBtn_Click;
+            // 
             // OperatingPage
             // 
             AutoScaleDimensions = new SizeF(8F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1435, 441);
+            ClientSize = new Size(1576, 554);
+            Controls.Add(ExportBtn);
             Controls.Add(panel1);
             Controls.Add(label2);
             Controls.Add(cbStation);
@@ -327,6 +360,9 @@ namespace WinFormsApp31_03
         private Label label1;
         private Label label2;
         private ComboBox cbStation;
+        private Panel panel1;
+        private TextBox txtSearch;
+        private PictureBox pictureBox1;
         private DataGridViewTextBoxColumn DataID;
         private DataGridViewTextBoxColumn PumpName;
         private DataGridViewTextBoxColumn RecordTime;
@@ -336,8 +372,7 @@ namespace WinFormsApp31_03
         private DataGridViewTextBoxColumn Temperature;
         private DataGridViewTextBoxColumn RunningHours;
         private DataGridViewTextBoxColumn Efficiency;
-        private Panel panel1;
-        private TextBox txtSearch;
-        private PictureBox pictureBox1;
+        private DataGridViewTextBoxColumn StatusName;
+        private CustomButton ExportBtn;
     }
 }

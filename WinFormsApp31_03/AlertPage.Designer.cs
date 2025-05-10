@@ -66,7 +66,8 @@ namespace WinFormsApp31_03
             dgAlert.Name = "dgAlert";
             dgAlert.ReadOnly = true;
             dgAlert.RowHeadersWidth = 62;
-            dgAlert.Size = new Size(1256, 279);
+            dgAlert.RowTemplate.Height = 30;
+            dgAlert.Size = new Size(1256, 350);
             dgAlert.TabIndex = 1;
             dgAlert.DoubleClick += dgPump_DoubleClick;
             // 
@@ -152,12 +153,12 @@ namespace WinFormsApp31_03
             LoadBtn.FlatStyle = FlatStyle.Flat;
             LoadBtn.Font = new Font("Times New Roman", 13.2000008F);
             LoadBtn.ForeColor = Color.White;
-            LoadBtn.Location = new Point(53, 429);
+            LoadBtn.Location = new Point(53, 485);
             LoadBtn.Margin = new Padding(2);
             LoadBtn.Name = "LoadBtn";
             LoadBtn.Size = new Size(158, 63);
             LoadBtn.TabIndex = 2;
-            LoadBtn.Text = "Load Data";
+            LoadBtn.Text = "Làm mới";
             LoadBtn.TextColor = Color.White;
             LoadBtn.UseVisualStyleBackColor = true;
             LoadBtn.Click += LoadBtn_Click;
@@ -172,7 +173,7 @@ namespace WinFormsApp31_03
             UpdateBtn.FlatStyle = FlatStyle.Flat;
             UpdateBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
             UpdateBtn.ForeColor = Color.White;
-            UpdateBtn.Location = new Point(1063, 429);
+            UpdateBtn.Location = new Point(1063, 485);
             UpdateBtn.Name = "UpdateBtn";
             UpdateBtn.Size = new Size(158, 63);
             UpdateBtn.TabIndex = 19;
@@ -191,7 +192,7 @@ namespace WinFormsApp31_03
             CreateBtn.FlatStyle = FlatStyle.Flat;
             CreateBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
             CreateBtn.ForeColor = Color.White;
-            CreateBtn.Location = new Point(659, 429);
+            CreateBtn.Location = new Point(659, 485);
             CreateBtn.Name = "CreateBtn";
             CreateBtn.Size = new Size(158, 63);
             CreateBtn.TabIndex = 17;
@@ -210,7 +211,7 @@ namespace WinFormsApp31_03
             DeleteBtn.FlatStyle = FlatStyle.Flat;
             DeleteBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
             DeleteBtn.ForeColor = Color.White;
-            DeleteBtn.Location = new Point(861, 429);
+            DeleteBtn.Location = new Point(861, 485);
             DeleteBtn.Name = "DeleteBtn";
             DeleteBtn.Size = new Size(158, 63);
             DeleteBtn.TabIndex = 20;
@@ -261,7 +262,7 @@ namespace WinFormsApp31_03
             IgnoredBtn.FlatStyle = FlatStyle.Flat;
             IgnoredBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
             IgnoredBtn.ForeColor = Color.White;
-            IgnoredBtn.Location = new Point(457, 429);
+            IgnoredBtn.Location = new Point(457, 485);
             IgnoredBtn.Name = "IgnoredBtn";
             IgnoredBtn.Size = new Size(158, 63);
             IgnoredBtn.TabIndex = 27;
@@ -280,7 +281,7 @@ namespace WinFormsApp31_03
             ResolvedBtn.FlatStyle = FlatStyle.Flat;
             ResolvedBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
             ResolvedBtn.ForeColor = Color.White;
-            ResolvedBtn.Location = new Point(255, 429);
+            ResolvedBtn.Location = new Point(255, 485);
             ResolvedBtn.Name = "ResolvedBtn";
             ResolvedBtn.Size = new Size(158, 63);
             ResolvedBtn.TabIndex = 26;

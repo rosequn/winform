@@ -1,4 +1,7 @@
-﻿namespace WinFormsApp31_03.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace WinFormsApp31_03.Models;
 
 public partial class User
 {

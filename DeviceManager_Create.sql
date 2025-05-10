@@ -2,11 +2,7 @@
 CREATE DATABASE PumpStationManagement;
 GO
 
--- Xóa database
-USE master;
-GO
-DROP DATABASE PumpStationManagement;
-GO
+
 -- Sử dụng cơ sở dữ liệu
 USE PumpStationManagement;
 GO
@@ -73,7 +69,8 @@ CREATE TABLE OperatingData (
     Temperature FLOAT, -- Nhiệt độ (°C)
     RunningHours FLOAT, -- Số giờ hoạt động liên tục
     Efficiency FLOAT, -- Hiệu suất (%)
-	IsDelete BIT NOT NULL DEFAULT 0,
+    Status INT NOT NULL DEFAULT 0,
+    IsDelete BIT NOT NULL DEFAULT 0,
     CreatedOn DATETIME DEFAULT GETDATE(),
     ModifiedOn DATETIME
 );
@@ -107,8 +104,6 @@ CREATE TABLE Alerts (
     ModifiedOn DATETIME
 );
 
-
-
 --Tạo dữ liêu giả cho user
 INSERT INTO Users (Username, Password, FullName,Role, CreatedBy)
 VALUES 
@@ -133,7 +128,7 @@ VALUES
 
 (2, 'Pump B2', 0, 95.0, 0, 0, 'Hitachi', 'SN-B1002', DATEADD(YEAR, 3, GETDATE()), 'Normal operation'),
 
-(3, 'Pump C1', 2, 110.2, 3, 0, 'Ebara', 'SN-C1001', DATEADD(YEAR, 2, GETDATE()), 'Failed due to overload');
+(3, 'Pump C1', 2, 110.2, 2, 0, 'Ebara', 'SN-C1001', DATEADD(YEAR, 2, GETDATE()), 'Failed due to overload');
 
 
 -- Thêm dữ liệu mẫu cho PumpID = 1 và 2(vận hành)
@@ -217,8 +212,8 @@ VALUES
 --(3, N'Máy bơm 3A', 'PMP006', N'Máy bơm trục đứng', 600.0, 'Failed', '2019-07-15', 'KSB', 'Sewatec', 1, 1),
 --(3, N'Máy bơm 3B', 'PMP007', N'Máy bơm trục đứng', 600.0, 'Running', '2019-07-15', 'KSB', 'Sewatec', 1, 1);
 
-ALTER LOGIN sa ENABLE;
-ALTER LOGIN sa WITH PASSWORD = 'YourStrongPassword';
-
-
-
+-- Xóa database
+USE master;
+GO
+DROP DATABASE PumpStationManagement;
+GO

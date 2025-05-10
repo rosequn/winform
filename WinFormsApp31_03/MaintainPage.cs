@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WinFormsApp31_03.Enums;
 using WinFormsApp31_03.Models;
+using WinFormsApp31_03.Public;
 using static WinFormsApp31_03.Models.PumpStation;
 
 namespace WinFormsApp31_03
@@ -93,6 +94,7 @@ namespace WinFormsApp31_03
             createPage.FormClosed += (s, eArgs) =>
             {
                 CreateBtn.Enabled = true;
+                LoadMaintenanceHistories();
             };
         }
 
@@ -214,6 +216,10 @@ namespace WinFormsApp31_03
         {
             _keyword = txtSearch.Text.Trim().ToLower();
             LoadMaintenanceHistories();
+        }
+        private void ExportBtn_Click(object sender, EventArgs e)
+        {
+            ExcelHelper.ExportDataGridViewToExcel(dgMaintain, "Lịch sử bảo trì", "Lịch sử bảo trì");
         }
     }
 }

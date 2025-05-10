@@ -46,8 +46,6 @@
             dpRecord = new DateTimePicker();
             txtRunningHours = new TextBox();
             label4 = new Label();
-            txtEfficiency = new TextBox();
-            label6 = new Label();
             SuspendLayout();
             // 
             // label1
@@ -62,34 +60,58 @@
             // 
             // ResetBtn
             // 
+            ResetBtn.BackColor = Color.MediumSlateBlue;
+            ResetBtn.BackgroundColor = Color.MediumSlateBlue;
+            ResetBtn.BorderColor = Color.PaleVioletRed;
+            ResetBtn.BorderRadius = 20;
+            ResetBtn.BorderSize = 0;
+            ResetBtn.FlatStyle = FlatStyle.Flat;
             ResetBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            ResetBtn.ForeColor = Color.White;
             ResetBtn.Location = new Point(375, 283);
             ResetBtn.Name = "ResetBtn";
             ResetBtn.Size = new Size(158, 63);
             ResetBtn.TabIndex = 19;
             ResetBtn.Text = "Đặt lại";
+            ResetBtn.TextColor = Color.White;
             ResetBtn.UseVisualStyleBackColor = true;
             ResetBtn.Click += ResetBtn_Click;
             // 
             // SaveBtn
             // 
+            SaveBtn.BackColor = Color.MediumSlateBlue;
+            SaveBtn.BackgroundColor = Color.MediumSlateBlue;
+            SaveBtn.BorderColor = Color.PaleVioletRed;
+            SaveBtn.BorderRadius = 20;
+            SaveBtn.BorderSize = 0;
+            SaveBtn.FlatStyle = FlatStyle.Flat;
             SaveBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            SaveBtn.ForeColor = Color.White;
             SaveBtn.Location = new Point(190, 283);
             SaveBtn.Name = "SaveBtn";
             SaveBtn.Size = new Size(158, 63);
             SaveBtn.TabIndex = 17;
             SaveBtn.Text = "Lưu";
+            SaveBtn.TextColor = Color.White;
             SaveBtn.UseVisualStyleBackColor = true;
             SaveBtn.Click += SaveBtn_Click;
             // 
             // BackBtn
             // 
+            BackBtn.BackColor = Color.MediumSlateBlue;
+            BackBtn.BackgroundColor = Color.MediumSlateBlue;
+            BackBtn.BorderColor = Color.PaleVioletRed;
+            BackBtn.BorderRadius = 20;
+            BackBtn.BorderSize = 0;
+            BackBtn.FlatStyle = FlatStyle.Flat;
             BackBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            BackBtn.ForeColor = Color.White;
             BackBtn.Location = new Point(560, 283);
             BackBtn.Name = "BackBtn";
             BackBtn.Size = new Size(158, 63);
             BackBtn.TabIndex = 21;
             BackBtn.Text = "Quay lại";
+            BackBtn.TextColor = Color.White;
             BackBtn.UseVisualStyleBackColor = true;
             BackBtn.Click += BackBtn_Click;
             // 
@@ -112,7 +134,6 @@
             txtFlowRate.Size = new Size(300, 35);
             txtFlowRate.TabIndex = 12;
             txtFlowRate.TextChanged += CheckEnableReset;
-            txtFlowRate.KeyPress += CheckTextBox.Number_KeyPress;
             // 
             // label3
             // 
@@ -133,14 +154,13 @@
             txtPressure.Size = new Size(300, 35);
             txtPressure.TabIndex = 14;
             txtPressure.TextChanged += CheckEnableReset;
-            txtPressure.KeyPress += CheckTextBox.Number_KeyPress;
             // 
             // cbPump
             // 
             cbPump.DropDownStyle = ComboBoxStyle.DropDownList;
             cbPump.FormattingEnabled = true;
             cbPump.Location = new Point(649, 173);
-            cbPump.Margin = new Padding(2, 2, 2, 2);
+            cbPump.Margin = new Padding(2);
             cbPump.Name = "cbPump";
             cbPump.Size = new Size(300, 28);
             cbPump.TabIndex = 28;
@@ -164,7 +184,6 @@
             txtTemperature.Size = new Size(300, 35);
             txtTemperature.TabIndex = 26;
             txtTemperature.TextChanged += CheckEnableReset;
-            txtTemperature.KeyPress += CheckTextBox.Number_KeyPress;
             // 
             // label11
             // 
@@ -185,7 +204,6 @@
             txtConsumption.Size = new Size(300, 35);
             txtConsumption.TabIndex = 24;
             txtConsumption.TextChanged += CheckEnableReset;
-            txtConsumption.KeyPress += CheckTextBox.Number_KeyPress;
             // 
             // label7
             // 
@@ -211,7 +229,7 @@
             // 
             dpRecord.CustomFormat = "dddd, dd 'tháng' MM 'năm' yyyy";
             dpRecord.Location = new Point(649, 217);
-            dpRecord.Margin = new Padding(2, 2, 2, 2);
+            dpRecord.Margin = new Padding(2);
             dpRecord.Name = "dpRecord";
             dpRecord.Size = new Size(300, 27);
             dpRecord.TabIndex = 32;
@@ -224,7 +242,6 @@
             txtRunningHours.Name = "txtRunningHours";
             txtRunningHours.Size = new Size(300, 35);
             txtRunningHours.TabIndex = 34;
-            txtRunningHours.KeyPress += CheckTextBox.Number_KeyPress;
             // 
             // label4
             // 
@@ -236,33 +253,11 @@
             label4.TabIndex = 33;
             label4.Text = "Số giờ HD";
             // 
-            // txtEfficiency
-            // 
-            txtEfficiency.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            txtEfficiency.Location = new Point(136, 218);
-            txtEfficiency.Multiline = true;
-            txtEfficiency.Name = "txtEfficiency";
-            txtEfficiency.Size = new Size(300, 35);
-            txtEfficiency.TabIndex = 36;
-            txtEfficiency.KeyPress += CheckTextBox.Number_KeyPress;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Times New Roman", 14F);
-            label6.Location = new Point(17, 220);
-            label6.Name = "label6";
-            label6.Size = new Size(103, 27);
-            label6.TabIndex = 35;
-            label6.Text = "Hiệu suất";
-            // 
             // OperatingCreatePage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(958, 376);
-            Controls.Add(txtEfficiency);
-            Controls.Add(label6);
             Controls.Add(txtRunningHours);
             Controls.Add(label4);
             Controls.Add(dpRecord);
@@ -307,7 +302,5 @@
         private DateTimePicker dpRecord;
         private TextBox txtRunningHours;
         private Label label4;
-        private TextBox txtEfficiency;
-        private Label label6;
     }
 }

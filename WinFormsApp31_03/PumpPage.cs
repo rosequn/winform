@@ -1,4 +1,5 @@
 ﻿using WinFormsApp31_03.Models;
+using WinFormsApp31_03.Public;
 using static WinFormsApp31_03.Models.PumpStation;
 
 namespace WinFormsApp31_03
@@ -89,6 +90,7 @@ namespace WinFormsApp31_03
             createPage.FormClosed += (s, eArgs) =>
             {
                 CreateBtn.Enabled = true;
+                LoadPumps();
             };
 
             createPage.Show();
@@ -187,5 +189,9 @@ namespace WinFormsApp31_03
             LoadPumps();
         }
 
+        private void ExportBtn_Click(object sender, EventArgs e)
+        {
+            ExcelHelper.ExportDataGridViewToExcel(dgPump, "Danh sách máy bơm", "Danh sách máy bơm.xlsx");
+        }
     }
 }

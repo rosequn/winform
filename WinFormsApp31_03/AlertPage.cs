@@ -7,8 +7,6 @@ namespace WinFormsApp31_03
 {
     public partial class AlertPage : Form
     {
-        private readonly int _userId;
-        private readonly UserRole _userRole;
         private int? _alertId = null;
         private int? _stationId = null;
         private string? _keyword = null;
@@ -19,8 +17,6 @@ namespace WinFormsApp31_03
         public AlertPage()
         {
             InitializeComponent();
-            //_userId = userId;
-            _userRole = UserRole.Admin;
             DeleteBtn.Enabled = false;
             UpdateBtn.Enabled = false;
             ResolvedBtn.Enabled = false;
@@ -137,6 +133,7 @@ namespace WinFormsApp31_03
             createPage.FormClosed += (s, eArgs) =>
             {
                 CreateBtn.Enabled = true;
+                LoadAlerts();
             };
         }
 

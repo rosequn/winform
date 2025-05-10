@@ -69,7 +69,8 @@ namespace WinFormsApp31_03
             dgStation.Name = "dgStation";
             dgStation.ReadOnly = true;
             dgStation.RowHeadersWidth = 62;
-            dgStation.Size = new Size(816, 279);
+            dgStation.RowTemplate.Height = 30;
+            dgStation.Size = new Size(816, 350);
             dgStation.TabIndex = 1;
             dgStation.DoubleClick += dgStation_DoubleClick;
             // 
@@ -128,7 +129,7 @@ namespace WinFormsApp31_03
             LoadBtn.FlatStyle = FlatStyle.Flat;
             LoadBtn.Font = new Font("Times New Roman", 13.2000008F);
             LoadBtn.ForeColor = Color.White;
-            LoadBtn.Location = new Point(85, 406);
+            LoadBtn.Location = new Point(79, 480);
             LoadBtn.Margin = new Padding(2);
             LoadBtn.Name = "LoadBtn";
             LoadBtn.Size = new Size(158, 63);
@@ -148,7 +149,7 @@ namespace WinFormsApp31_03
             UpdateBtn.FlatStyle = FlatStyle.Flat;
             UpdateBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
             UpdateBtn.ForeColor = Color.White;
-            UpdateBtn.Location = new Point(441, 406);
+            UpdateBtn.Location = new Point(435, 480);
             UpdateBtn.Name = "UpdateBtn";
             UpdateBtn.Size = new Size(158, 63);
             UpdateBtn.TabIndex = 19;
@@ -167,7 +168,7 @@ namespace WinFormsApp31_03
             CreateBtn.FlatStyle = FlatStyle.Flat;
             CreateBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
             CreateBtn.ForeColor = Color.White;
-            CreateBtn.Location = new Point(263, 406);
+            CreateBtn.Location = new Point(257, 480);
             CreateBtn.Name = "CreateBtn";
             CreateBtn.Size = new Size(158, 63);
             CreateBtn.TabIndex = 17;
@@ -186,7 +187,7 @@ namespace WinFormsApp31_03
             DeleteBtn.FlatStyle = FlatStyle.Flat;
             DeleteBtn.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 163);
             DeleteBtn.ForeColor = Color.White;
-            DeleteBtn.Location = new Point(619, 406);
+            DeleteBtn.Location = new Point(613, 480);
             DeleteBtn.Name = "DeleteBtn";
             DeleteBtn.Size = new Size(158, 63);
             DeleteBtn.TabIndex = 20;
@@ -232,7 +233,7 @@ namespace WinFormsApp31_03
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(852, 496);
+            ClientSize = new Size(882, 604);
             Controls.Add(panel1);
             Controls.Add(DeleteBtn);
             Controls.Add(UpdateBtn);
